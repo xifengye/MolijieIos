@@ -10,7 +10,7 @@
 #import "MGBadgeView.h"
 @class GoodsDetailBottomBar;
 
-@protocol UICustomTabBarDelegate <NSObject>
+@protocol UIGoodsBottomBarDelegate <NSObject>
 
 @optional
 -(void)bottomBarDidClickedCar:(GoodsDetailBottomBar*)bottomBar;
@@ -23,6 +23,6 @@
 @property(nonatomic,strong)UIButton* btnFavourite;
 @property(nonatomic,strong)UIButton* btnAdd;
 @property(nonatomic,strong)MGBadgeView* badgeView;
-@property (nonatomic,weak) id<UICustomTabBarDelegate> delegate;
+@property (nonatomic,weak) id<UIGoodsBottomBarDelegate> delegate;
 
 @end

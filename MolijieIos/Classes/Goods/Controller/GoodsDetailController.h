@@ -11,8 +11,9 @@
 #import "CycleScrollView.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
+#import "GoodsDetailBottomBar.h"
 
-@interface GoodsDetailController : UIViewController
+@interface GoodsDetailController : UIViewController<UIGoodsBottomBarDelegate>
 @property(nonatomic,strong)Goods* goods;
 @property(nonatomic,strong)UIScrollView* scrollView;
 @property(nonatomic,strong)CycleScrollView* cycleScrollView;

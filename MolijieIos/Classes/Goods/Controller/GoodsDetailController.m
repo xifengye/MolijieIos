@@ -158,4 +158,16 @@
 }
 
 
+-(void)bottomBarDidClickedCar:(GoodsDetailBottomBar *)bottomBar{
+    
+}
+
+-(void)bottomBarDidClickedAdd:(GoodsDetailBottomBar *)bottomBar{
+    
+}
+
+-(void)bottomBarDidClickedFavourite:(GoodsDetailBottomBar *)bottomBar forStatus:(BOOL)status{
+    
+}
+
 @end
