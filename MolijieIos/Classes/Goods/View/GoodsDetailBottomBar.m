@@ -47,15 +47,21 @@
 }
 
 -(void)onCar{
-    
+    if([self.delegate respondsToSelector:@selector(bottomBarDidClickedCar:)]){
+        [self.delegate bottomBarDidClickedCar:self];
+    }
 }
 
 -(void)onFavourite{
-    
+    if([self.delegate respondsToSelector:@selector(bottomBarDidClickedFavourite:)]){
+        [self.delegate bottomBarDidClickedFavourite:self forStatus:self.btnFavourite.isSelected];
+    }
 }
 
 -(void)onAdd{
-    
+    if([self.delegate respondsToSelector:@selector(bottomBarDidClickedAdd:)]){
+        [self.delegate bottomBarDidClickedAdd:self];
+    }
 }
 
 @end
