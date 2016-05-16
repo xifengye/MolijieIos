@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CompositeSKUValue.h"
 
+
+#define minUnitViewWidth   60
+#define unitViewHeight  30
+#define marginH    15
+#define marginV    10
+
 @interface MGUnitView : UIButton
 @property(nonatomic,strong)CompositeSKUValue* skuValue;
 

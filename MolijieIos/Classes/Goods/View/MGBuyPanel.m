@@ -9,6 +9,8 @@
 #import "MGBuyPanel.h"
 #import "UIImage+MG.h"
 #import "Units.h"
+#import "UIImageView+WebCache.h"
+#import "AppDataTool.h"
 
 @implementation MGBuyPanel
 
@@ -59,6 +61,7 @@
         [btnOk setBackgroundImage:[UIImage createImageWithColor:[UIColor orangeColor]] forState:UIControlStateNormal];
         [btnOk setBackgroundImage:[UIImage createImageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
         [btnOk addTarget:self action:@selector(onOk) forControlEvents:UIControlEventTouchDown];
+        btnOk.enabled = false;
         [self addSubview:btnOk];
         self.btnOk = btnOk;
     
@@ -69,12 +72,170 @@
 }
 
 -(void)initSkuVies{
-    for(Units* unit in _goods.Units){
-        for(CompositeSKUValue* csv in unit.compositeSKUValues){
+    NSMutableDictionary* unitValues = [NSMutableDictionary dictionary];
+    NSDictionary* dict = [_goods getSkuByGroup];
+    CGFloat maxUnitViewWidth = 0;
+    if(dict.count>0){
+        //初始化并计算最长的文字
+        for(NSString* title in dict.allKeys){
+            NSMutableArray* unitViewArr = [NSMutableArray array];
+            NSArray* arr = dict[title];
+            for(CompositeSKUValue * value in arr){
+                MGUnitView* unitView = [[MGUnitView alloc]init];
+                [unitView setSkuValue:value];
+                [unitViewArr addObject:unitView];
+                CGFloat textWidth = [value.Value sizeWithFont:unitView.font].width;
+                if(textWidth>maxUnitViewWidth){
+                    maxUnitViewWidth = textWidth;
+                }
+            }
+            [unitValues setObject:unitViewArr forKey:title];
+        }
+        
+        
+        CGFloat x = marginH;
+        CGFloat y = self.frame.size.height-barHeight-marginV-unitViewHeight;
+        CGFloat width = MAX(minUnitViewWidth,maxUnitViewWidth+marginH*2);
+        UIFont* titleFont = [UIFont systemFontOfSize:15];
+        NSMutableString* unitString = [NSMutableString string];
+        [unitString appendString:@"["];
+        int i = 0;
+        for(NSString* title in unitValues.allKeys){
+            [unitString appendString:title];
+            if(++i<unitValues.count){
+                [unitString appendString:@","];
+            }
+            NSArray* unitViewArr = unitValues[title];
+            
+            for(MGUnitView* view in unitViewArr){
+                [view addTarget:self action:@selector(didUnitSelected:) forControlEvents:UIControlEventTouchDown];
+                view.frame = CGRectMake(x, y, width, unitViewHeight);
+                [self addSubview:view];
+                x+=width+marginH;
+                if(x+width+marginH>self.frame.size.width){
+                    x = marginH;
+                    y=y-(unitViewHeight+marginV);
+                }
+            }
+            
+            CGSize titleSize = [title sizeWithFont:titleFont];
+            y = y-titleSize.height-marginV;
+            UILabel* skuTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(marginH, y , self.frame.size.width, titleSize.height)];
+            skuTitleLabel.text = title;
+            [self addSubview:skuTitleLabel];
+            y = y-marginV;
+            
+            UIView* lineView = [[UIView alloc]initWithFrame:CGRectMake(0, y, self.frame.size.width, 1)];
+            lineView.backgroundColor = [UIColor grayColor];
+            [self addSubview:lineView];
+            y=y-1-unitViewHeight-marginV;
+            x=  marginH;
+        }
+        [unitString appendString:@"]"];
+        _unitLabel.text = unitString;
+    }
+    _unitViews = unitValues;
+}
+
+-(void)didUnitSelected:(id)sender{
+    self.btnOk.enabled = false;
+    MGUnitView* unitView = (MGUnitView*)sender;
+    CompositeSKUValue* csv = unitView.skuValue;
+    NSArray* unitViews = _unitViews[csv.Titile];
+    for(MGUnitView* view in unitViews){
+        if(unitView!=view){
+            view.selected=false;
+        }
+    }
+    unitView.selected = !unitView.selected;
+
+    //处理与选中不匹配的设置为不可点击状态
+    for(NSString* title in _unitViews.allKeys){
+        if(![title isEqualToString:csv.Titile]){//与自己同一组的可以不处理
+            NSArray* uvs = _unitViews[title];
+            for(MGUnitView* v in uvs){
+                if(unitView.selected==false){//取消选中
+                    v.enabled = true;
+                }else{
+                    v.enabled = [_goods makePair:v.skuValue other:csv];//与之配对的就可以点
+                }
+            }
             
         }
     }
+    
+    //判断是否选择完成
+    NSMutableArray* selectedSku = [NSMutableArray array];
+    BOOL canComplete = true;
+//    NSMutableString* unitString = [NSMutableString string];
+//    [unitString appendString:@"["];
+    
+    for(NSString* title in _unitViews.allKeys){
+        NSArray* uvs = _unitViews[title];
+        BOOL singleGroupComplete = false;
+        for(MGUnitView* v in uvs){
+            if(v.selected){//一组中只要有一个被选中就认为这一组完事了
+                singleGroupComplete = true;
+                [selectedSku addObject:v.skuValue];
+            }
+        }
+        canComplete = singleGroupComplete;//只有每一组都一个被选 中才算可以完事
+        if(canComplete==false){
+            return;
+        }
+    }
+    self.btnOk.enabled = true;
+    if(canComplete){
+        selectSkuIndex = [_goods findUnitIndex:selectedSku];
+        CompositeSKUValue* _csv = selectedSku[0];
+        NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:_csv.Resources[0]];
+        [_icon setImageWithURL:url];
+        _priceLabel.text = [NSString stringWithFormat:@"￥%f",_csv.Price];
+        NSMutableString* unitString = [NSMutableString string];
+        [unitString appendString:@"["];
+        int i=0;
+        for(CompositeSKUValue* c in selectedSku){
+            [unitString appendString:c.Value];
+            if(++i<selectedSku.count){
+                [unitString appendString:@","];
+            }
+        }
+        [unitString appendString:@"]"];
+        _unitLabel.text = unitString;
+        
+    }
+
 }
+
+-(NSString*)unselectSku:(NSArray*)selectedSku{
+    for(CompositeSKUValue* c in selectedSku){
+        
+    }
+    NSMutableString* unitString = [NSMutableString string];
+    [unitString appendString:@"["];
+    NSArray* titles = _unitViews.allKeys;
+    BOOL isComplete = titles.count==selectedSku.count;
+    int i=0;
+    if(isComplete){
+        for(NSString* title in titles){
+            [unitString appendString:title];
+            if(++i<selectedSku.count){
+                [unitString appendString:@","];
+            }
+
+        }
+    }else{
+        for(CompositeSKUValue* c in selectedSku){
+//            [unitString appendString:title];
+            if(++i<selectedSku.count){
+                [unitString appendString:@","];
+            }
+            
+        }
+    }
+    return unitString;
+}
+
 
 -(void)onClose{
     if([self.delegate respondsToSelector:@selector(didBuyPanelCancel:)]){
@@ -83,6 +244,7 @@
 }
 
 -(void)onOk{
+    self.hidden = YES;
     if([self.delegate respondsToSelector:@selector(didBuyPanelOk:selectSkuIndex:)]){
         [self.delegate didBuyPanelOk:self selectSkuIndex:selectSkuIndex];
     }

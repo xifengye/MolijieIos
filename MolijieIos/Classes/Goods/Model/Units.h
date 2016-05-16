@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #include "CompositeSKUValue.h"
+#import "MJExtension.h"
 
 @interface Units : NSObject
-@property(nonatomic,strong)NSArray<CompositeSKUValue*>* compositeSKUValues;
-@property(nonatomic,assign)NSUInteger number;
+@property(nonatomic,strong)NSArray* CompositeSKUValue;
+@property(nonatomic,assign)NSUInteger Number;
 @end

@@ -11,8 +11,8 @@
 
 @implementation MGUnitView
 
--(instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
+-(instancetype)init{
+    self = [super init];
     if(self){
         [self setBackgroundImage:[UIImage imageWithStretchable:@"block_normal"] forState:UIControlStateNormal];
         [self setBackgroundImage:[UIImage imageWithStretchable:@"block_selected"] forState:UIControlStateSelected];
@@ -25,9 +25,11 @@
     return self;
 }
 
+
+
 -(void)setSkuValue:(CompositeSKUValue *)skuValue{
     _skuValue = skuValue;
-    [self setTitle:skuValue.Titile forState:UIControlStateNormal];
+    [self setTitle:skuValue.Value forState:UIControlStateNormal];
 }
 
 @end

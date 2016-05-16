@@ -29,7 +29,7 @@
 @property(nonatomic,strong)UILabel* remineLabel;
 @property(nonatomic,strong)UILabel* unitLabel;
 @property(nonatomic,strong)UIImageView* icon;
-@property(nonatomic,strong)NSArray<MGUnitView*>* unitViews;
+@property(nonatomic,strong)NSDictionary* unitViews;
 @property(nonatomic,strong)UIButton* btnOk;
 
 @property(nonatomic,weak)id<UIBuyPanelDelegate> delegate;

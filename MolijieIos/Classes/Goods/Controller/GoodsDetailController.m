@@ -26,7 +26,7 @@
 }
 
 -(void)initView{
-    self.scrollView = [[UIScrollView alloc]initWithFrame:self.view.frame];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight)];
     [self.scrollView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:_scrollView];
     
@@ -57,6 +57,7 @@
 -(void)initBottomBar{
     GoodsDetailBottomBar* bottomBar = [[GoodsDetailBottomBar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-barHeight, self.view.frame.size.width, barHeight)];
     self.bottomBar = bottomBar;
+    bottomBar.backgroundColor = [UIColor whiteColor];
     bottomBar.delegate = self;
     [self.view addSubview:bottomBar];
 
@@ -194,6 +195,11 @@
 
 -(void)didBuyPanelCancel:(MGBuyPanel *)panel{
     self.buyPanel.hidden = YES;
+}
+
+-(void)didBuyPanelOk:(MGBuyPanel *)panel selectSkuIndex:(NSUInteger)skuIndex{
+    self.bottomBar.btnCar.selected = true;
+    NSLog(@"selected unitIndex = %ld",skuIndex);
 }
 
 @end

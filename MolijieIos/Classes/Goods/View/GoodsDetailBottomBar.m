@@ -72,7 +72,6 @@
 }
 
 -(void)onAdd{
-    self.btnCar.selected = true;
     if([self.delegate respondsToSelector:@selector(bottomBarDidClickedAdd:)]){
         [self.delegate bottomBarDidClickedAdd:self];
     }
