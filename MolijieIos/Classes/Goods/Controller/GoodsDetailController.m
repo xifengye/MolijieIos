@@ -159,15 +159,15 @@
 
 
 -(void)bottomBarDidClickedCar:(GoodsDetailBottomBar *)bottomBar{
-    
+    NSLog(@"car clicked");
 }
 
 -(void)bottomBarDidClickedAdd:(GoodsDetailBottomBar *)bottomBar{
-    
+    NSLog(@"add clicked");
 }
 
 -(void)bottomBarDidClickedFavourite:(GoodsDetailBottomBar *)bottomBar forStatus:(BOOL)status{
-    
+    NSLog(@"favourite clicked");
 }
 
 @end
