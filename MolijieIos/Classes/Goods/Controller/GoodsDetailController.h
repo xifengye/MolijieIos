@@ -12,9 +12,13 @@
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
 #import "GoodsDetailBottomBar.h"
+#import "MGBuyPanel.h"
 
-@interface GoodsDetailController : UIViewController<UIGoodsBottomBarDelegate>
+@interface GoodsDetailController : UIViewController<UIGoodsBottomBarDelegate,UIBuyPanelDelegate>
 @property(nonatomic,strong)Goods* goods;
 @property(nonatomic,strong)UIScrollView* scrollView;
 @property(nonatomic,strong)CycleScrollView* cycleScrollView;
+@property(nonatomic,strong)GoodsDetailBottomBar* bottomBar;
+
+@property(nonatomic,strong)MGBuyPanel* buyPanel;
 @end

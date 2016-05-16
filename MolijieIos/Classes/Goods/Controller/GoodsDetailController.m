@@ -12,7 +12,7 @@
 #import "GoodsDetailBottomBar.h"
 
 #define nameFont [UIFont systemFontOfSize:14]
-#define topBarHeight    44
+
 
 
 @implementation GoodsDetailController
@@ -32,6 +32,7 @@
     
     [self initTopBar];
     [self initBottomBar];
+    [self initBuyPanel];
     
     CGFloat cycleScrollViewEndY = [self initCycleScrollView];
     CGFloat textViewsEndY = [self initTextView:cycleScrollViewEndY];
@@ -43,21 +44,31 @@
 }
 
 -(void)initTopBar{
-    UIView* topBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, topBarHeight)];
-    topBar.backgroundColor = [UIColor whiteColor];
+    UIView* topBar = [[UIView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, barHeight)];
     [self.view addSubview:topBar];
-    
-    UIButton* backView = [[UIButton alloc]initWithFrame:CGRectMake(20, 0, topBarHeight, topBarHeight)];
-    [backView setImage:[UIImage imageNamed:@"main_article_selected"] forState:UIControlStateNormal];
+    CGFloat margin = 5.0f;
+    UIButton* backView = [[UIButton alloc]initWithFrame:CGRectMake(20, margin, barHeight-margin*2, barHeight-margin*2)];
+    [backView setImage:[UIImage imageNamed:@"goods_back"] forState:UIControlStateNormal];
     [backView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchDown];
     [topBar addSubview:backView];
     
 }
 
 -(void)initBottomBar{
-    GoodsDetailBottomBar* bottomBar = [[GoodsDetailBottomBar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-topBarHeight, self.view.frame.size.width, topBarHeight)];
+    GoodsDetailBottomBar* bottomBar = [[GoodsDetailBottomBar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-barHeight, self.view.frame.size.width, barHeight)];
+    self.bottomBar = bottomBar;
+    bottomBar.delegate = self;
     [self.view addSubview:bottomBar];
 
+}
+
+-(void)initBuyPanel{
+    CGFloat buyPanelHeight = self.view.frame.size.height-self.view.frame.size.width;
+    MGBuyPanel* buyPanel = [[MGBuyPanel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-buyPanelHeight, self.view.frame.size.width, buyPanelHeight) andGoods:_goods];
+    self.buyPanel = buyPanel;
+    [self.view addSubview:buyPanel];
+    buyPanel.hidden = YES;
+    buyPanel.delegate = self;
 }
 
 -(CGFloat)initTextView:(CGFloat)y{
@@ -98,6 +109,8 @@
     return y;
 }
 
+
+
 -(CGFloat)initCycleScrollView{
     CGFloat width = self.view.frame.size.width;
     NSMutableArray *viewsArray = [@[] mutableCopy];
@@ -120,6 +133,10 @@
         return self.goods.MainResources.count;
     };
     self.cycleScrollView.TapActionBlock = ^(NSInteger pageIndex){
+        if(!self.buyPanel.hidden){
+            [self didBuyPanelCancel:nil];
+            return;
+        }
         [self showPhotoBrowser:pageIndex];
     };
     
@@ -157,6 +174,8 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+#pragma mark BottomBarDelegate
+
 
 -(void)bottomBarDidClickedCar:(GoodsDetailBottomBar *)bottomBar{
     NSLog(@"car clicked");
@@ -164,10 +183,17 @@
 
 -(void)bottomBarDidClickedAdd:(GoodsDetailBottomBar *)bottomBar{
     NSLog(@"add clicked");
+    self.buyPanel.hidden = NO;
 }
 
 -(void)bottomBarDidClickedFavourite:(GoodsDetailBottomBar *)bottomBar forStatus:(BOOL)status{
     NSLog(@"favourite clicked");
+}
+
+#pragma mark BuyPanelDelegate
+
+-(void)didBuyPanelCancel:(MGBuyPanel *)panel{
+    self.buyPanel.hidden = YES;
 }
 
 @end

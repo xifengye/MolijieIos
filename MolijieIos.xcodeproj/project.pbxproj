@@ -43,6 +43,8 @@
 		FC49399A1CE5DBEF001E4481 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4939991CE5DBEF001E4481 /* BaseViewController.m */; };
 		FCB866ED1C22BCA1009A7EEE /* Childs.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EC1C22BCA1009A7EEE /* Childs.m */; };
 		FCB866F01C22BD5C009A7EEE /* SKUS.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EF1C22BD5C009A7EEE /* SKUS.m */; };
+		FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */; };
+		FCBC753E1CE9BD8000A3DD55 /* MGUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBC753D1CE9BD8000A3DD55 /* MGUnitView.m */; };
 		FCC46A741C23A87C00611576 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC469C01C23A87C00611576 /* AppDelegate.m */; };
 		FCC46A751C23A87C00611576 /* NSDate+MG.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC469C31C23A87C00611576 /* NSDate+MG.m */; };
 		FCC46A761C23A87C00611576 /* UIBarButtonItem+MG.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC469C51C23A87C00611576 /* UIBarButtonItem+MG.m */; };
@@ -222,6 +224,10 @@
 		FCB866EC1C22BCA1009A7EEE /* Childs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Childs.m; sourceTree = "<group>"; };
 		FCB866EE1C22BD5C009A7EEE /* SKUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUS.h; sourceTree = "<group>"; };
 		FCB866EF1C22BD5C009A7EEE /* SKUS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUS.m; sourceTree = "<group>"; };
+		FCBC75391CE9BC9900A3DD55 /* MGBuyPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBuyPanel.h; sourceTree = "<group>"; };
+		FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBuyPanel.m; sourceTree = "<group>"; };
+		FCBC753C1CE9BD8000A3DD55 /* MGUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUnitView.h; sourceTree = "<group>"; };
+		FCBC753D1CE9BD8000A3DD55 /* MGUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUnitView.m; sourceTree = "<group>"; };
 		FCC469BF1C23A87C00611576 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FCC469C01C23A87C00611576 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FCC469C21C23A87C00611576 /* NSDate+MG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+MG.h"; sourceTree = "<group>"; };
@@ -462,6 +468,10 @@
 				EBB0F59C1CE8576A00278E7B /* GoodsListCell.m */,
 				EBB0F5A11CE8CDB500278E7B /* GoodsDetailBottomBar.h */,
 				EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */,
+				FCBC75391CE9BC9900A3DD55 /* MGBuyPanel.h */,
+				FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */,
+				FCBC753C1CE9BD8000A3DD55 /* MGUnitView.h */,
+				FCBC753D1CE9BD8000A3DD55 /* MGUnitView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1310,11 +1320,13 @@
 				FC11C0E41C103A6D00D4305A /* LoginController.m in Sources */,
 				FCC46AC01C23A87D00611576 /* NetData.m in Sources */,
 				FCC46ABE1C23A87D00611576 /* BinaryData.m in Sources */,
+				FCBC753E1CE9BD8000A3DD55 /* MGUnitView.m in Sources */,
 				FCC46AB71C23A87D00611576 /* SDWebImagePrefetcher.m in Sources */,
 				FCC46A941C23A87D00611576 /* MJMethod.m in Sources */,
 				FCC46A961C23A87D00611576 /* MJTypeEncoding.m in Sources */,
 				FC11C0DF1C103A6D00D4305A /* MGTitleButton.m in Sources */,
 				FCC46AAD1C23A87D00611576 /* UzysWrapperPickerController.m in Sources */,
+				FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */,
 				EBB0F5911CE7810200278E7B /* GoodsListController.m in Sources */,
 				FCC46AB11C23A87D00611576 /* SDWebImageCompat.m in Sources */,
 				FCC46A991C23A87D00611576 /* NSObject+MJMember.m in Sources */,

@@ -13,16 +13,23 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
-        UIImage* carImg = [UIImage imageNamed:@"main_article_selected"];
-        UIButton* btnCar = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, carImg.size.width, frame.size.height)];
+        
+        CGFloat marginTop = 7;
+        CGFloat marginLeft = 10;
+        CGFloat imgWidth = frame.size.height-marginTop*2;
+        
+        UIImage* carImg = [UIImage imageNamed:@"cart_off"];
+        UIButton* btnCar = [[UIButton alloc]initWithFrame:CGRectMake(marginLeft, marginTop, imgWidth, imgWidth)];
+        [btnCar setImage:[UIImage imageNamed:@"cart_on"] forState:UIControlStateSelected];
         [btnCar setImage:carImg forState:UIControlStateNormal];
         [btnCar addTarget:self action:@selector(onCar) forControlEvents:UIControlEventTouchDown];
         [self addSubview:btnCar];
         self.btnCar = btnCar;
         
-        UIImage* favouriteImg = [UIImage imageNamed:@"main_article_selected"];
-        UIButton* btnFavourite = [[UIButton alloc]initWithFrame:CGRectMake(carImg.size.width+10, 0, favouriteImg.size.width, frame.size.height)];
+        UIImage* favouriteImg = [UIImage imageNamed:@"favorit_off"];
+        UIButton* btnFavourite = [[UIButton alloc]initWithFrame:CGRectMake(imgWidth+marginLeft*3, marginTop, imgWidth, imgWidth)];
         [btnFavourite setImage:favouriteImg forState:UIControlStateNormal];
+        [btnFavourite setImage:[UIImage imageNamed:@"favorit_on"] forState:UIControlStateSelected];
         [btnFavourite addTarget:self action:@selector(onFavourite) forControlEvents:UIControlEventTouchDown];
         [self addSubview:btnFavourite];
         self.btnFavourite = btnFavourite;
@@ -42,23 +49,30 @@
         self.btnAdd = btnAdd;
         
         
+        UIView* lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 1)];
+        lineView.backgroundColor = [UIColor grayColor];
+        [self addSubview:lineView];
+        
     }
     return self;
 }
 
 -(void)onCar{
+    
     if([self.delegate respondsToSelector:@selector(bottomBarDidClickedCar:)]){
         [self.delegate bottomBarDidClickedCar:self];
     }
 }
 
 -(void)onFavourite{
-    if([self.delegate respondsToSelector:@selector(bottomBarDidClickedFavourite:)]){
+    self.btnFavourite.selected = !self.btnFavourite.selected;
+    if([self.delegate respondsToSelector:@selector(bottomBarDidClickedFavourite:forStatus:)]){
         [self.delegate bottomBarDidClickedFavourite:self forStatus:self.btnFavourite.isSelected];
     }
 }
 
 -(void)onAdd{
+    self.btnCar.selected = true;
     if([self.delegate respondsToSelector:@selector(bottomBarDidClickedAdd:)]){
         [self.delegate bottomBarDidClickedAdd:self];
     }
