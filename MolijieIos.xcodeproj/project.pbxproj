@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB1F73881CEB3E9E002A3291 /* DataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73871CEB3E9E002A3291 /* DataBaseManager.m */; };
+		EB1F73951CEB3EAD002A3291 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F738B1CEB3EAD002A3291 /* FMDatabase.m */; };
+		EB1F73961CEB3EAD002A3291 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F738D1CEB3EAD002A3291 /* FMDatabaseAdditions.m */; };
+		EB1F73971CEB3EAD002A3291 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F738F1CEB3EAD002A3291 /* FMDatabasePool.m */; };
+		EB1F73981CEB3EAD002A3291 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73911CEB3EAD002A3291 /* FMDatabaseQueue.m */; };
+		EB1F73991CEB3EAD002A3291 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73941CEB3EAD002A3291 /* FMResultSet.m */; };
+		EB1F73A11CEB40C5002A3291 /* ModelBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73A01CEB40C5002A3291 /* ModelBase.m */; };
+		EB1F73A71CEB4CA2002A3291 /* OrderLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73A61CEB4CA2002A3291 /* OrderLocal.m */; };
+		EB1F73AA1CEB4E01002A3291 /* SettlementNowView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73A91CEB4E01002A3291 /* SettlementNowView.m */; };
+		EB1F73AC1CEB52AA002A3291 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1F73AB1CEB52AA002A3291 /* libsqlite3.0.tbd */; };
+		EB1F73AF1CEB7242002A3291 /* CartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73AE1CEB7242002A3291 /* CartCell.m */; };
+		EB1F73B21CEB7397002A3291 /* MGAmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F73B11CEB7397002A3291 /* MGAmountView.m */; };
 		EBB0F5911CE7810200278E7B /* GoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5901CE7810200278E7B /* GoodsListController.m */; };
 		EBB0F5941CE7829400278E7B /* Goods.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5931CE7829400278E7B /* Goods.m */; };
 		EBB0F5971CE7838F00278E7B /* CompositeSKUValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5961CE7838F00278E7B /* CompositeSKUValue.m */; };
@@ -151,6 +163,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB1F73861CEB3E9E002A3291 /* DataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseManager.h; sourceTree = "<group>"; };
+		EB1F73871CEB3E9E002A3291 /* DataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseManager.m; sourceTree = "<group>"; };
+		EB1F738A1CEB3EAD002A3291 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		EB1F738B1CEB3EAD002A3291 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		EB1F738C1CEB3EAD002A3291 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		EB1F738D1CEB3EAD002A3291 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		EB1F738E1CEB3EAD002A3291 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		EB1F738F1CEB3EAD002A3291 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		EB1F73901CEB3EAD002A3291 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		EB1F73911CEB3EAD002A3291 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		EB1F73921CEB3EAD002A3291 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		EB1F73931CEB3EAD002A3291 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		EB1F73941CEB3EAD002A3291 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		EB1F739F1CEB40C5002A3291 /* ModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelBase.h; sourceTree = "<group>"; };
+		EB1F73A01CEB40C5002A3291 /* ModelBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelBase.m; sourceTree = "<group>"; };
+		EB1F73A51CEB4CA2002A3291 /* OrderLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLocal.h; sourceTree = "<group>"; };
+		EB1F73A61CEB4CA2002A3291 /* OrderLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLocal.m; sourceTree = "<group>"; };
+		EB1F73A81CEB4E01002A3291 /* SettlementNowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettlementNowView.h; sourceTree = "<group>"; };
+		EB1F73A91CEB4E01002A3291 /* SettlementNowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettlementNowView.m; sourceTree = "<group>"; };
+		EB1F73AB1CEB52AA002A3291 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		EB1F73AD1CEB7242002A3291 /* CartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartCell.h; path = MolijieIos/Classes/Goods/View/CartCell.h; sourceTree = SOURCE_ROOT; };
+		EB1F73AE1CEB7242002A3291 /* CartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartCell.m; path = MolijieIos/Classes/Goods/View/CartCell.m; sourceTree = SOURCE_ROOT; };
+		EB1F73B01CEB7397002A3291 /* MGAmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGAmountView.h; path = MolijieIos/Classes/Goods/View/MGAmountView.h; sourceTree = SOURCE_ROOT; };
+		EB1F73B11CEB7397002A3291 /* MGAmountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGAmountView.m; path = MolijieIos/Classes/Goods/View/MGAmountView.m; sourceTree = SOURCE_ROOT; };
 		EBB0F58F1CE7810200278E7B /* GoodsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListController.h; sourceTree = "<group>"; };
 		EBB0F5901CE7810200278E7B /* GoodsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListController.m; sourceTree = "<group>"; };
 		EBB0F5921CE7829400278E7B /* Goods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goods.h; sourceTree = "<group>"; };
@@ -407,6 +443,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB1F73AC1CEB52AA002A3291 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +464,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB1F73851CEB3E9E002A3291 /* db */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F73861CEB3E9E002A3291 /* DataBaseManager.h */,
+				EB1F73871CEB3E9E002A3291 /* DataBaseManager.m */,
+			);
+			path = db;
+			sourceTree = "<group>";
+		};
+		EB1F73891CEB3EAD002A3291 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F738A1CEB3EAD002A3291 /* FMDatabase.h */,
+				EB1F738B1CEB3EAD002A3291 /* FMDatabase.m */,
+				EB1F738C1CEB3EAD002A3291 /* FMDatabaseAdditions.h */,
+				EB1F738D1CEB3EAD002A3291 /* FMDatabaseAdditions.m */,
+				EB1F738E1CEB3EAD002A3291 /* FMDatabasePool.h */,
+				EB1F738F1CEB3EAD002A3291 /* FMDatabasePool.m */,
+				EB1F73901CEB3EAD002A3291 /* FMDatabaseQueue.h */,
+				EB1F73911CEB3EAD002A3291 /* FMDatabaseQueue.m */,
+				EB1F73921CEB3EAD002A3291 /* FMDB.h */,
+				EB1F73931CEB3EAD002A3291 /* FMResultSet.h */,
+				EB1F73941CEB3EAD002A3291 /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		EB1F739A1CEB4050002A3291 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F739B1CEB4050002A3291 /* Controller */,
+				EB1F739C1CEB4050002A3291 /* Model */,
+				EB1F739D1CEB4050002A3291 /* View */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		EB1F739B1CEB4050002A3291 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EB1F739C1CEB4050002A3291 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EB1F739D1CEB4050002A3291 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EB1F739E1CEB40C5002A3291 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EB1F739F1CEB40C5002A3291 /* ModelBase.h */,
+				EB1F73A01CEB40C5002A3291 /* ModelBase.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EBB0F58B1CE780E000278E7B /* Goods */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +555,8 @@
 		EBB0F58D1CE780E000278E7B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F73A51CEB4CA2002A3291 /* OrderLocal.h */,
+				EB1F73A61CEB4CA2002A3291 /* OrderLocal.m */,
 				EBB0F5921CE7829400278E7B /* Goods.h */,
 				EBB0F5931CE7829400278E7B /* Goods.m */,
 				EBB0F5951CE7838F00278E7B /* CompositeSKUValue.h */,
@@ -472,6 +578,8 @@
 				FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */,
 				FCBC753C1CE9BD8000A3DD55 /* MGUnitView.h */,
 				FCBC753D1CE9BD8000A3DD55 /* MGUnitView.m */,
+				EB1F73A81CEB4E01002A3291 /* SettlementNowView.h */,
+				EB1F73A91CEB4E01002A3291 /* SettlementNowView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +587,7 @@
 		FC11BFA31C10392400D4305A = {
 			isa = PBXGroup;
 			children = (
+				EB1F73AB1CEB52AA002A3291 /* libsqlite3.0.tbd */,
 				FC11BFAE1C10392400D4305A /* MolijieIos */,
 				FC11BFC81C10392400D4305A /* MolijieIosTests */,
 				FC11BFD31C10392400D4305A /* MolijieIosUITests */,
@@ -539,6 +648,7 @@
 		FC11BFE21C103A6D00D4305A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F739A1CEB4050002A3291 /* Order */,
 				FC11BFEF1C103A6D00D4305A /* Home */,
 				EBB0F58B1CE780E000278E7B /* Goods */,
 				FCEF48CD1C11658F00300A24 /* Base */,
@@ -615,6 +725,10 @@
 		FC11BFEE1C103A6D00D4305A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F73AD1CEB7242002A3291 /* CartCell.h */,
+				EB1F73AE1CEB7242002A3291 /* CartCell.m */,
+				EB1F73B01CEB7397002A3291 /* MGAmountView.h */,
+				EB1F73B11CEB7397002A3291 /* MGAmountView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -821,6 +935,7 @@
 		FCC469BE1C23A87C00611576 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F73851CEB3E9E002A3291 /* db */,
 				FCC46A661C23A87C00611576 /* Tool */,
 				FCC469C81C23A87C00611576 /* Library */,
 				FCC46A731C23A87C00611576 /* View */,
@@ -849,6 +964,7 @@
 		FCC469C81C23A87C00611576 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F73891CEB3EAD002A3291 /* fmdb */,
 				FCC469C91C23A87C00611576 /* AESCrypt */,
 				FCC469D61C23A87C00611576 /* AFNetworking */,
 				FCC469EA1C23A87C00611576 /* AutoScrollView */,
@@ -1114,6 +1230,7 @@
 		FCEF48CD1C11658F00300A24 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				EB1F739E1CEB40C5002A3291 /* Model */,
 				FCEF48CE1C11658F00300A24 /* Controller */,
 			);
 			path = Base;
@@ -1274,6 +1391,7 @@
 				FC4939921CE5B45A001E4481 /* LoginParams.m in Sources */,
 				FC11C0DD1C103A6D00D4305A /* MGTabBar.m in Sources */,
 				FC11C0CB1C103A6D00D4305A /* ArticleController.m in Sources */,
+				EB1F73951CEB3EAD002A3291 /* FMDatabase.m in Sources */,
 				FCC46AB01C23A87D00611576 /* SDImageCache.m in Sources */,
 				FCC46A931C23A87D00611576 /* MJMember.m in Sources */,
 				FCC46AA21C23A87D00611576 /* MJRefreshBaseView.m in Sources */,
@@ -1283,6 +1401,7 @@
 				FCEF48D41C11667100300A24 /* BaseTableViewController.m in Sources */,
 				FC11C0E21C103A6D00D4305A /* MGMeCountCell.m in Sources */,
 				FCC46AB61C23A87D00611576 /* SDWebImageManager.m in Sources */,
+				EB1F73AA1CEB4E01002A3291 /* SettlementNowView.m in Sources */,
 				EBB0F59A1CE7842000278E7B /* Units.m in Sources */,
 				FCC46A901C23A87D00611576 /* MBProgressHUD.m in Sources */,
 				FCC46AA01C23A87D00611576 /* MJPhotoView.m in Sources */,
@@ -1295,6 +1414,7 @@
 				FC4939961CE5CE48001E4481 /* HomeCollectionViewCell.m in Sources */,
 				FCC46AC31C23A87D00611576 /* HttpTool.m in Sources */,
 				FCC46A951C23A87D00611576 /* MJType.m in Sources */,
+				EB1F73991CEB3EAD002A3291 /* FMResultSet.m in Sources */,
 				FCC46A871C23A87D00611576 /* CycleScrollView.m in Sources */,
 				FC11C0E51C103A6D00D4305A /* Token.m in Sources */,
 				FC11C0E01C103A6D00D4305A /* MeController.m in Sources */,
@@ -1305,6 +1425,7 @@
 				FCC46AAC1C23A87D00611576 /* UzysGroupViewCell.m in Sources */,
 				FCC46A851C23A87D00611576 /* AFURLResponseSerialization.m in Sources */,
 				FCC46A9D1C23A87D00611576 /* MJPhotoLoadingView.m in Sources */,
+				EB1F73A71CEB4CA2002A3291 /* OrderLocal.m in Sources */,
 				FCC46AB31C23A87D00611576 /* SDWebImageDownloader.m in Sources */,
 				FCC46A981C23A87D00611576 /* NSObject+MJKeyValue.m in Sources */,
 				FC11C0D91C103A6D00D4305A /* MainController.m in Sources */,
@@ -1331,9 +1452,12 @@
 				FCC46AB11C23A87D00611576 /* SDWebImageCompat.m in Sources */,
 				FCC46A991C23A87D00611576 /* NSObject+MJMember.m in Sources */,
 				FCC46AA71C23A87D00611576 /* UzysAssetsPickerController.m in Sources */,
+				EB1F73AF1CEB7242002A3291 /* CartCell.m in Sources */,
 				FCC46ABD1C23A87D00611576 /* main.m in Sources */,
+				EB1F73971CEB3EAD002A3291 /* FMDatabasePool.m in Sources */,
 				FCC46AC41C23A87D00611576 /* NetDataRequest.m in Sources */,
 				FC49399A1CE5DBEF001E4481 /* BaseViewController.m in Sources */,
+				EB1F73881CEB3E9E002A3291 /* DataBaseManager.m in Sources */,
 				FCC46A7E1C23A87C00611576 /* AFHTTPRequestOperation.m in Sources */,
 				FCC46AB51C23A87D00611576 /* SDWebImageManager+MJ.m in Sources */,
 				FCC46AA41C23A87D00611576 /* MJRefreshFooterView.m in Sources */,
@@ -1343,14 +1467,17 @@
 				FCC46A9F1C23A87D00611576 /* MJPhotoToolbar.m in Sources */,
 				FCC46A9E1C23A87D00611576 /* MJPhotoProgressView.m in Sources */,
 				FC11C0D31C103A6D00D4305A /* MGImageTitleView.m in Sources */,
+				EB1F73961CEB3EAD002A3291 /* FMDatabaseAdditions.m in Sources */,
 				FCC46A821C23A87C00611576 /* AFSecurityPolicy.m in Sources */,
 				FCC46A8E1C23A87D00611576 /* MBProgressHUD+MJ.m in Sources */,
 				EBB0F59D1CE8576A00278E7B /* GoodsListCell.m in Sources */,
+				EB1F73B21CEB7397002A3291 /* MGAmountView.m in Sources */,
 				FCC46A911C23A87D00611576 /* MJArgument.m in Sources */,
 				FCC46A8B1C23A87D00611576 /* JMStaticContentTableViewSection.m in Sources */,
 				FCC46AAE1C23A87D00611576 /* MKAnnotationView+WebCache.m in Sources */,
 				FCC46AA31C23A87D00611576 /* MJRefreshConst.m in Sources */,
 				FC11C0DA1C103A6D00D4305A /* MGNavigationController.m in Sources */,
+				EB1F73A11CEB40C5002A3291 /* ModelBase.m in Sources */,
 				FCB866ED1C22BCA1009A7EEE /* Childs.m in Sources */,
 				FC11C0CC1C103A6D00D4305A /* CartController.m in Sources */,
 				FC11C0CD1C103A6D00D4305A /* HomeController.m in Sources */,
@@ -1367,6 +1494,7 @@
 				FCC46A841C23A87D00611576 /* AFURLRequestSerialization.m in Sources */,
 				FCC46A971C23A87D00611576 /* NSObject+MJCoding.m in Sources */,
 				FCC46A751C23A87C00611576 /* NSDate+MG.m in Sources */,
+				EB1F73981CEB3EAD002A3291 /* FMDatabaseQueue.m in Sources */,
 				FCC46A7F1C23A87C00611576 /* AFHTTPRequestOperationManager.m in Sources */,
 				EBB0F5971CE7838F00278E7B /* CompositeSKUValue.m in Sources */,
 				FC11C0DB1C103A6D00D4305A /* MGBadgeView.m in Sources */,

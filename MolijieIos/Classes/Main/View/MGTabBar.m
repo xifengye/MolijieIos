@@ -7,12 +7,11 @@
 //
 
 #import "MGTabBar.h"
-#import "MGTabBarButton.h"
+
 
 @interface MGTabBar()
 
-@property (nonatomic,strong)NSMutableArray* tabButtons;
-@property (nonatomic,weak) MGTabBarButton* selectBtn;
+
 
 @end
 

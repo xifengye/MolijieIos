@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGTabBarButton.h"
 @class MGTabBar;
 
 @protocol UICustomTabBarDelegate <NSObject>
@@ -17,5 +18,7 @@
 
 @interface MGTabBar : UIView
 -(void)addTabItem:(UITabBarItem*)item;
+@property (nonatomic,strong)NSMutableArray* tabButtons;
+@property (nonatomic,weak) MGTabBarButton* selectBtn;
 @property (nonatomic,weak) id<UICustomTabBarDelegate> delegate;
 @end

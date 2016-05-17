@@ -16,6 +16,7 @@
 #import "AppDataTool.h"
 #import "SandBoxTool.h"
 #import "AppDataMemory.h"
+#import "DataBaseManager.h"
 
 
 @interface MainController ()
@@ -29,10 +30,19 @@
 
     [self initCustomTabBar];
     [self initViews];
+    [self initData];
     
 }
 
+-(void)initData{
+    [self updateBadge];
+}
 
+-(void)updateBadge{
+    NSUInteger orderCountInCart = [DataBaseManager instance].allOrder.count;
+    MGTabBarButton *cartTabBar = self.customTabBar.tabButtons[1];
+    [cartTabBar setBadgeValue:[NSString stringWithFormat:@"%ld",orderCountInCart]];
+}
 
 
 //View 被显示之时调用

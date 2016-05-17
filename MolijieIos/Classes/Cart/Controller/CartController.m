@@ -7,6 +7,7 @@
 //
 
 #import "CartController.h"
+#import "MGAmountView.h"
 
 @interface CartController ()
 
@@ -16,6 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    MGAmountView* view = [[MGAmountView alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
+    [self.view addSubview:view];
+    
 }
 
 - (void)didReceiveMemoryWarning {

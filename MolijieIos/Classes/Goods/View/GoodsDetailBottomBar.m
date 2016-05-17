@@ -26,6 +26,12 @@
         [self addSubview:btnCar];
         self.btnCar = btnCar;
         
+        MGBadgeView* badgeView = [[MGBadgeView alloc]init];
+        badgeView.frame = CGRectMake(imgWidth, 0, 20, 20);
+        [self addSubview:badgeView];
+        self.badgeView = badgeView;
+        [badgeView setBadgeValue:nil];
+        
         UIImage* favouriteImg = [UIImage imageNamed:@"favorit_off"];
         UIButton* btnFavourite = [[UIButton alloc]initWithFrame:CGRectMake(imgWidth+marginLeft*3, marginTop, imgWidth, imgWidth)];
         [btnFavourite setImage:favouriteImg forState:UIControlStateNormal];

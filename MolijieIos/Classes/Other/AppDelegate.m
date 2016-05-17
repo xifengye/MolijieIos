@@ -15,6 +15,7 @@
 #import "AppDataTool.h"
 #import "AppDataMemory.h"
 #import "Library/SDWebImage/SDWebImageManager.h"
+#import "DataBaseManager.h"
 
 @interface AppDelegate ()
 
@@ -25,7 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    [DataBaseManager instance];
     if([SandBoxTool appToken]==nil){
         [self toLoginController];
     }else{

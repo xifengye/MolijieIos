@@ -10,6 +10,9 @@
 #import "UIImageView+WebCache.h"
 #import "AppDataTool.h"
 #import "GoodsDetailBottomBar.h"
+#import "OrderLocal.h"
+#import "DataBaseManager.h"
+
 
 #define nameFont [UIFont systemFontOfSize:14]
 
@@ -22,7 +25,12 @@
     [super viewDidLoad];
 //    [self setupNavBar];
     [self initView];
+    [self initData];
     
+}
+
+-(void)initData{
+    [self updateCartBadge];
 }
 
 -(void)initView{
@@ -185,10 +193,11 @@
 }
 
 -(void)hideBuyPanel{
-    self.buyPanel.hidden = YES;
     [UIView animateKeyframesWithDuration:0.5 delay:0.1f options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
         _buyPanel.transform = CGAffineTransformIdentity;
-    } completion:nil];
+    } completion:^(BOOL finished){
+        self.buyPanel.hidden = YES;
+    }];
 }
 
 -(void)scaleBackgroundView:(BOOL)isIn{
@@ -230,7 +239,58 @@
 
 -(void)didBuyPanelOk:(MGBuyPanel *)panel selectSkuIndex:(NSUInteger)skuIndex{
     self.bottomBar.btnCar.selected = true;
+    [self createLocalOrder:skuIndex];
     NSLog(@"selected unitIndex = %ld",skuIndex);
+}
+
+-(void)showSettlementNow{
+    CGFloat btnW = self.view.frame.size.width;
+    CGFloat btnH = 30;
+    CGFloat btnX = -self.view.frame.size.width;
+    CGFloat btnY = self.view.frame.size.height-barHeight-btnH;
+    SettlementNowView* btn = [[SettlementNowView alloc]initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(onSettlementNow) forControlEvents:UIControlEventTouchDown];
+    [UIView animateWithDuration:0.5 animations:^{
+        btn.transform = CGAffineTransformMakeTranslation(btnW,0);
+    } completion:^(BOOL finished) {
+        [UIView animateKeyframesWithDuration:0.7 delay:3.0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+            btn.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [btn removeFromSuperview];
+        }];
+    }];
+
+}
+
+//立即结算
+-(void)onSettlementNow{
+    NSLog(@"立即结算");
+}
+
+-(void)createLocalOrder:(NSUInteger)skuIndex{
+    OrderLocal* order = [[OrderLocal alloc]init];
+    order.cataId = _goods.CataID;
+    order.objectId = _goods.ObjectID;
+    order.skuIndex = skuIndex;
+    order.amount = 1;
+    NSUInteger ID =[[DataBaseManager instance]insertOrder:order];
+    if(ID>0){
+        [self showSettlementNow];
+        [self updateCartBadge];
+    }
+}
+
+
+-(void)updateCartBadge{
+    NSUInteger orderCount = [DataBaseManager instance].allOrder.count;
+    [self.bottomBar.badgeView setBadgeValue:[NSString stringWithFormat:@"%ld",orderCount]];
+    self.bottomBar.btnCar.selected = orderCount>0;
+    
+}
+
+-(void)goViewCart{
+    
 }
 
 @end
