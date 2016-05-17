@@ -65,10 +65,10 @@
 
 -(void)initBuyPanel{
     CGFloat buyPanelHeight = self.view.frame.size.height-self.view.frame.size.width;
-    MGBuyPanel* buyPanel = [[MGBuyPanel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-buyPanelHeight, self.view.frame.size.width, buyPanelHeight) andGoods:_goods];
+    MGBuyPanel* buyPanel = [[MGBuyPanel alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, buyPanelHeight) andGoods:_goods];
     self.buyPanel = buyPanel;
+    self.buyPanel.hidden = YES;
     [self.view addSubview:buyPanel];
-    buyPanel.hidden = YES;
     buyPanel.delegate = self;
 }
 
@@ -117,7 +117,7 @@
     NSMutableArray *viewsArray = [@[] mutableCopy];
     self.cycleScrollView = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, width, width) animationDuration:0];
     for (int i = 0; i < self.goods.MainResources.count; ++i) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.cycleScrollView.bounds];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.cycleScrollView.frame];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:self.goods.MainResources[i]];
         [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"main_article_selected"]];
@@ -175,6 +175,35 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+-(void)showBuyPanel{
+    self.buyPanel.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        CGSize viewSize = self.view.frame.size;
+        _buyPanel.transform = CGAffineTransformMakeTranslation(0,-(viewSize.height-viewSize.width));
+    } completion:nil];
+
+}
+
+-(void)hideBuyPanel{
+    self.buyPanel.hidden = YES;
+    [UIView animateKeyframesWithDuration:0.5 delay:0.1f options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+        _buyPanel.transform = CGAffineTransformIdentity;
+    } completion:nil];
+}
+
+-(void)scaleBackgroundView:(BOOL)isIn{
+    if(isIn){
+        [UIView animateWithDuration:0.5 animations:^{
+            _scrollView.transform = CGAffineTransformMakeScale(0.95f, 0.95f);
+        } completion:nil];
+
+    }else{
+        [UIView animateKeyframesWithDuration:0.5 delay:0.1f options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+            _scrollView.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }
+}
+
 #pragma mark BottomBarDelegate
 
 
@@ -184,7 +213,8 @@
 
 -(void)bottomBarDidClickedAdd:(GoodsDetailBottomBar *)bottomBar{
     NSLog(@"add clicked");
-    self.buyPanel.hidden = NO;
+    [self showBuyPanel];
+    [self scaleBackgroundView:true];
 }
 
 -(void)bottomBarDidClickedFavourite:(GoodsDetailBottomBar *)bottomBar forStatus:(BOOL)status{
@@ -194,7 +224,8 @@
 #pragma mark BuyPanelDelegate
 
 -(void)didBuyPanelCancel:(MGBuyPanel *)panel{
-    self.buyPanel.hidden = YES;
+    [self hideBuyPanel];
+    [self scaleBackgroundView:false];
 }
 
 -(void)didBuyPanelOk:(MGBuyPanel *)panel selectSkuIndex:(NSUInteger)skuIndex{
