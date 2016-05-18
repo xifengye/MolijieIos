@@ -129,7 +129,16 @@
 }
 
 
-//所有员工
+-(OrderLocal *)orderByID:(NSUInteger)ID{
+    for(OrderLocal* o in orders){
+        if(o.ID==ID){
+            return o;
+        }
+    }
+    return nil;
+}
+
+
 -(NSMutableArray*) queryOrders{
     NSMutableArray* os = [NSMutableArray array];
     if ([self.dataBase open]) {

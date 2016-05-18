@@ -14,8 +14,9 @@
 #import "GoodsDetailBottomBar.h"
 #import "MGBuyPanel.h"
 #import "SettlementNowView.h"
+#import "BaseViewController.h"
 
-@interface GoodsDetailController : UIViewController<UIGoodsBottomBarDelegate,UIBuyPanelDelegate>{
+@interface GoodsDetailController : BaseViewController<UIGoodsBottomBarDelegate,UIBuyPanelDelegate>{
 
 }
 @property(nonatomic,strong)Goods* goods;

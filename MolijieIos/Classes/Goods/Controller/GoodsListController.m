@@ -123,9 +123,9 @@
     
     GoodsDetailController* goodsDetailController = [[GoodsDetailController alloc]init];
     goodsDetailController.goods = goods;
-//    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:goodsDetailController];
+    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:goodsDetailController];
     
-    [self presentViewController:goodsDetailController animated:true completion:nil];
+    [self presentViewController:navController animated:true completion:nil];
     
 }
 

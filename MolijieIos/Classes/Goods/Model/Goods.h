@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "Units.h"
 
 @interface Goods : NSObject
@@ -23,5 +24,13 @@
 -(NSDictionary*)getSkuByGroup;
 
 -(BOOL)makePair:(CompositeSKUValue*)value other:(CompositeSKUValue*)other;//配对
+//根据选择的sku找出对应units 的skuIndex
 -(NSUInteger)findUnitIndex:(NSArray*)skus;
+
+-(NSArray*)getPrices;
+-(CGFloat)getPrice;
+-(NSArray*)unitTitles;
+-(NSString*)titleValusBySkuIndex:(NSUInteger)skuIndex;
+
+-(CGFloat)getPriceBySkuIndex:(NSUInteger)skuIndex;
 @end

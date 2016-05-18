@@ -9,6 +9,7 @@
 #import "GoodsListCell.h"
 #import "UIImageView+WebCache.h"
 #import "AppDataTool.h"
+#import "NSString+MG.h"
 
 @implementation GoodsListCell
 
@@ -44,7 +45,7 @@
      NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:goods.MainResources[0]];
     [self.imageView setImageWithURL:url];
     self.nameLabel.text = goods.Title;
-    self.priceLabel.text = @"XXXXX";
+    self.priceLabel.text = [NSString priceString:[goods getPrice]];
 }
 
 @end

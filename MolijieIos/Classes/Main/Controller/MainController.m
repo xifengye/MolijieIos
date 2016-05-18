@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLocalOrderChange:) name:local_order_change object:nil];
     [self initCustomTabBar];
     [self initViews];
     [self initData];
@@ -39,9 +39,22 @@
 }
 
 -(void)updateBadge{
-    NSUInteger orderCountInCart = [DataBaseManager instance].allOrder.count;
+    [self updateCartBadge];
+}
+
+-(void)updateCartBadge{
+    NSUInteger orderCount = [DataBaseManager instance].allOrder.count;
+    NSString* cartBadge = nil;
+    if(orderCount>0){
+        cartBadge =  [NSString stringWithFormat:@"%ld",orderCount];
+    }
     MGTabBarButton *cartTabBar = self.customTabBar.tabButtons[1];
-    [cartTabBar setBadgeValue:[NSString stringWithFormat:@"%ld",orderCountInCart]];
+    [cartTabBar setBadgeValue:cartBadge];
+
+}
+
+- (void) onLocalOrderChange:(NSNotification*) notification{
+   [self updateCartBadge];
 }
 
 
@@ -65,6 +78,7 @@
     HomeController* homeController = [[HomeController alloc] init];
     ArticleController* articleController = [[ArticleController alloc] init];
     CartController* cartController = [[CartController alloc] init];
+    cartController.navigationBarHidden = YES;                                                                                                 
     MeController* meController = [[MeController alloc] init];
     
     [self addTabController:homeController tabTitle:@"首页" tabImage:@"main_home_unselected" tableSelectImage:@"main_home_selected"];

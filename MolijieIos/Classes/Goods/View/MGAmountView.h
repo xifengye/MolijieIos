@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGAmountView : UIView{
+@interface MGAmountView : UIImageView{
     UIButton* buttonMinus;
     UIButton* buttonPlus;
     UILabel* label;

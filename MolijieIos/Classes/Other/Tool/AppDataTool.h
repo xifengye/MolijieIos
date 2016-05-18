@@ -24,12 +24,16 @@
 #define Article @"Article"
 
 
+#define local_order_change  @"localOrder_change"
+
+
 
 typedef void(^HomePageResultBlock)(NSArray*,NSArray*);
 typedef void(^CataListResultBlock)(NSArray*);
 typedef void(^ErrorBlock)(ErrorCode);
 typedef void(^TokenResultBlock)(Token*);
 typedef void(^GoodsListResultBlock)(NSArray<Goods*>*);
+typedef void(^GoodsDetailResultBlock)(Goods*);
 
 
 
@@ -42,6 +46,8 @@ typedef void(^GoodsListResultBlock)(NSArray<Goods*>*);
 
 +(void)requestCataList:(CataListResultBlock)onResponse onError:(ErrorBlock)error;
 +(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(GoodsListResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)requestGoodsDetail:(NSString*)cataID objectID:(NSString*)oId response:(GoodsDetailResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 

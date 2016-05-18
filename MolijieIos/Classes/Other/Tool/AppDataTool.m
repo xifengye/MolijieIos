@@ -106,6 +106,25 @@
     
 }
 
++(void)requestGoodsDetail:(NSString *)cataID objectID:(NSString *)oId response:(GoodsDetailResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:cataID forKey:@"cata_id"];
+    [params setObject:oId forKey:@"good_id"];
+    [HttpTool MLJPOST:@"LoadGoodDetail" params:params hasAppToken:true hasUserToken:false hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"requestCataList Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"requestCataList resp:%@",response.Data);
+            onResponse([Goods objectWithKeyValues:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"requestCataList failure:%@",error);
+    }];
+
+}
+
 +(NSString *)imageUrlFor:(NSString*)imgType withImgid:(NSString *)img_id{
     return [NSString stringWithFormat:@"http://112.124.61.35:9999/int/android_api/LoadImage?img_id=%@&img_type=%@&size=%@",img_id,imgType,@"Original"];
 }

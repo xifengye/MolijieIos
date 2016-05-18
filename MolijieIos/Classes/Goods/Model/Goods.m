@@ -8,6 +8,7 @@
 
 #import "Goods.h"
 
+
 @implementation Goods
 
 -(void)setUnits:(id)units{
@@ -82,6 +83,70 @@
         }
     }
     return NSUIntegerMax;
+}
+
+-(NSArray *)getPrices{
+    NSMutableArray* prices = [NSMutableArray array];
+    CGFloat max=0;
+    CGFloat min= MAXFLOAT;
+    for (int i = 0; i < _Units.count; i++) {
+        Units* u = _Units[i];
+        CompositeSKUValue* c = u.CompositeSKUValue[0];
+        if(c.Price>max){
+            max = c.Price;
+        }
+        if(min>c.Price){
+            min = c.Price;
+        }
+    }
+    [prices addObject:[NSNumber numberWithFloat:min]];
+    if(max-min>0.0001){
+        [prices addObject:[NSNumber numberWithFloat:max]];
+    }
+    return prices;
+}
+
+-(CGFloat)getPrice{
+    NSNumber* price = [self getPrices][0];
+    return price.floatValue;
+}
+
+
+-(NSArray *)unitTitles{
+    NSMutableArray* titles = [NSMutableArray array];
+    for(Units* unit in _Units){
+        for(CompositeSKUValue* csv in unit.CompositeSKUValue){
+            if(![titles containsObject:csv.Value]){
+                [titles addObject:csv.Value];
+            }
+        }
+    }
+    return titles;
+}
+
+-(NSString *)titleValusBySkuIndex:(NSUInteger)skuIndex{
+    NSMutableString* titles = [NSMutableString string];
+    for(Units* unit in _Units){
+        if(unit.Number == skuIndex){
+            for(CompositeSKUValue* csv in unit.CompositeSKUValue){
+                [titles appendFormat:@"%@ ",csv.Value];
+            }
+            return titles;
+        }
+    }
+    return @"";
+}
+
+-(CGFloat)getPriceBySkuIndex:(NSUInteger)skuIndex{
+    for(Units* unit in _Units){
+        if(unit.Number == skuIndex){
+            CompositeSKUValue* c = unit.CompositeSKUValue[0];
+            if(c){
+                return c.Price;
+            }
+        }
+    }
+    return 0.0f;
 }
 
 @end

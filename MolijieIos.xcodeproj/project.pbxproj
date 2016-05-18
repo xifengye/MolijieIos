@@ -53,6 +53,8 @@
 		FC4939921CE5B45A001E4481 /* LoginParams.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4939911CE5B45A001E4481 /* LoginParams.m */; };
 		FC4939961CE5CE48001E4481 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4939941CE5CE48001E4481 /* HomeCollectionViewCell.m */; };
 		FC49399A1CE5DBEF001E4481 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4939991CE5DBEF001E4481 /* BaseViewController.m */; };
+		FC6512EE1CEC0E2B009B3F2A /* NSString+MG.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512ED1CEC0E2B009B3F2A /* NSString+MG.m */; };
+		FC6512F11CEC1A62009B3F2A /* OrderLocalFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512F01CEC1A62009B3F2A /* OrderLocalFrame.m */; };
 		FCB866ED1C22BCA1009A7EEE /* Childs.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EC1C22BCA1009A7EEE /* Childs.m */; };
 		FCB866F01C22BD5C009A7EEE /* SKUS.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EF1C22BD5C009A7EEE /* SKUS.m */; };
 		FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */; };
@@ -256,6 +258,10 @@
 		FC4939941CE5CE48001E4481 /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
 		FC4939981CE5DBEF001E4481 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		FC4939991CE5DBEF001E4481 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		FC6512EC1CEC0E2B009B3F2A /* NSString+MG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MG.h"; sourceTree = "<group>"; };
+		FC6512ED1CEC0E2B009B3F2A /* NSString+MG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MG.m"; sourceTree = "<group>"; };
+		FC6512EF1CEC1A62009B3F2A /* OrderLocalFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLocalFrame.h; sourceTree = "<group>"; };
+		FC6512F01CEC1A62009B3F2A /* OrderLocalFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLocalFrame.m; sourceTree = "<group>"; };
 		FCB866EB1C22BCA1009A7EEE /* Childs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Childs.h; sourceTree = "<group>"; };
 		FCB866EC1C22BCA1009A7EEE /* Childs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Childs.m; sourceTree = "<group>"; };
 		FCB866EE1C22BD5C009A7EEE /* SKUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUS.h; sourceTree = "<group>"; };
@@ -718,6 +724,8 @@
 		FC11BFED1C103A6D00D4305A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FC6512EF1CEC1A62009B3F2A /* OrderLocalFrame.h */,
+				FC6512F01CEC1A62009B3F2A /* OrderLocalFrame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -957,6 +965,8 @@
 				FCC469C51C23A87C00611576 /* UIBarButtonItem+MG.m */,
 				FCC469C61C23A87C00611576 /* UIImage+MG.h */,
 				FCC469C71C23A87C00611576 /* UIImage+MG.m */,
+				FC6512EC1CEC0E2B009B3F2A /* NSString+MG.h */,
+				FC6512ED1CEC0E2B009B3F2A /* NSString+MG.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1401,6 +1411,7 @@
 				FCEF48D41C11667100300A24 /* BaseTableViewController.m in Sources */,
 				FC11C0E21C103A6D00D4305A /* MGMeCountCell.m in Sources */,
 				FCC46AB61C23A87D00611576 /* SDWebImageManager.m in Sources */,
+				FC6512F11CEC1A62009B3F2A /* OrderLocalFrame.m in Sources */,
 				EB1F73AA1CEB4E01002A3291 /* SettlementNowView.m in Sources */,
 				EBB0F59A1CE7842000278E7B /* Units.m in Sources */,
 				FCC46A901C23A87D00611576 /* MBProgressHUD.m in Sources */,
@@ -1458,6 +1469,7 @@
 				FCC46AC41C23A87D00611576 /* NetDataRequest.m in Sources */,
 				FC49399A1CE5DBEF001E4481 /* BaseViewController.m in Sources */,
 				EB1F73881CEB3E9E002A3291 /* DataBaseManager.m in Sources */,
+				FC6512EE1CEC0E2B009B3F2A /* NSString+MG.m in Sources */,
 				FCC46A7E1C23A87C00611576 /* AFHTTPRequestOperation.m in Sources */,
 				FCC46AB51C23A87D00611576 /* SDWebImageManager+MJ.m in Sources */,
 				FCC46AA41C23A87D00611576 /* MJRefreshFooterView.m in Sources */,

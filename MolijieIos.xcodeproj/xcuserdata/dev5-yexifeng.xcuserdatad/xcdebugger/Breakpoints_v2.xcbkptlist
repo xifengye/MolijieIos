@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MolijieIos/Classes/Other/AppDelegate.m"
-            timestampString = "484826403.123361"
+            filePath = "MolijieIos/Classes/Cart/Controller/CartController.m"
+            timestampString = "485255535.183899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-onAppToken"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-gestureRecognizerShouldBegin:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MolijieIos/Classes/Cart/Controller/CartController.m"
+            timestampString = "485255542.18439"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-setupNavBar"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 
-@interface CartController : BaseTableViewController
+@interface CartController : BaseTableViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSMutableArray* orderLocalFrames;
+}
 
+@property(nonatomic,assign)BOOL navigationBarHidden;
 @end

@@ -12,6 +12,8 @@
 #import "GoodsDetailBottomBar.h"
 #import "OrderLocal.h"
 #import "DataBaseManager.h"
+#import "NSString+MG.h"
+#import "CartController.h"
 
 
 #define nameFont [UIFont systemFontOfSize:14]
@@ -92,17 +94,26 @@
     y+=nameSize.height+margin*2;
     CGSize priceSize = [@"77.77" sizeWithFont:nameFont];
     UILabel* priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(margin, y, self.view.frame.size.width, priceSize.height)];
-    priceLabel.text = @"$77.77";
+    priceLabel.textColor = [UIColor orangeColor];
+    
+    priceLabel.text = [NSString pricesString:[_goods getPrices]];
     [priceLabel setFont:nameFont];
      [self.scrollView addSubview:priceLabel];
     y+=priceSize.height+margin*2;
    
+    NSArray* titles = [_goods unitTitles];
     CGSize unitSize = [@"件" sizeWithFont:nameFont];
-    UILabel* unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(margin, y, self.view.frame.size.width, unitSize.height)];
+    UILabel* unitLabel = [[UILabel alloc]initWithFrame:CGRectMake(margin, y, self.view.frame.size.width, unitSize.height*(titles.count+1))];
     [unitLabel setFont:nameFont];
-    unitLabel.text = @"件";
+    NSMutableString* unitTitles = [NSMutableString string];
+    unitLabel.numberOfLines = titles.count+1;
+    for(NSString* ut in titles){
+        [unitTitles appendString:ut];
+        [unitTitles appendString:@"\n"];
+    }
+    unitLabel.text = unitTitles;
     [self.scrollView addSubview:unitLabel];
-    y+=unitSize.height+margin*2;
+    y+=unitLabel.frame.size.height+margin*2;
 
     
     CGFloat contentW = self.view.frame.size.width-margin*2;
@@ -128,7 +139,7 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.cycleScrollView.frame];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:self.goods.MainResources[i]];
-        [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"main_article_selected"]];
+        [imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"default_pic"]];
         [viewsArray addObject:imageView];
         
     }
@@ -218,6 +229,7 @@
 
 -(void)bottomBarDidClickedCar:(GoodsDetailBottomBar *)bottomBar{
     NSLog(@"car clicked");
+    [self goViewCart];
 }
 
 -(void)bottomBarDidClickedAdd:(GoodsDetailBottomBar *)bottomBar{
@@ -245,19 +257,19 @@
 
 -(void)showSettlementNow{
     CGFloat btnW = self.view.frame.size.width;
-    CGFloat btnH = 30;
-    CGFloat btnX = -self.view.frame.size.width;
+    CGFloat btnH = 40;
+    CGFloat btnX = 0;
     CGFloat btnY = self.view.frame.size.height-barHeight-btnH;
     SettlementNowView* btn = [[SettlementNowView alloc]initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
     [self.view addSubview:btn];
-    [btn addTarget:self action:@selector(onSettlementNow) forControlEvents:UIControlEventTouchDown];
-    [UIView animateWithDuration:0.5 animations:^{
-        btn.transform = CGAffineTransformMakeTranslation(btnW,0);
+    [btn addTarget:self action:@selector(onSettlementNow) forControlEvents:UIControlEventTouchUpInside];
+    [UIView animateKeyframesWithDuration:0.7 delay:3.0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
+        btn.transform = CGAffineTransformMakeTranslation(-btnW,0);
     } completion:^(BOOL finished) {
         [UIView animateKeyframesWithDuration:0.7 delay:3.0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
             btn.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-            [btn removeFromSuperview];
+            
         }];
     }];
 
@@ -278,19 +290,31 @@
     if(ID>0){
         [self showSettlementNow];
         [self updateCartBadge];
+        [self notifyLocalOrderChange:ID];
     }
 }
 
 
+-(void)notifyLocalOrderChange:(NSUInteger)ID{
+    [[NSNotificationCenter defaultCenter]postNotificationName:local_order_change object:[NSNumber numberWithInteger:ID]];
+}
+
 -(void)updateCartBadge{
     NSUInteger orderCount = [DataBaseManager instance].allOrder.count;
-    [self.bottomBar.badgeView setBadgeValue:[NSString stringWithFormat:@"%ld",orderCount]];
+    NSString* badge = nil;
+    if(orderCount>0){
+        badge =  [NSString stringWithFormat:@"%ld",orderCount];
+    }
+    [self.bottomBar.badgeView setBadgeValue:badge];
     self.bottomBar.btnCar.selected = orderCount>0;
     
 }
 
 -(void)goViewCart{
-    
+    CartController* cartController = [[CartController alloc]init];
+    cartController.navigationBarHidden = false;
+    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:cartController];
+    [self presentViewController:navController animated:true completion:nil];
 }
 
 @end

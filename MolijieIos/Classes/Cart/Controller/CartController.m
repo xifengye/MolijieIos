@@ -8,6 +8,10 @@
 
 #import "CartController.h"
 #import "MGAmountView.h"
+#import "DataBaseManager.h"
+#import "AppDataTool.h"
+#import "OrderLocalFrame.h"
+#import "CartCell.h"
 
 @interface CartController ()
 
@@ -17,10 +21,74 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    MGAmountView* view = [[MGAmountView alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
-    [self.view addSubview:view];
+    [self setupNavBar];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLocalOrderChange:) name:local_order_change object:nil];
+    [self initData];
     
 }
+
+-(void)setupNavBar{
+    [self.navigationController setNavigationBarHidden:_navigationBarHidden];
+    if(!_navigationBarHidden){
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+        self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    }
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
+    self.navigationItem.title = @"购物车";
+    
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+  if (self.navigationController.viewControllers.count == 1)//关闭主界面的右滑返回
+   {
+       return NO;
+   }else{
+    return YES;
+   }
+}
+
+-(void)goBack{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void) onLocalOrderChange:(NSNotification*) notification{
+    NSNumber* data = notification.object;
+    NSUInteger ID = data.integerValue;
+    OrderLocal* order = [[DataBaseManager instance]orderByID:ID];
+    if(order!=nil){
+        [self loadGoodsByOrderLocalFromNet:order];
+    }
+}
+
+-(void)initData{
+    orderLocalFrames = [NSMutableArray array];
+    for(OrderLocal* order in [[DataBaseManager instance]allOrder]){
+        [self loadGoodsByOrderLocalFromNet:order];
+    }
+}
+
+-(void)loadGoodsByOrderLocalFromNet:(OrderLocal*)order{
+    [AppDataTool requestGoodsDetail:order.cataId objectID:order.objectId response:^(Goods *goods) {
+        OrderLocalFrame* olf = [[OrderLocalFrame alloc]init];
+        [olf setData:order goods:goods];
+        [orderLocalFrames addObject:olf];
+        
+        if(orderLocalFrames.count == [[DataBaseManager instance]allOrder].count){
+            [self.tableView reloadData];
+        }
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
+}
+        
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -29,15 +97,32 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return orderLocalFrames.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CartCell* cell = [CartCell cellWithTableView:tableView];
+    OrderLocalFrame* frame = orderLocalFrames[indexPath.row];
+    cell.orderFrame = frame;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIViewController* controller = [[UIViewController alloc] init];
+    controller.view.backgroundColor = [UIColor redColor];
+//    [self.navigationController pushViewController:controller animated:true];
+    
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OrderLocalFrame* frame = orderLocalFrames[indexPath.row];
+    return frame.cellHeight;
 }
 
 

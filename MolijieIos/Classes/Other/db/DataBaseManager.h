@@ -26,6 +26,7 @@
 
 -(NSUInteger)insertOrder:(OrderLocal*)order;
 -(BOOL)updateOrderAmount:(OrderLocal *)order;
+-(OrderLocal*)orderByID:(NSUInteger)ID;
 
 -(NSArray*)allOrder;
 
