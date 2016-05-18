@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MGAmountView;
+@protocol MGAmountViewDelegate <NSObject>
 
-@interface MGAmountView : UIImageView{
+@optional
+-(void)didAmountValueChange:(MGAmountView*)view;
+
+@end
+@interface MGAmountView : UIButton{
     UIButton* buttonMinus;
     UIButton* buttonPlus;
     UILabel* label;
 }
 @property(nonatomic,assign)NSUInteger amount;
+@property(nonatomic,weak)id<MGAmountViewDelegate>delegate;
 @end

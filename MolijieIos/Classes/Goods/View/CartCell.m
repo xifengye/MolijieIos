@@ -68,6 +68,12 @@
     [btnDelete setImage:[UIImage imageNamed:@"ico_delete"] forState:UIControlStateNormal];
     self.btnDelete = btnDelete;
     [self addSubview:btnDelete];
+    
+    UIView* lineView = [[UIView alloc]init];
+    lineView.backgroundColor = [UIColor blackColor];
+    self.lineView = lineView;
+    [self addSubview:lineView];
+
 }
 
 -(void)setOrderFrame:(OrderLocalFrame *)orderFrame{
@@ -80,6 +86,7 @@
     self.iconView.frame = orderFrame.iconF;
     self.amountView.frame = orderFrame.amountViewF;
     self.unitLabel.frame = orderFrame.unitLabelF;
+    self.lineView.frame = CGRectMake(0, orderFrame.cellHeight, [UIScreen mainScreen].bounds.size.width, 0.5f);
     
     self.nameLabel.text = orderFrame.goods.Title;
     
@@ -91,5 +98,6 @@
     self.btnCheck.selected = true;
     self.allPriceLabel.text = [NSString priceString:[orderFrame.goods getPriceBySkuIndex:orderFrame.order.skuIndex]*orderFrame.order.amount];
     self.amountView.amount = orderFrame.order.amount;
+    
 }
 @end

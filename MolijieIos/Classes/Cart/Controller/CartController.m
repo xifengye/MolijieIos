@@ -12,6 +12,8 @@
 #import "AppDataTool.h"
 #import "OrderLocalFrame.h"
 #import "CartCell.h"
+#import "Config.h"
+
 
 @interface CartController ()
 
@@ -22,12 +24,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    [self initView];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLocalOrderChange:) name:local_order_change object:nil];
     [self initData];
     
 }
+
+-(void)initView{
+    CGFloat bottomViewHeight = barHeight;
+    if(_navigationBarHidden){
+        bottomViewHeight = barHeight*2;
+    }
+    MGBottomView* bottomView = [[MGBottomView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-bottomViewHeight, self.view.frame.size.width, barHeight)];
+    [self.view addSubview:bottomView];
+    UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-bottomViewHeight)];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+}
+
 
 -(void)setupNavBar{
     [self.navigationController setNavigationBarHidden:_navigationBarHidden];
@@ -107,6 +124,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CartCell* cell = [CartCell cellWithTableView:tableView];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     OrderLocalFrame* frame = orderLocalFrames[indexPath.row];
     cell.orderFrame = frame;
     return cell;
@@ -118,6 +136,7 @@
 //    [self.navigationController pushViewController:controller animated:true];
     
 }
+
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MGUnitView.h"
 #import "Goods.h"
+#import "Config.h"
 @class MGBuyPanel;
-#define barHeight    44
+
 
 @protocol UIBuyPanelDelegate <NSObject>
 

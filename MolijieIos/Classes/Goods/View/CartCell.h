@@ -21,5 +21,7 @@
 @property(nonatomic,weak)UILabel* unitLabel;
 @property(nonatomic,weak)MGAmountView* amountView;
 @property(nonatomic,strong)OrderLocalFrame* orderFrame;
+@property(nonatomic,weak)UIView* lineView;
+
 
 @end

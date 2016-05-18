@@ -59,11 +59,18 @@
     _amount--;
      buttonMinus.enabled = _amount>1;
     label.text = [NSString stringWithFormat:@"%ld",_amount];
+    if([self.delegate respondsToSelector:@selector(didChangeValueForKey:)]){
+        [self.delegate didAmountValueChange:self];
+    }
     
 }
 
 -(void)onPlus{
     _amount++;
+    buttonMinus.enabled = _amount>1;
     label.text = [NSString stringWithFormat:@"%ld",_amount];
+    if([self.delegate respondsToSelector:@selector(didChangeValueForKey:)]){
+        [self.delegate didAmountValueChange:self];
+    }
 }
 @end
