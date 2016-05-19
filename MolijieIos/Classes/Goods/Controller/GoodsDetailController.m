@@ -59,7 +59,7 @@
     CGFloat margin = 5.0f;
     UIButton* backView = [[UIButton alloc]initWithFrame:CGRectMake(20, margin, barHeight-margin*2, barHeight-margin*2)];
     [backView setImage:[UIImage imageNamed:@"goods_back"] forState:UIControlStateNormal];
-    [backView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchDown];
+    [backView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     [topBar addSubview:backView];
     
 }

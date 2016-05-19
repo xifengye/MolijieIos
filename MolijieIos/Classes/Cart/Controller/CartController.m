@@ -10,9 +10,11 @@
 #import "MGAmountView.h"
 #import "DataBaseManager.h"
 #import "AppDataTool.h"
-#import "OrderLocalFrame.h"
+#import "CartItemFrame.h"
 #import "CartCell.h"
 #import "Config.h"
+#import "NSString+MG.h"
+#import "SettlementController.h"
 
 
 @interface CartController ()
@@ -30,13 +32,22 @@
     
 }
 
+-(BOOL)needGoBack{
+    return false;
+}
+
 -(void)initView{
+    self.navigationController.toolbar.hidden = NO;
     CGFloat bottomViewHeight = barHeight;
     if(_navigationBarHidden){
         bottomViewHeight = barHeight*2;
+        
     }
-    MGBottomView* bottomView = [[MGBottomView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-bottomViewHeight, self.view.frame.size.width, barHeight)];
+    MGCartBottomView* bottomView = [[MGCartBottomView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-bottomViewHeight, self.view.frame.size.width, barHeight)];
     [self.view addSubview:bottomView];
+    self.bottomView = bottomView;
+    self.bottomView.delegate = self;
+    
     UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-bottomViewHeight)];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -45,6 +56,17 @@
     self.tableView.dataSource = self;
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    CGRect rect = self.navigationController.navigationBar.frame;
+    float y = rect.size.height + rect.origin.y;
+    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
+}
+
+//- (void)adjustEdgeInsetsForTableView {
+//        self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+//}
 
 -(void)setupNavBar{
     [self.navigationController setNavigationBarHidden:_navigationBarHidden];
@@ -79,14 +101,16 @@
 - (void) onLocalOrderChange:(NSNotification*) notification{
     NSNumber* data = notification.object;
     NSUInteger ID = data.integerValue;
-    OrderLocal* order = [[DataBaseManager instance]orderByID:ID];
-    if(order!=nil){
-        [self loadGoodsByOrderLocalFromNet:order];
+    if(ID>0){
+        OrderLocal* order = [[DataBaseManager instance]orderByID:ID];
+        if(order!=nil){
+            [self loadGoodsByOrderLocalFromNet:order];
+        }
     }
 }
 
 -(void)initData{
-    orderLocalFrames = [NSMutableArray array];
+    cartItemFrames = [NSMutableArray array];
     for(OrderLocal* order in [[DataBaseManager instance]allOrder]){
         [self loadGoodsByOrderLocalFromNet:order];
     }
@@ -94,12 +118,13 @@
 
 -(void)loadGoodsByOrderLocalFromNet:(OrderLocal*)order{
     [AppDataTool requestGoodsDetail:order.cataId objectID:order.objectId response:^(Goods *goods) {
-        OrderLocalFrame* olf = [[OrderLocalFrame alloc]init];
+        CartItemFrame* olf = [[CartItemFrame alloc]init];
         [olf setData:order goods:goods];
-        [orderLocalFrames addObject:olf];
+        [cartItemFrames addObject:olf];
         
-        if(orderLocalFrames.count == [[DataBaseManager instance]allOrder].count){
+        if(cartItemFrames.count == [[DataBaseManager instance]allOrder].count){
             [self.tableView reloadData];
+            [self caculatePrice];
         }
     } onError:^(ErrorCode errorCode) {
         
@@ -118,15 +143,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return orderLocalFrames.count;
+    return cartItemFrames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     CartCell* cell = [CartCell cellWithTableView:tableView];
+    cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    OrderLocalFrame* frame = orderLocalFrames[indexPath.row];
-    cell.orderFrame = frame;
+    CartItemFrame* frame = cartItemFrames[indexPath.row];
+    cell.cartItemFrame = frame;
     return cell;
 }
 
@@ -140,9 +166,77 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrderLocalFrame* frame = orderLocalFrames[indexPath.row];
+    CartItemFrame* frame = cartItemFrames[indexPath.row];
     return frame.cellHeight;
 }
+
+-(void)caculatePrice{
+    CGFloat allPrice = 0;
+    for(CartItemFrame* olf in cartItemFrames){
+        if([olf.order isCheck]){
+            allPrice =allPrice + (olf.order.amount * [olf.goods getPriceBySkuIndex:olf.order.skuIndex]);
+        }
+    }
+    self.bottomView.priceLabel.text = [NSString stringWithFormat:@"总计: %@",[NSString priceString:allPrice]];
+}
+
+
+#pragma mark    CartCellDelegate
+
+-(void)didGoodsAmountChange:(CartCell *)cell{
+    [[DataBaseManager instance]updateOrderAmount:cell.cartItemFrame.order];
+    [self caculatePrice];
+}
+
+-(void)didGoodsCheckChange:(CartCell *)cell{
+    [self caculatePrice];
+    BOOL isAllChecked = true;
+    BOOL isNoOneChecked = true;
+    
+    for(CartItemFrame* olf in cartItemFrames){
+        if(![olf.order isCheck]){
+            isAllChecked = false;
+        }else{
+            isNoOneChecked = false;
+        }
+    }
+    self.bottomView.btnSettlement.enabled = !isNoOneChecked;
+    self.bottomView.btnCheckAll.selected = isAllChecked;
+}
+
+-(void)didGoodsRemoved:(CartCell *)cell{
+    CartItemFrame* order = cell.cartItemFrame;
+    BOOL result = [[DataBaseManager instance] deleteOrder:order.order];
+    if(result){
+        [cartItemFrames removeObject:order];
+        [self didGoodsCheckChange:nil];
+        [self.tableView reloadData];
+        [[NSNotificationCenter defaultCenter]postNotificationName:local_order_change object:[NSNumber numberWithInteger:0]];
+    }
+}
+
+
+#pragma mark BottomViewDelegate
+
+-(void)bottomViewDidCheckAllChange:(MGCartBottomView *)view{
+    for(CartItemFrame* olf in cartItemFrames){
+        [olf.order setCheck:view.btnCheckAll.isSelected];
+    }
+    self.bottomView.btnSettlement.enabled = view.btnCheckAll.isSelected;
+    [self.tableView reloadData];
+    [self caculatePrice];
+    
+}
+
+-(void)bottomViewDidGoSettlement:(MGCartBottomView *)view{
+    SettlementController* settlementController = [[SettlementController alloc]init];
+    [settlementController initItemFrames:cartItemFrames];
+    settlementController.title = @"结算";
+    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:settlementController];
+    
+    [self presentViewController:navController animated:true completion:nil];
+}
+
 
 
 @end

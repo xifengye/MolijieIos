@@ -11,17 +11,9 @@
 @implementation MGMeCellView
 
 
-+(instancetype)cellWithTableView:(UITableView *)tableView{
-    static NSString* ID = @"MeCell";
-    MGMeCellView *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if(cell==nil){
-        cell = [[MGMeCellView alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    return cell;
-}
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
     if(self) {
         CGFloat imageX = 10;
         CGFloat imageY = 10;
@@ -29,7 +21,7 @@
         CGFloat imageHeight = imageWidth;
         UIImageView* imageView = [[UIImageView alloc]init];
         imageView.frame = CGRectMake(imageX, imageY, imageWidth, imageHeight);
-        imageView.image = [UIImage imageNamed:@"game_center"];
+        imageView.image = [UIImage imageNamed:@"avatar_default"];
         [self addSubview:imageView];
         
         UILabel* nameLabel = [[UILabel alloc]init];
@@ -64,13 +56,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    // Initialization code
-}
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-}
 
 @end

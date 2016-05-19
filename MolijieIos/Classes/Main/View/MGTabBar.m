@@ -37,7 +37,7 @@
 -(void)addTabItem:(UITabBarItem *)item{
     MGTabBarButton* btn = [[MGTabBarButton alloc] init];
     [btn setItem:item];
-    [btn addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchDown];
+    [btn addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
     [self.tabButtons addObject:btn];
     if(self.tabButtons.count==1){

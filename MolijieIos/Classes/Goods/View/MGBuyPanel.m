@@ -25,7 +25,7 @@
         [btnClose setImage:[UIImage imageNamed:@"btn_close_on"] forState:UIControlStateNormal];
         [btnClose setImage:[UIImage imageNamed:@"btn_close_off"] forState:UIControlStateHighlighted];
         self.btnClose = btnClose;
-        [btnClose addTarget:self action:@selector(onClose) forControlEvents:UIControlEventTouchDown];
+        [btnClose addTarget:self action:@selector(onClose) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnClose];
         
         CGFloat iconViewWidth = 80;
@@ -60,7 +60,7 @@
         [btnOk setTitle:@"确定" forState:UIControlStateNormal];
         [btnOk setBackgroundImage:[UIImage createImageWithColor:[UIColor orangeColor]] forState:UIControlStateNormal];
         [btnOk setBackgroundImage:[UIImage createImageWithColor:[UIColor grayColor]] forState:UIControlStateDisabled];
-        [btnOk addTarget:self action:@selector(onOk) forControlEvents:UIControlEventTouchDown];
+        [btnOk addTarget:self action:@selector(onOk) forControlEvents:UIControlEventTouchUpInside];
         btnOk.enabled = false;
         [self addSubview:btnOk];
         self.btnOk = btnOk;
@@ -101,7 +101,7 @@
         for(NSString* title in unitValues.allKeys){
             NSArray* unitViewArr = unitValues[title];
             for(MGUnitView* view in unitViewArr){
-                [view addTarget:self action:@selector(didUnitSelected:) forControlEvents:UIControlEventTouchDown];
+                [view addTarget:self action:@selector(didUnitSelected:) forControlEvents:UIControlEventTouchUpInside];
                 view.frame = CGRectMake(x, y, width, unitViewHeight);
                 [self addSubview:view];
                 x+=width+marginH;

@@ -33,6 +33,7 @@
     [btnCheck setImage:[UIImage imageNamed:@"checkbox_normal"] forState:UIControlStateNormal];
     [btnCheck setImage:[UIImage imageNamed:@"checkbox_checked"] forState:UIControlStateSelected];
     self.btnCheck = btnCheck;
+    [btnCheck addTarget:self action:@selector(onCheckChange) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btnCheck];
     
     UIImageView* iconView = [[UIImageView alloc]init];
@@ -62,12 +63,14 @@
     
     MGAmountView* amountView = [[MGAmountView alloc]init];
     self.amountView = amountView;
+    self.amountView.delegate = self;
     [self addSubview:amountView];
     
     UIButton* btnDelete = [[UIButton alloc]init];
     [btnDelete setImage:[UIImage imageNamed:@"ico_delete"] forState:UIControlStateNormal];
     self.btnDelete = btnDelete;
     [self addSubview:btnDelete];
+    [btnDelete addTarget:self action:@selector(onDelete) forControlEvents:UIControlEventTouchUpInside];
     
     UIView* lineView = [[UIView alloc]init];
     lineView.backgroundColor = [UIColor blackColor];
@@ -76,28 +79,57 @@
 
 }
 
--(void)setOrderFrame:(OrderLocalFrame *)orderFrame{
-    _orderFrame = orderFrame;
-    self.btnCheck.frame = orderFrame.btnCheckF;
-    self.btnDelete.frame = orderFrame.btnDeleteF;
-    self.nameLabel.frame = orderFrame.nameLabelF;
-    self.priceLabel.frame = orderFrame.priceLabelF;
-    self.allPriceLabel.frame = orderFrame.allPriceLabelF;
-    self.iconView.frame = orderFrame.iconF;
-    self.amountView.frame = orderFrame.amountViewF;
-    self.unitLabel.frame = orderFrame.unitLabelF;
-    self.lineView.frame = CGRectMake(0, orderFrame.cellHeight, [UIScreen mainScreen].bounds.size.width, 0.5f);
+-(void)setCartItemFrame:(CartItemFrame *)cartItemFrame{
+    _cartItemFrame = cartItemFrame;
+    self.btnCheck.frame = cartItemFrame.btnCheckF;
+    self.btnDelete.frame = cartItemFrame.btnDeleteF;
+    self.nameLabel.frame = cartItemFrame.nameLabelF;
+    self.priceLabel.frame = cartItemFrame.priceLabelF;
+    self.allPriceLabel.frame = cartItemFrame.allPriceLabelF;
+    self.iconView.frame = cartItemFrame.iconF;
+    self.amountView.frame = cartItemFrame.amountViewF;
+    self.unitLabel.frame = cartItemFrame.unitLabelF;
+    self.lineView.frame = CGRectMake(0, cartItemFrame.cellHeight, [UIScreen mainScreen].bounds.size.width, 0.5f);
     
-    self.nameLabel.text = orderFrame.goods.Title;
+    self.nameLabel.text = cartItemFrame.goods.Title;
     
-    NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:orderFrame.goods.MainResources[0]];
+    NSString* url = [AppDataTool imageUrlFor:UseForGoodSource withImgid:cartItemFrame.goods.MainResources[0]];
     [self.iconView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"default_pic"]];
-    self.priceLabel.text = [NSString priceString:[orderFrame.goods getPriceBySkuIndex:orderFrame.order.skuIndex]];
-    self.allPriceLabel.text = [NSString priceString:[orderFrame.goods getPriceBySkuIndex:orderFrame.order.skuIndex]*orderFrame.order.amount];
-    self.unitLabel.text = [orderFrame.goods titleValusBySkuIndex:orderFrame.order.skuIndex];
-    self.btnCheck.selected = true;
-    self.allPriceLabel.text = [NSString priceString:[orderFrame.goods getPriceBySkuIndex:orderFrame.order.skuIndex]*orderFrame.order.amount];
-    self.amountView.amount = orderFrame.order.amount;
-    
+    self.priceLabel.text = [NSString priceString:[cartItemFrame.goods getPriceBySkuIndex:cartItemFrame.order.skuIndex]];
+    self.unitLabel.text = [cartItemFrame.goods titleValusBySkuIndex:cartItemFrame.order.skuIndex];
+    self.btnCheck.selected = [cartItemFrame.order isCheck];
+    self.allPriceLabel.text = [NSString priceString:[cartItemFrame.goods getPriceBySkuIndex:cartItemFrame.order.skuIndex]*cartItemFrame.order.amount];
+    self.amountView.amount = cartItemFrame.order.amount;
+    [self amountChange];
+}
+
+#pragma mark AmountView delegate
+
+-(void)didAmountValueChange:(MGAmountView *)view{
+    _cartItemFrame.order.amount = view.amount;
+    [self amountChange];
+    if([self.delegate respondsToSelector:@selector(didGoodsAmountChange:)]){
+        [self.delegate didGoodsAmountChange:self];
+    }
+}
+
+-(void)amountChange{
+    self.allPriceLabel.text = [NSString stringWithFormat:@"小计: %@",[NSString priceString:[_cartItemFrame.goods getPriceBySkuIndex:_cartItemFrame.order.skuIndex]*_cartItemFrame.order.amount]];
+}
+
+
+-(void)onCheckChange{
+    self.btnCheck.selected = !self.btnCheck.selected;
+    [_cartItemFrame.order setCheck: self.btnCheck.selected];
+    if([self.delegate respondsToSelector:@selector(didGoodsCheckChange:)]){
+        [self.delegate didGoodsCheckChange:self];
+    }
+}
+
+-(void)onDelete{
+    if([self.delegate respondsToSelector:@selector(didGoodsRemoved:)]){
+        [self.delegate didGoodsRemoved:self];
+    }
+
 }
 @end

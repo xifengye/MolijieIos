@@ -22,7 +22,7 @@
         UIButton* btnCar = [[UIButton alloc]initWithFrame:CGRectMake(marginLeft, marginTop, imgWidth, imgWidth)];
         [btnCar setImage:[UIImage imageNamed:@"cart_on"] forState:UIControlStateSelected];
         [btnCar setImage:carImg forState:UIControlStateNormal];
-        [btnCar addTarget:self action:@selector(onCar) forControlEvents:UIControlEventTouchDown];
+        [btnCar addTarget:self action:@selector(onCar) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnCar];
         self.btnCar = btnCar;
         
@@ -36,7 +36,7 @@
         UIButton* btnFavourite = [[UIButton alloc]initWithFrame:CGRectMake(imgWidth+marginLeft*3, marginTop, imgWidth, imgWidth)];
         [btnFavourite setImage:favouriteImg forState:UIControlStateNormal];
         [btnFavourite setImage:[UIImage imageNamed:@"favorit_on"] forState:UIControlStateSelected];
-        [btnFavourite addTarget:self action:@selector(onFavourite) forControlEvents:UIControlEventTouchDown];
+        [btnFavourite addTarget:self action:@selector(onFavourite) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnFavourite];
         self.btnFavourite = btnFavourite;
         
@@ -49,7 +49,7 @@
         UIButton* btnAdd = [[UIButton alloc]initWithFrame:addFrame];
         [btnAdd setFont:addFont];
         [btnAdd setBackgroundImage:[UIImage createImageWithColor:[UIColor orangeColor]] forState:UIControlStateNormal];
-        [btnAdd addTarget:self action:@selector(onAdd) forControlEvents:UIControlEventTouchDown];
+        [btnAdd addTarget:self action:@selector(onAdd) forControlEvents:UIControlEventTouchUpInside];
         [btnAdd setTitle:title forState:UIControlStateNormal];
         [self addSubview:btnAdd];
         self.btnAdd = btnAdd;

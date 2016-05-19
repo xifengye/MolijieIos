@@ -174,6 +174,14 @@
 
 }
 
+-(BOOL)deleteOrder:(OrderLocal *)order{
+    BOOL reslut = [self deleteByID:TableOrder ID:order.ID];
+    if(reslut){
+        [self removeOrder:order];
+    }
+    return reslut;
+}
+
 -(NSArray *)allOrder{
     return orders;
 }

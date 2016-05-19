@@ -27,10 +27,11 @@
 -(NSUInteger)insertOrder:(OrderLocal*)order;
 -(BOOL)updateOrderAmount:(OrderLocal *)order;
 -(OrderLocal*)orderByID:(NSUInteger)ID;
+-(BOOL)deleteOrder:(OrderLocal*)order;
 
 -(NSArray*)allOrder;
 
-- (BOOL) dropTable:(NSString *)tableName;
-- (BOOL) deleteTable:(NSString *)tableName;
+//- (BOOL) dropTable:(NSString *)tableName;
+//- (BOOL) deleteTable:(NSString *)tableName;
 
 @end

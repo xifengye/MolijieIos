@@ -12,9 +12,9 @@
 +(UIBarButtonItem*) itemWithButton:(NSString*)imageName highImage:(NSString*)highImageName target:(id)target action:(SEL)action{
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:highImageName] forState:UIControlEventTouchDown];
+    [button setImage:[UIImage imageNamed:highImageName] forState:UIControlEventTouchUpInside];
     button.bounds = (CGRect){CGPointZero,button.currentImage.size};
-    [button addTarget:target action:action forControlEvents:UIControlEventTouchDown];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 @end

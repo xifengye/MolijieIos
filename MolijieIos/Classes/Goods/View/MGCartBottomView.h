@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MGCartBottomView;
+@protocol MGCartBottomViewDelegate <NSObject>
 
-@interface MGBottomView : UIView
+@optional
+-(void)bottomViewDidCheckAllChange:(MGCartBottomView*)view;
+-(void)bottomViewDidGoSettlement:(MGCartBottomView*)view;
+
+@end
+
+@interface MGCartBottomView : UIView
 @property(nonatomic,weak)UIButton* btnSettlement;
 @property(nonatomic,weak)UIButton* btnCheckAll;
 @property(nonatomic,weak)UILabel* priceLabel;
 
+@property(nonatomic,weak)id<MGCartBottomViewDelegate>delegate;
 
 @end

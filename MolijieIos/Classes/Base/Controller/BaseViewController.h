@@ -10,4 +10,5 @@
 
 @interface BaseViewController : UIViewController
 -(BOOL) hiddenNavigationBar;
+-(BOOL)needGoBack;
 @end

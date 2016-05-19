@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MGAmountView;
+
 @protocol MGAmountViewDelegate <NSObject>
 
 @optional

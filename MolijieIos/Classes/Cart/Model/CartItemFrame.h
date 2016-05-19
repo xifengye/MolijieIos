@@ -14,7 +14,7 @@
 
 #define labelFont  [UIFont systemFontOfSize:13]
 
-@interface OrderLocalFrame : NSObject
+@interface CartItemFrame : NSObject
 @property(nonatomic,strong)Goods* goods;
 @property(nonatomic,assign)OrderLocal* order;
 @property(nonatomic,assign)CGFloat cellHeight;

@@ -10,10 +10,26 @@
 
 @implementation OrderLocal
 
+-(instancetype)init{
+    self = [super init];
+    if(self){
+        checked = true;
+    }
+    return self;
+}
+
 -(BOOL)isMe:(OrderLocal *)other{
     if(other==nil){
         return false;
     }
     return [_cataId isEqualToString:other.cataId] && [_objectId isEqualToString:other.objectId] && _skuIndex==other.skuIndex;
+}
+
+-(void)setCheck:(BOOL)check{
+    checked = check;
+}
+
+-(BOOL)isCheck{
+    return checked;
 }
 @end

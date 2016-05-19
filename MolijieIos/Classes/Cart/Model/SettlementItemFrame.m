@@ -1,17 +1,14 @@
 //
-//  OrderLocalFrame.m
+//  SettlementItemFrame.m
 //  MolijieIos
 //
-//  Created by yexifeng on 16/5/18.
+//  Created by yexifeng on 16/5/19.
 //  Copyright © 2016年 moregood. All rights reserved.
 //
 
-#import "OrderLocalFrame.h"
+#import "SettlementItemFrame.h"
 
-
-
-@implementation OrderLocalFrame
-
+@implementation SettlementItemFrame
 -(void)setData:(OrderLocal *)order goods:(Goods *)goods{
     _goods = goods;
     _order = order;
@@ -19,26 +16,23 @@
     
     CGFloat margin = 7;
     CGFloat iconWidth = 100;
-    UIImage* checkedImg = [UIImage imageNamed:@"checkbox_checked"];
-    _iconF = CGRectMake(margin*2+checkedImg.size.width, margin, iconWidth, iconWidth);
+    _iconF = CGRectMake(margin, margin, iconWidth, iconWidth);
     
-    _btnCheckF = CGRectMake(margin, margin+(iconWidth-checkedImg.size.height)/2, checkedImg.size.width, checkedImg.size.height);
     CGFloat price = [goods getPriceBySkuIndex:order.skuIndex];
     CGSize priceLabelSize = [[NSString priceString:price] sizeWithFont:labelFont];
     _priceLabelF = CGRectMake(screenWidth-margin-priceLabelSize.width, margin, priceLabelSize.width, priceLabelSize.height);
     CGSize nameLabelSize = [goods.Title sizeWithFont:labelFont];
     _nameLabelF = CGRectMake(CGRectGetMaxX(_iconF)+margin, margin, nameLabelSize.width, nameLabelSize.height);
-    CGFloat amountViewHeight = 30;
-    _amountViewF = CGRectMake(_nameLabelF.origin.x, iconWidth-amountViewHeight+margin, (screenWidth-margin*5-iconWidth)*0.55, amountViewHeight);
+    
+    CGSize amountViewSize = [[NSString stringWithFormat:@"X %ld",order.amount] sizeWithFont:labelFont];
+    _amountViewF = CGRectMake(screenWidth-margin-amountViewSize.width, (iconWidth-nameLabelSize.height)/2, amountViewSize.width,amountViewSize.height);
     NSString* units = [_goods titleValusBySkuIndex:order.skuIndex];
     CGSize unitLabelSize = [units sizeWithFont:labelFont];
     _unitLabelF = CGRectMake(_nameLabelF.origin.x, (iconWidth-nameLabelSize.height)/2, unitLabelSize.width, unitLabelSize.height);
     
-    CGSize allPriceLabelSize = [[NSString priceString:price*order.amount] sizeWithFont:labelFont];
-    _allPriceLabelF = CGRectMake(screenWidth-margin-allPriceLabelSize.width, (iconWidth-nameLabelSize.height)/2, allPriceLabelSize.width, allPriceLabelSize.height);
+    CGSize allPriceLabelSize = [[NSString stringWithFormat:@"小计: %@",[NSString priceString:price*order.amount]] sizeWithFont:labelFont];
+    _allPriceLabelF = CGRectMake(screenWidth-margin-allPriceLabelSize.width, iconWidth-allPriceLabelSize.height, allPriceLabelSize.width, allPriceLabelSize.height);
     
-    UIImage* deleteImg = [UIImage imageNamed:@"ico_delete"];
-    _btnDeleteF = CGRectMake(screenWidth-margin-deleteImg.size.width, margin+iconWidth-deleteImg.size.height, deleteImg.size.width, deleteImg.size.height);
     
     _cellHeight = iconWidth+margin*2;
 }

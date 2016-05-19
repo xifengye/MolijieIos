@@ -28,24 +28,18 @@
 - (void)viewDidLoad {
     NSLog(@"controller width = %f",self.view.frame.size.width);
     [super viewDidLoad];
-    [self setupNavBar];
     [self setupSettingView];
 }
 
+
 -(void)setupSettingView{
-//     UIView* profileView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
-//    profileView.backgroundColor = [UIColor redColor];
-//    
-//     self.tableView.tableHeaderView = profileView;
+     MGMeCellView* profileView = [[MGMeCellView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, CELL_HEIGHT)];
+    profileView.backgroundColor = [UIColor orangeColor];
+    
+     self.tableView.tableHeaderView = profileView;
     
     [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
-       [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-           staticContentCell.reuseIdentifier = @"MeCell";
-           staticContentCell.tableViewCellSubclass = [MGMeCellView class];
-           staticContentCell.cellHeight = CELL_HEIGHT;
-       } whenSelected:^(NSIndexPath *indexPath) {
-           
-       }];
+       
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"MeCountCell";
             staticContentCell.tableViewCellSubclass = [MGMeCountCell class];
@@ -145,10 +139,6 @@
 
 }
 
--(void)setupNavBar{
-     self.tabBarItem.badgeValue = @"meme";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:nil action:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

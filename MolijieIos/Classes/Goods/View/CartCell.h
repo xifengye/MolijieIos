@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "MGAmountView.h"
-#import "OrderLocalFrame.h"
+#import "CartItemFrame.h"
+@class CartCell;
+@protocol CartCellDelegate <NSObject>
 
-@interface CartCell : UITableViewCell
+@optional
+-(void)didGoodsAmountChange:(CartCell*)cell;
+-(void)didGoodsCheckChange:(CartCell*)cell;
+-(void)didGoodsRemoved:(CartCell*)cell;
+
+@end
+
+@interface CartCell : UITableViewCell<MGAmountViewDelegate>
 +(instancetype) cellWithTableView:(UITableView*)tableView;
 @property(nonatomic,weak)UIButton* btnCheck;
 @property(nonatomic,weak)UIImageView* iconView;
@@ -20,8 +29,10 @@
 @property(nonatomic,weak)UIButton* btnDelete;
 @property(nonatomic,weak)UILabel* unitLabel;
 @property(nonatomic,weak)MGAmountView* amountView;
-@property(nonatomic,strong)OrderLocalFrame* orderFrame;
+@property(nonatomic,strong)CartItemFrame* cartItemFrame;
 @property(nonatomic,weak)UIView* lineView;
+
+@property(nonatomic,weak)id<CartCellDelegate> delegate;
 
 
 @end

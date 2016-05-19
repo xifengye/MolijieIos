@@ -22,11 +22,11 @@
         [btnMinus setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         [self addSubview:btnMinus];
         buttonMinus = btnMinus;
-        [btnMinus addTarget:self action:@selector(onMinus) forControlEvents:UIControlEventTouchDown];
+        [btnMinus addTarget:self action:@selector(onMinus) forControlEvents:UIControlEventTouchUpInside];
         btnMinus.backgroundColor = [UIColor grayColor];
         
         UILabel* amountLabel = [[UILabel alloc]init];
-        amountLabel.text = @"1";
+        
         amountLabel.textAlignment = NSTextAlignmentCenter;
         label = amountLabel;
         [self addSubview:amountLabel];
@@ -39,12 +39,17 @@
         [btnPlus setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         [self addSubview:btnPlus];
         buttonPlus = btnPlus;
-        [btnPlus addTarget:self action:@selector(onPlus) forControlEvents:UIControlEventTouchDown];
+        [btnPlus addTarget:self action:@selector(onPlus) forControlEvents:UIControlEventTouchUpInside];
         btnPlus.backgroundColor = [UIColor grayColor];
         
     }
     return self;
 
+}
+
+-(void)setAmount:(NSUInteger)amount{
+    _amount = amount;
+    label.text = [NSString stringWithFormat:@"%ld",amount];
 }
 
 -(void)setFrame:(CGRect)frame{
@@ -56,9 +61,8 @@
 }
 
 -(void)onMinus{
-    _amount--;
+    self.amount = self.amount-1;
      buttonMinus.enabled = _amount>1;
-    label.text = [NSString stringWithFormat:@"%ld",_amount];
     if([self.delegate respondsToSelector:@selector(didChangeValueForKey:)]){
         [self.delegate didAmountValueChange:self];
     }
@@ -66,9 +70,8 @@
 }
 
 -(void)onPlus{
-    _amount++;
+    self.amount = self.amount+1;
     buttonMinus.enabled = _amount>1;
-    label.text = [NSString stringWithFormat:@"%ld",_amount];
     if([self.delegate respondsToSelector:@selector(didChangeValueForKey:)]){
         [self.delegate didAmountValueChange:self];
     }

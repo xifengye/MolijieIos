@@ -19,7 +19,7 @@
         self.adjustsImageWhenHighlighted = false;
         self.imageView.contentMode = UIViewContentModeCenter;
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self addTarget:self action:@selector(turnArrow:) forControlEvents:UIControlEventTouchDown];
+        [self addTarget:self action:@selector(turnArrow:) forControlEvents:UIControlEventTouchUpInside];
 
     }
     return self;
