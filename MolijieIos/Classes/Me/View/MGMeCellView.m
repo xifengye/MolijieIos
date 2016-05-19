@@ -11,10 +11,19 @@
 @implementation MGMeCellView
 
 
++(instancetype)cellWithTableView:(UITableView *)tableView{
+    static NSString* ID = @"MeCell";
+    MGMeCellView *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if(cell==nil){
+        cell = [[MGMeCellView alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    return cell;
+}
 
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self) {
+        self.backgroundColor = [UIColor orangeColor];
         CGFloat imageX = 10;
         CGFloat imageY = 10;
         CGFloat imageWidth = CELL_HEIGHT-20;
@@ -56,6 +65,13 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    // Initialization code
+}
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+}
 
 @end

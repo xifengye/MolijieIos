@@ -33,7 +33,7 @@
    }
 
 -(void)requestData{
-    NSArray* types = @[[NetData dataWithType:HomePage param:nil],[NetData dataWithType:CataList param:nil]];
+    NSArray* types = @[[NetData dataWithType:HomePage param:nil],[NetData dataWithType:CataList param:nil],[NetData dataWithType:LoadAddress param:nil]];
     [[NetDataRequest requestWithTypes:^{
         NSLog(@"requestNetData finish");
         [self initViews];

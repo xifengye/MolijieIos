@@ -12,6 +12,7 @@
 #import "RotatingAd.h"
 #import "IndexBlock.h"
 #import "Childs.h"
+#import "Recipient.h"
 
 @implementation AppDataTool
 +(void)requestAppToken:(TokenResultBlock)onResponse onError:(ErrorBlock)error{
@@ -92,16 +93,16 @@
     [params setObject:[NSString stringWithFormat:@"%ld",pageSize] forKey:@"page_size"];
     [HttpTool MLJPOST:@"LoadGoodList" params:params hasAppToken:true hasUserToken:false hasAES:true success:^(MLJResponse *response) {
         if(response.HasError){
-            NSLog(@"requestCataList Error:%lld",response.ErrorCode);
+            NSLog(@"requestGoodsList Error:%lld",response.ErrorCode);
             error(response.ErrorCode);
         }else{
-            NSLog(@"requestCataList resp:%@",response.Data);
+            NSLog(@"requestGoodsList resp:%@",response.Data);
             NSDictionary* dic = response.Data;
             onResponse([Goods objectArrayWithKeyValuesArray:dic[@"List"]]);
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"requestCataList failure:%@",error);
+        NSLog(@"requestGoodsList failure:%@",error);
     }];
     
 }
@@ -112,15 +113,33 @@
     [params setObject:oId forKey:@"good_id"];
     [HttpTool MLJPOST:@"LoadGoodDetail" params:params hasAppToken:true hasUserToken:false hasAES:true success:^(MLJResponse *response) {
         if(response.HasError){
-            NSLog(@"requestCataList Error:%lld",response.ErrorCode);
+            NSLog(@"requestGoodsDetail Error:%lld",response.ErrorCode);
             error(response.ErrorCode);
         }else{
-            NSLog(@"requestCataList resp:%@",response.Data);
+            NSLog(@"requestGoodsDetail resp:%@",response.Data);
             onResponse([Goods objectWithKeyValues:response.Data]);
         }
         
     } failure:^(NSError *error) {
-        NSLog(@"requestCataList failure:%@",error);
+        NSLog(@"requestGoodsDetail failure:%@",error);
+    }];
+
+}
+
++(void)requestAddress:(AddressesResultBlock)onResponse onError:(ErrorBlock)error{
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [HttpTool MLJPOST:@"LoadUserAddressBook" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"requestAddress Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"requestAddress resp:%@",response.Data);
+            onResponse([Recipient objectArrayWithKeyValuesArray:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"requestAddress failure:%@",error);
     }];
 
 }

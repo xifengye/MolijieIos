@@ -34,6 +34,7 @@ typedef void(^ErrorBlock)(ErrorCode);
 typedef void(^TokenResultBlock)(Token*);
 typedef void(^GoodsListResultBlock)(NSArray<Goods*>*);
 typedef void(^GoodsDetailResultBlock)(Goods*);
+typedef void(^AddressesResultBlock)(NSArray*);
 
 
 
@@ -48,6 +49,8 @@ typedef void(^GoodsDetailResultBlock)(Goods*);
 +(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(GoodsListResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(void)requestGoodsDetail:(NSString*)cataID objectID:(NSString*)oId response:(GoodsDetailResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)requestAddress:(AddressesResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 

@@ -28,6 +28,8 @@
 		EBB0F59D1CE8576A00278E7B /* GoodsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F59C1CE8576A00278E7B /* GoodsListCell.m */; };
 		EBB0F5A01CE8681400278E7B /* GoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F59F1CE8681400278E7B /* GoodsDetailController.m */; };
 		EBB0F5A31CE8CDB500278E7B /* GoodsDetailBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */; };
+		EBC2B8121CEE132D00C8752D /* AddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8111CEE132D00C8752D /* AddressController.m */; };
+		EBC2B8151CEE16A200C8752D /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8141CEE16A200C8752D /* Recipient.m */; };
 		FC11BFBA1C10392400D4305A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFB81C10392400D4305A /* Main.storyboard */; };
 		FC11BFBC1C10392400D4305A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFBB1C10392400D4305A /* Assets.xcassets */; };
 		FC11BFBF1C10392400D4305A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFBD1C10392400D4305A /* LaunchScreen.storyboard */; };
@@ -47,7 +49,7 @@
 		FC11C0DF1C103A6D00D4305A /* MGTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C01C1C103A6D00D4305A /* MGTitleButton.m */; };
 		FC11C0E01C103A6D00D4305A /* MeController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0201C103A6D00D4305A /* MeController.m */; };
 		FC11C0E11C103A6D00D4305A /* MGMeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0241C103A6D00D4305A /* MGMeCellView.m */; };
-		FC11C0E21C103A6D00D4305A /* MGMeCountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0261C103A6D00D4305A /* MGMeCountCell.m */; };
+		FC11C0E21C103A6D00D4305A /* MGMeOrderStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0261C103A6D00D4305A /* MGMeOrderStatusCell.m */; };
 		FC11C0E31C103A6D00D4305A /* NewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C02A1C103A6D00D4305A /* NewFeatureController.m */; };
 		FC11C0E41C103A6D00D4305A /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0301C103A6D00D4305A /* LoginController.m */; };
 		FC11C0E51C103A6D00D4305A /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = FC11C0331C103A6D00D4305A /* Token.m */; };
@@ -213,6 +215,10 @@
 		EBB0F59F1CE8681400278E7B /* GoodsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailController.m; sourceTree = "<group>"; };
 		EBB0F5A11CE8CDB500278E7B /* GoodsDetailBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailBottomBar.h; sourceTree = "<group>"; };
 		EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailBottomBar.m; sourceTree = "<group>"; };
+		EBC2B8101CEE132D00C8752D /* AddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressController.h; sourceTree = "<group>"; };
+		EBC2B8111CEE132D00C8752D /* AddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressController.m; sourceTree = "<group>"; };
+		EBC2B8131CEE16A200C8752D /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recipient.h; path = MolijieIos/Classes/Me/Controller/Recipient.h; sourceTree = SOURCE_ROOT; };
+		EBC2B8141CEE16A200C8752D /* Recipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Recipient.m; path = MolijieIos/Classes/Me/Controller/Recipient.m; sourceTree = SOURCE_ROOT; };
 		FC11BFAC1C10392400D4305A /* MolijieIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MolijieIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11BFB01C10392400D4305A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FC11BFB91C10392400D4305A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -253,8 +259,8 @@
 		FC11C0201C103A6D00D4305A /* MeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeController.m; sourceTree = "<group>"; };
 		FC11C0231C103A6D00D4305A /* MGMeCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMeCellView.h; sourceTree = "<group>"; };
 		FC11C0241C103A6D00D4305A /* MGMeCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMeCellView.m; sourceTree = "<group>"; };
-		FC11C0251C103A6D00D4305A /* MGMeCountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMeCountCell.h; sourceTree = "<group>"; };
-		FC11C0261C103A6D00D4305A /* MGMeCountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMeCountCell.m; sourceTree = "<group>"; };
+		FC11C0251C103A6D00D4305A /* MGMeOrderStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMeOrderStatusCell.h; sourceTree = "<group>"; };
+		FC11C0261C103A6D00D4305A /* MGMeOrderStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMeOrderStatusCell.m; sourceTree = "<group>"; };
 		FC11C0291C103A6D00D4305A /* NewFeatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFeatureController.h; sourceTree = "<group>"; };
 		FC11C02A1C103A6D00D4305A /* NewFeatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFeatureController.m; sourceTree = "<group>"; };
 		FC11C02F1C103A6D00D4305A /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -876,6 +882,8 @@
 			children = (
 				FC11C01F1C103A6D00D4305A /* MeController.h */,
 				FC11C0201C103A6D00D4305A /* MeController.m */,
+				EBC2B8101CEE132D00C8752D /* AddressController.h */,
+				EBC2B8111CEE132D00C8752D /* AddressController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -883,6 +891,8 @@
 		FC11C0211C103A6D00D4305A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EBC2B8131CEE16A200C8752D /* Recipient.h */,
+				EBC2B8141CEE16A200C8752D /* Recipient.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -892,8 +902,8 @@
 			children = (
 				FC11C0231C103A6D00D4305A /* MGMeCellView.h */,
 				FC11C0241C103A6D00D4305A /* MGMeCellView.m */,
-				FC11C0251C103A6D00D4305A /* MGMeCountCell.h */,
-				FC11C0261C103A6D00D4305A /* MGMeCountCell.m */,
+				FC11C0251C103A6D00D4305A /* MGMeOrderStatusCell.h */,
+				FC11C0261C103A6D00D4305A /* MGMeOrderStatusCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1439,7 +1449,7 @@
 				FCC46ABB1C23A87D00611576 /* UIImage+WebP.m in Sources */,
 				FCC46A881C23A87D00611576 /* NSTimer+Addition.m in Sources */,
 				FCEF48D41C11667100300A24 /* BaseTableViewController.m in Sources */,
-				FC11C0E21C103A6D00D4305A /* MGMeCountCell.m in Sources */,
+				FC11C0E21C103A6D00D4305A /* MGMeOrderStatusCell.m in Sources */,
 				FCC46AB61C23A87D00611576 /* SDWebImageManager.m in Sources */,
 				FC6512F11CEC1A62009B3F2A /* CartItemFrame.m in Sources */,
 				EB1F73AA1CEB4E01002A3291 /* SettlementNowView.m in Sources */,
@@ -1494,6 +1504,7 @@
 				FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */,
 				EBB0F5911CE7810200278E7B /* GoodsListController.m in Sources */,
 				FCC46AB11C23A87D00611576 /* SDWebImageCompat.m in Sources */,
+				EBC2B8121CEE132D00C8752D /* AddressController.m in Sources */,
 				FCC46A991C23A87D00611576 /* NSObject+MJMember.m in Sources */,
 				FCC46AA71C23A87D00611576 /* UzysAssetsPickerController.m in Sources */,
 				EB1F73AF1CEB7242002A3291 /* CartCell.m in Sources */,
@@ -1521,6 +1532,7 @@
 				FCC46A911C23A87D00611576 /* MJArgument.m in Sources */,
 				FCC46A8B1C23A87D00611576 /* JMStaticContentTableViewSection.m in Sources */,
 				FCC46AAE1C23A87D00611576 /* MKAnnotationView+WebCache.m in Sources */,
+				EBC2B8151CEE16A200C8752D /* Recipient.m in Sources */,
 				FCC46AA31C23A87D00611576 /* MJRefreshConst.m in Sources */,
 				FC11C0DA1C103A6D00D4305A /* MGNavigationController.m in Sources */,
 				FC6512F41CEDAC63009B3F2A /* SettlementController.m in Sources */,

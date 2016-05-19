@@ -10,4 +10,5 @@
 
 @interface BaseTableViewController : UITableViewController
 -(BOOL) hiddenNavigationBar;
+-(BOOL)needGoBack;
 @end

@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 #define CELL_HEIGHT 100
-@interface MGMeCellView : UIView
+@interface MGMeCellView : UITableViewCell
 @end

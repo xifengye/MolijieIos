@@ -11,6 +11,7 @@
 #import "RotatingAd.h"
 #import "IndexBlock.h"
 #import "Childs.h"
+#import "Recipient.h"
 
 
 @interface AppDataMemory : NSObject
@@ -19,6 +20,7 @@
 @property(nonatomic,strong)NSArray<RotatingAd*>* rotatingAds;
 @property(nonatomic,strong)NSArray<IndexBlock*>* indexBlocks;
 @property(nonatomic,strong)NSArray<Childs*>* childs;
+@property(nonatomic,strong)NSArray<Recipient*>* recipients;
 
 -(Childs*)getChilds:(NSString*)cataId;
 

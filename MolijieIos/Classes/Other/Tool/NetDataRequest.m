@@ -45,7 +45,12 @@
     }else{
         switch (data.type) {
             case LoadAddress:{
-                
+                [AppDataTool requestAddress:^(NSArray* address) {
+                    [AppDataMemory instance].recipients = address;
+                    [self loadNetData];
+                } onError:^(ErrorCode errorCode) {
+                    [self loadNetData];
+                }];
                 break;
             }
             case LoadGoods:{

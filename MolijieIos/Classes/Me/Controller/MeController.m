@@ -8,7 +8,8 @@
 
 #import "MeController.h"
 #import "MGMeCellView.h"
-#import "MGMeCountCell.h"
+#import "MGMeOrderStatusCell.h"
+#import "AddressController.h"
 
 
 @interface MeController ()
@@ -31,112 +32,106 @@
     [self setupSettingView];
 }
 
+-(BOOL)needGoBack{
+    return NO;
+}
+
 
 -(void)setupSettingView{
-     MGMeCellView* profileView = [[MGMeCellView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, CELL_HEIGHT)];
-    profileView.backgroundColor = [UIColor orangeColor];
+    UIView* headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.1)];
     
-     self.tableView.tableHeaderView = profileView;
+     self.tableView.tableHeaderView = headerView;
     
     [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
-       
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"MeCountCell";
-            staticContentCell.tableViewCellSubclass = [MGMeCountCell class];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            staticContentCell.reuseIdentifier = @"MeCell";
+            staticContentCell.tableViewCellSubclass = [MGMeCellView class];
+            staticContentCell.cellHeight = CELL_HEIGHT;
+        } whenSelected:^(NSIndexPath *indexPath) {
+
         }];
+        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
+            staticContentCell.reuseIdentifier = @"ValueTextCell";
+            cell.imageView.image = [UIImage imageNamed:@"list_icon_order"];
+            cell.textLabel.text = @"查看全部订单";
+        } whenSelected:^(NSIndexPath *indexPath) {
+            
+        }];
+        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
+            staticContentCell.reuseIdentifier = @"MeOrderStatusCell";
+            staticContentCell.tableViewCellSubclass = [MGMeOrderStatusCell class];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            if(cell){
+                MGMeOrderStatusCell* orderStatusCell = (MGMeOrderStatusCell*)cell;
+                [orderStatusCell.btnWaitSend addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+                [orderStatusCell.btnWaitReceive addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+                [orderStatusCell.btnWaitConfirm addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }];
+        
+        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
+            staticContentCell.reuseIdentifier = @"ValueTextCell";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_collection"];
+            cell.textLabel.text = @"我的收藏";
+        } whenSelected:^(NSIndexPath *indexPath) {
+            NSLog(@"新的好友");
+        }];
+        
+        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
+            staticContentCell.reuseIdentifier = @"ValueTextCell";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_address"];
+            cell.textLabel.text = @"我的地址";
+        } whenSelected:^(NSIndexPath *indexPath) {
+            AddressController* addressController = [[AddressController alloc]init];
+            UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:addressController];
+            
+            [self presentViewController:navController animated:true completion:nil];
+
+        }];
+
+
     }];
     
     [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-           staticContentCell.reuseIdentifier = @"ValueTextCell";
-           cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-           cell.textLabel.text = @"新的好友";
-       } whenSelected:^(NSIndexPath *indexPath) {
-           NSLog(@"新的好友");
-       }];
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"微博等级";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_recommend"];
+            cell.textLabel.text = @"推荐给好友(Android)";
         } whenSelected:^(NSIndexPath *indexPath) {
             
         }];
+        
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"编辑资料";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_recommend"];
+            cell.textLabel.text = @"推荐给好友(IPhone)";
         } whenSelected:^(NSIndexPath *indexPath) {
             
         }];
-    }];
-    
-    [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
+
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"我的相册";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_suggest"];
+            cell.textLabel.text = @"我要提建议";
         } whenSelected:^(NSIndexPath *indexPath) {
             NSLog(@"新的好友");
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"我的点评";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_check_up"];
+            cell.textLabel.text = @"检查更新";
         } whenSelected:^(NSIndexPath *indexPath) {
             
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"我的赞";
+            cell.imageView.image = [UIImage imageNamed:@"list_ico_about"];
+            cell.textLabel.text = @"关于魔力街";
         } whenSelected:^(NSIndexPath *indexPath) {
             
         }];
     }];
     
-    [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"微博会员";
-        } whenSelected:^(NSIndexPath *indexPath) {
-            NSLog(@"新的好友");
-        }];
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"微博运动";
-        } whenSelected:^(NSIndexPath *indexPath) {
-            
-        }];
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"微博支付";
-        } whenSelected:^(NSIndexPath *indexPath) {
-            
-        }];
-    }];
-    [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"草稿箱";
-        } whenSelected:^(NSIndexPath *indexPath) {
-        }];
-    }];
-
-    [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
-        [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
-            staticContentCell.reuseIdentifier = @"ValueTextCell";
-            cell.imageView.image = [UIImage imageNamed:@"new_friend"];
-            cell.textLabel.text = @"更多";
-        } whenSelected:^(NSIndexPath *indexPath) {
-        }];
-    }];
-
-
 }
 
 
@@ -145,6 +140,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)onViewOrderByStatus:(UIButton*)sender{
+    
+    int tag = sender.tag;
+    switch (tag) {
+        case 1://待发货
+            NSLog(@"待发货");
+            break;
+        case 2://待收货
+            NSLog(@"待收货");
+            break;
+        case 3://待确认
+            NSLog(@"待确认");
+            break;
+        default:
+            break;
+    }
+}
 
 
 @end
