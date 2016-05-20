@@ -6,8 +6,11 @@
 //  Copyright © 2016年 moregood. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
 
-@interface AddressController : BaseTableViewController
+@interface AddressController : BaseViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSMutableArray* addressCellFrameList;
+}
+@property(nonatomic,weak)UITableView* tableView;
 
 @end

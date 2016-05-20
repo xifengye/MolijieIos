@@ -50,4 +50,13 @@ static AppDataMemory*shareInstance = nil;
     return [self findChildsContainChild:self.childs cataId:cataId];
 }
 
+-(Recipient *)defaultRecipient{
+    for(Recipient* r in _recipients){
+        if(r.AsDefault){
+            return r;
+        }
+    }
+    return nil;
+}
+
 @end

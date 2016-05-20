@@ -63,6 +63,11 @@
 		FC6512F71CEDB040009B3F2A /* SettlementItemFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512F61CEDB040009B3F2A /* SettlementItemFrame.m */; };
 		FC6512FA1CEDB2B4009B3F2A /* SettlementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512F91CEDB2B4009B3F2A /* SettlementCell.m */; };
 		FC6512FD1CEDB478009B3F2A /* MGSettlementBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512FC1CEDB478009B3F2A /* MGSettlementBottomView.m */; };
+		FC6513001CEEAC8D009B3F2A /* MGAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6512FF1CEEAC8D009B3F2A /* MGAddressCell.m */; };
+		FC6513031CEEACA9009B3F2A /* AddressCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6513021CEEACA9009B3F2A /* AddressCellFrame.m */; };
+		FC6513061CEEB02B009B3F2A /* AddressNoOperateCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6513051CEEB02B009B3F2A /* AddressNoOperateCellFrame.m */; };
+		FC6513091CEEDFC1009B3F2A /* MGBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6513081CEEDFC1009B3F2A /* MGBorderButton.m */; };
+		FC65130C1CEF09F4009B3F2A /* MGAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC65130B1CEF09F4009B3F2A /* MGAddressView.m */; };
 		FCB866ED1C22BCA1009A7EEE /* Childs.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EC1C22BCA1009A7EEE /* Childs.m */; };
 		FCB866F01C22BD5C009A7EEE /* SKUS.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB866EF1C22BD5C009A7EEE /* SKUS.m */; };
 		FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBC753A1CE9BC9900A3DD55 /* MGBuyPanel.m */; };
@@ -286,6 +291,16 @@
 		FC6512F91CEDB2B4009B3F2A /* SettlementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettlementCell.m; sourceTree = "<group>"; };
 		FC6512FB1CEDB478009B3F2A /* MGSettlementBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSettlementBottomView.h; sourceTree = "<group>"; };
 		FC6512FC1CEDB478009B3F2A /* MGSettlementBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSettlementBottomView.m; sourceTree = "<group>"; };
+		FC6512FE1CEEAC8D009B3F2A /* MGAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGAddressCell.h; sourceTree = "<group>"; };
+		FC6512FF1CEEAC8D009B3F2A /* MGAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGAddressCell.m; sourceTree = "<group>"; };
+		FC6513011CEEACA9009B3F2A /* AddressCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCellFrame.h; sourceTree = "<group>"; };
+		FC6513021CEEACA9009B3F2A /* AddressCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCellFrame.m; sourceTree = "<group>"; };
+		FC6513041CEEB02B009B3F2A /* AddressNoOperateCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressNoOperateCellFrame.h; sourceTree = "<group>"; };
+		FC6513051CEEB02B009B3F2A /* AddressNoOperateCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressNoOperateCellFrame.m; sourceTree = "<group>"; };
+		FC6513071CEEDFC1009B3F2A /* MGBorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBorderButton.h; sourceTree = "<group>"; };
+		FC6513081CEEDFC1009B3F2A /* MGBorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBorderButton.m; sourceTree = "<group>"; };
+		FC65130A1CEF09F4009B3F2A /* MGAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGAddressView.h; sourceTree = "<group>"; };
+		FC65130B1CEF09F4009B3F2A /* MGAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGAddressView.m; sourceTree = "<group>"; };
 		FCB866EB1C22BCA1009A7EEE /* Childs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Childs.h; sourceTree = "<group>"; };
 		FCB866EC1C22BCA1009A7EEE /* Childs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Childs.m; sourceTree = "<group>"; };
 		FCB866EE1C22BD5C009A7EEE /* SKUS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUS.h; sourceTree = "<group>"; };
@@ -771,6 +786,8 @@
 				FC6512F91CEDB2B4009B3F2A /* SettlementCell.m */,
 				FC6512FB1CEDB478009B3F2A /* MGSettlementBottomView.h */,
 				FC6512FC1CEDB478009B3F2A /* MGSettlementBottomView.m */,
+				FC6513071CEEDFC1009B3F2A /* MGBorderButton.h */,
+				FC6513081CEEDFC1009B3F2A /* MGBorderButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -893,6 +910,10 @@
 			children = (
 				EBC2B8131CEE16A200C8752D /* Recipient.h */,
 				EBC2B8141CEE16A200C8752D /* Recipient.m */,
+				FC6513011CEEACA9009B3F2A /* AddressCellFrame.h */,
+				FC6513021CEEACA9009B3F2A /* AddressCellFrame.m */,
+				FC6513041CEEB02B009B3F2A /* AddressNoOperateCellFrame.h */,
+				FC6513051CEEB02B009B3F2A /* AddressNoOperateCellFrame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -904,6 +925,10 @@
 				FC11C0241C103A6D00D4305A /* MGMeCellView.m */,
 				FC11C0251C103A6D00D4305A /* MGMeOrderStatusCell.h */,
 				FC11C0261C103A6D00D4305A /* MGMeOrderStatusCell.m */,
+				FC6512FE1CEEAC8D009B3F2A /* MGAddressCell.h */,
+				FC6512FF1CEEAC8D009B3F2A /* MGAddressCell.m */,
+				FC65130A1CEF09F4009B3F2A /* MGAddressView.h */,
+				FC65130B1CEF09F4009B3F2A /* MGAddressView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1438,6 +1463,8 @@
 				FCC46AAB1C23A87D00611576 /* UzysGroupPickerViewController.m in Sources */,
 				FCC46A9A1C23A87D00611576 /* MJPhoto.m in Sources */,
 				FC11C0D11C103A6D00D4305A /* User.m in Sources */,
+				FC6513091CEEDFC1009B3F2A /* MGBorderButton.m in Sources */,
+				FC65130C1CEF09F4009B3F2A /* MGAddressView.m in Sources */,
 				FC4939921CE5B45A001E4481 /* LoginParams.m in Sources */,
 				FC11C0DD1C103A6D00D4305A /* MGTabBar.m in Sources */,
 				FC11C0CB1C103A6D00D4305A /* ArticleController.m in Sources */,
@@ -1479,9 +1506,11 @@
 				FCC46A851C23A87D00611576 /* AFURLResponseSerialization.m in Sources */,
 				FCC46A9D1C23A87D00611576 /* MJPhotoLoadingView.m in Sources */,
 				EB1F73A71CEB4CA2002A3291 /* OrderLocal.m in Sources */,
+				FC6513031CEEACA9009B3F2A /* AddressCellFrame.m in Sources */,
 				FCC46AB31C23A87D00611576 /* SDWebImageDownloader.m in Sources */,
 				FCC46A981C23A87D00611576 /* NSObject+MJKeyValue.m in Sources */,
 				FC11C0D91C103A6D00D4305A /* MainController.m in Sources */,
+				FC6513001CEEAC8D009B3F2A /* MGAddressCell.m in Sources */,
 				FCC46AC11C23A87D00611576 /* AppDataMemory.m in Sources */,
 				EBB0F5A01CE8681400278E7B /* GoodsDetailController.m in Sources */,
 				FCC46AB81C23A87D00611576 /* UIButton+WebCache.m in Sources */,
@@ -1489,6 +1518,7 @@
 				FCC46AC21C23A87D00611576 /* AppDataTool.m in Sources */,
 				FCC46A741C23A87C00611576 /* AppDelegate.m in Sources */,
 				FCC46A831C23A87C00611576 /* AFURLConnectionOperation.m in Sources */,
+				FC6513061CEEB02B009B3F2A /* AddressNoOperateCellFrame.m in Sources */,
 				FCC46A811C23A87C00611576 /* AFNetworkReachabilityManager.m in Sources */,
 				FCC46ABF1C23A87D00611576 /* MLJResponse.m in Sources */,
 				FC11C0E41C103A6D00D4305A /* LoginController.m in Sources */,

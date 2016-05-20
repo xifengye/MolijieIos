@@ -144,6 +144,26 @@
 
 }
 
++(void)calculateFreight:(NSString *)cartItemJson recipient:(NSString *)recipient response:(FreightResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:cartItemJson forKey:@"car_items_json"];
+    [params setObject:recipient forKey:@"recipient_json"];
+    [HttpTool MLJPOST:@"CalculateFreight" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"calculateFreight Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"calculateFreight resp:%@",response.Data);
+            NSNumber* number =  response.Data;
+            onResponse(number.floatValue);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"calculateFreight failure:%@",error);
+    }];
+
+}
+
 +(NSString *)imageUrlFor:(NSString*)imgType withImgid:(NSString *)img_id{
     return [NSString stringWithFormat:@"http://112.124.61.35:9999/int/android_api/LoadImage?img_id=%@&img_type=%@&size=%@",img_id,imgType,@"Original"];
 }

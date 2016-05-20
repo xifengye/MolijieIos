@@ -7,6 +7,7 @@
 //
 
 #import "SettlementItemFrame.h"
+#import "Config.h"
 
 @implementation SettlementItemFrame
 -(void)setData:(OrderLocal *)order goods:(Goods *)goods{

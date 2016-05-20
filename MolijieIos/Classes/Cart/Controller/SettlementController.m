@@ -10,6 +10,8 @@
 #import "Config.h"
 #import "SettlementCell.h"
 
+#import "AppDataMemory.h"
+
 @implementation SettlementController
 
 
@@ -47,6 +49,7 @@
     UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight)];
     [self.view addSubview:tableView];
     self.tableView = tableView;
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -95,6 +98,23 @@
     return frame.cellHeight;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    MGAddressView* addressView = [[MGAddressView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, addressNoOperateCellFrame.cellHeight+margin)];
+    addressView.addressFrame = addressNoOperateCellFrame;
+    [addressView addTarget:self action:@selector(onAddressClicked) forControlEvents:UIControlEventTouchUpInside];
+    return addressView;
+}
+
+-(void)onAddressClicked{
+    NSLog(@"address clicked");
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    addressNoOperateCellFrame = [[AddressNoOperateCellFrame alloc]init];
+    [addressNoOperateCellFrame setRecipient:[[AppDataMemory instance] defaultRecipient]];
+    return addressNoOperateCellFrame.cellHeight+margin;
+}
+
 -(void)caculatePrice{
     CGFloat allPrice = 0;
     for(SettlementItemFrame* olf in settlementItemFrames){
@@ -103,6 +123,10 @@
         }
     }
     self.bottomView.priceLabel.text = [NSString stringWithFormat:@"总计: %@",[NSString priceString:allPrice]];
+}
+
+-(void)bottomViewDidCommit:(MGSettlementBottomView *)view{
+    NSLog(@"提交订单");
 }
 
 

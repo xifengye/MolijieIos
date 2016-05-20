@@ -12,8 +12,6 @@
 #import <UIKit/UIKit.h>
 #import "NSString+MG.h"
 
-#define labelFont  [UIFont systemFontOfSize:13]
-
 @interface CartItemFrame : NSObject
 @property(nonatomic,strong)Goods* goods;
 @property(nonatomic,assign)OrderLocal* order;

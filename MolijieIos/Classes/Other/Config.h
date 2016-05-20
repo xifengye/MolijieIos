@@ -10,4 +10,5 @@
 
 @interface Config : UIView
 #define barHeight    49
+#define labelFont  [UIFont systemFontOfSize:14]
 @end

@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "MGSettlementBottomView.h"
+#import "MGAddressView.h"
 
 @interface SettlementController : BaseViewController<UITableViewDelegate,UITableViewDataSource,MGSettlementBottomViewDelegate>{
     NSMutableArray* settlementItemFrames;
+    AddressNoOperateCellFrame* addressNoOperateCellFrame;
+    
 }
 
 @property(nonatomic,weak)UITableView* tableView;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGBorderButton.h"
 @class MGAmountView;
 
 @protocol MGAmountViewDelegate <NSObject>
@@ -16,9 +17,9 @@
 
 @end
 @interface MGAmountView : UIButton{
-    UIButton* buttonMinus;
-    UIButton* buttonPlus;
-    UILabel* label;
+    MGBorderButton* buttonMinus;
+    MGBorderButton* buttonPlus;
+    MGBorderButton* label;
 }
 @property(nonatomic,assign)NSUInteger amount;
 @property(nonatomic,weak)id<MGAmountViewDelegate>delegate;

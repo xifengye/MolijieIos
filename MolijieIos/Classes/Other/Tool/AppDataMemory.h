@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSArray<Recipient*>* recipients;
 
 -(Childs*)getChilds:(NSString*)cataId;
+-(Recipient*)defaultRecipient;
 
 +(instancetype)instance;
 @end

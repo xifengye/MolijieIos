@@ -41,7 +41,7 @@
         [self addSubview:priceLabel];
         
         UIView* lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 1)];
-        lineView.backgroundColor = [UIColor grayColor];
+        lineView.backgroundColor = [UIColor orangeColor];
         [self addSubview:lineView];
 
         

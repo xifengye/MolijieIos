@@ -9,6 +9,8 @@
 #import "CartCell.h"
 #import "UIImageView+WebCache.h"
 #import "AppDataTool.h"
+#import "Config.h"
+
 @implementation CartCell
 +(instancetype)cellWithTableView:(UITableView *)tableView{
     static NSString* ID = @"HomeCell";

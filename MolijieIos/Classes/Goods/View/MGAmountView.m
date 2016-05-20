@@ -15,7 +15,7 @@
     self = [super init];
     if(self){
         _amount = 1;
-        UIButton* btnMinus = [[UIButton alloc]init];
+        MGBorderButton* btnMinus = [[MGBorderButton alloc]init];
         [btnMinus setTitle:@"-" forState:UIControlStateNormal];
         [btnMinus setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         [btnMinus setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
@@ -23,16 +23,14 @@
         [self addSubview:btnMinus];
         buttonMinus = btnMinus;
         [btnMinus addTarget:self action:@selector(onMinus) forControlEvents:UIControlEventTouchUpInside];
-        btnMinus.backgroundColor = [UIColor grayColor];
         
-        UILabel* amountLabel = [[UILabel alloc]init];
-        
-        amountLabel.textAlignment = NSTextAlignmentCenter;
+        MGBorderButton* amountLabel = [[MGBorderButton alloc]init];
         label = amountLabel;
+        [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self addSubview:amountLabel];
         label.backgroundColor = [UIColor grayColor];
         
-        UIButton* btnPlus = [[UIButton alloc]init];
+        MGBorderButton* btnPlus = [[MGBorderButton alloc]init];
         [btnPlus setTitle:@"+" forState:UIControlStateNormal];
         [btnPlus setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         [btnPlus setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
@@ -40,7 +38,6 @@
         [self addSubview:btnPlus];
         buttonPlus = btnPlus;
         [btnPlus addTarget:self action:@selector(onPlus) forControlEvents:UIControlEventTouchUpInside];
-        btnPlus.backgroundColor = [UIColor grayColor];
         
     }
     return self;
@@ -49,7 +46,7 @@
 
 -(void)setAmount:(NSUInteger)amount{
     _amount = amount;
-    label.text = [NSString stringWithFormat:@"%ld",amount];
+    [label setTitle:[NSString stringWithFormat:@"%ld",amount] forState:UIControlStateNormal];
 }
 
 -(void)setFrame:(CGRect)frame{

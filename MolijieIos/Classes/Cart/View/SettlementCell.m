@@ -9,6 +9,7 @@
 #import "SettlementCell.h"
 #import "UIImageView+WebCache.h"
 #import "AppDataTool.h"
+#import "Config.h"
 
 @implementation SettlementCell
 +(instancetype)cellWithTableView:(UITableView *)tableView{
