@@ -9,8 +9,8 @@
 #import "SettlementController.h"
 #import "Config.h"
 #import "SettlementCell.h"
-
 #import "AppDataMemory.h"
+#import "AppDataTool.h"
 
 @implementation SettlementController
 
@@ -18,7 +18,39 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self initView];
+    [self initData];
+}
+
+-(void)initData{
     [self caculatePrice];
+    recipient = [[AppDataMemory instance]defaultRecipient];
+    if(recipient){
+        [self calculateFreight];
+    }
+}
+
+-(NSString*)getCartItemsJson{
+    NSMutableString* sb = [NSMutableString stringWithString:@"["];
+    int i=0;
+    for(CartItemFrame* so in settlementItemFrames){
+        [sb appendString:[so.order toJsonString]];
+        if(++i<settlementItemFrames.count){
+            [sb appendString:@","];
+        }
+    }
+    [sb appendString:@"]"];
+    return sb;
+}
+
+-(void)calculateFreight{
+    NSString* cartItemJson = [self getCartItemsJson];
+    NSString* recipientJson = [recipient getJsonString];
+    NSLog(@"cartItemJson=%@,recipientJson=%@",cartItemJson,recipientJson);
+    [AppDataTool calculateFreight:cartItemJson recipient:recipientJson response:^(CGFloat freight) {
+        self.bottomView.priceLabel.text = [NSString stringWithFormat:@"运费: %@",[NSString priceString:freight]];
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
 }
 
 -(void)initItemFrames:(NSArray *)array{
@@ -46,7 +78,30 @@
     self.bottomView = bottomView;
     self.bottomView.delegate = self;
     
-    UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight)];
+    CGFloat paymentViewHeight = barHeight;
+    MGBorderButton* paymentView = [[MGBorderButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-barHeight-paymentViewHeight, self.view.frame.size.width, paymentViewHeight)];
+    [self.view addSubview:paymentView];
+    
+    UIImage* payIcon = [UIImage imageNamed:@"zfb"];
+    UIImageView* payIconView = [[UIImageView alloc]initWithFrame:CGRectMake(margin, (paymentViewHeight-payIcon.size.height)/2, payIcon.size.width, payIcon.size.height)];
+    [paymentView addSubview:payIconView];
+    [payIconView setImage:payIcon];
+    
+    NSString* payName = @"支付宝";
+    CGSize payNameSize = [payName sizeWithFont:labelFont];
+    UILabel* payLabel = [[UILabel alloc]initWithFrame:CGRectMake(margin*2+payIcon.size.width, (paymentViewHeight-payNameSize.height)/2, payNameSize.width, payNameSize.height)];
+    payLabel.text = payName;
+    payLabel.font = labelFont;
+    [paymentView addSubview:payLabel];
+    
+    UIImage* checkImg = [UIImage imageNamed:@"btn_radio_on"];
+    UIButton* btnCheck = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-margin-checkImg.size.width, (paymentViewHeight-checkImg.size.height)/2, checkImg.size.width, checkImg.size.height)];
+    [btnCheck setImage:checkImg forState:UIControlStateSelected];
+    btnCheck.selected = YES;
+    [paymentView addSubview:btnCheck];
+    
+    
+    UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight-paymentViewHeight-margin)];
     [self.view addSubview:tableView];
     self.tableView = tableView;
 

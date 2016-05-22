@@ -24,4 +24,7 @@
 @property(nonatomic,copy)NSString* Tel;
 @property(nonatomic,assign)NSUInteger Number;
 
+-(NSString*)getJsonString;
++(NSString*)getLocate:(NSString*)pro city:(NSString*)cit district:(NSString*)dis;
+-(NSString*)getSimpleAddress;
 @end

@@ -14,6 +14,7 @@
 @interface SettlementController : BaseViewController<UITableViewDelegate,UITableViewDataSource,MGSettlementBottomViewDelegate>{
     NSMutableArray* settlementItemFrames;
     AddressNoOperateCellFrame* addressNoOperateCellFrame;
+    Recipient* recipient;
     
 }
 

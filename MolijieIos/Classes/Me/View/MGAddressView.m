@@ -50,7 +50,7 @@
 
     _nameLabel.text = addressFrame.recipient.RealName;
     _phoneLabel.text = addressFrame.recipient.Mobile;
-    _addressLabel.text = addressFrame.recipient.Address;
+    _addressLabel.text = [addressFrame.recipient getSimpleAddress];
 
 }
 

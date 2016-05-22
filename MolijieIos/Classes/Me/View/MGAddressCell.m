@@ -87,7 +87,7 @@
     
     _nameLabel.text = cellFrame.recipient.RealName;
     _phoneLabel.text = cellFrame.recipient.Mobile;
-    _addressLabel.text = cellFrame.recipient.Address;
+    _addressLabel.text = [cellFrame.recipient getSimpleAddress];
     _btnDefalut.selected = cellFrame.recipient.AsDefault;
     
 }

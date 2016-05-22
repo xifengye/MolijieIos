@@ -19,4 +19,5 @@
 -(BOOL)isMe:(OrderLocal*)other;
 -(BOOL)isCheck;
 -(void)setCheck:(BOOL)check;
+-(NSString*)toJsonString;
 @end

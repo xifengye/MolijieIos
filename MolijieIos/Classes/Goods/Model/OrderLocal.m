@@ -32,4 +32,9 @@
 -(BOOL)isCheck{
     return checked;
 }
+
+-(NSString*)toJsonString{
+    return [NSString stringWithFormat:@"{\"SupplierID\":\"%@\",\"GoodID\":\"%@\",\"SKU_UnitNumber\":%ld,\"Amount\":%ld}",@"",_objectId,_skuIndex,_amount];
+}
+
 @end

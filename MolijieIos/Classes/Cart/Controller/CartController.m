@@ -17,6 +17,7 @@
 #import "SettlementController.h"
 
 
+
 @interface CartController ()
 
 @end
@@ -233,7 +234,6 @@
     [settlementController initItemFrames:cartItemFrames];
     settlementController.title = @"结算";
     UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:settlementController];
-    
     [self presentViewController:navController animated:true completion:nil];
 }
 
