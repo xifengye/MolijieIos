@@ -30,6 +30,8 @@
 		EBB0F5A31CE8CDB500278E7B /* GoodsDetailBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */; };
 		EBC2B8121CEE132D00C8752D /* AddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8111CEE132D00C8752D /* AddressController.m */; };
 		EBC2B8151CEE16A200C8752D /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8141CEE16A200C8752D /* Recipient.m */; };
+		EBF7493B1CF5D7580053884C /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF7493A1CF5D7580053884C /* Order.m */; };
+		EBF7493E1CF5D8970053884C /* Items.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF7493D1CF5D8970053884C /* Items.m */; };
 		FC11BFBA1C10392400D4305A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFB81C10392400D4305A /* Main.storyboard */; };
 		FC11BFBC1C10392400D4305A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFBB1C10392400D4305A /* Assets.xcassets */; };
 		FC11BFBF1C10392400D4305A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC11BFBD1C10392400D4305A /* LaunchScreen.storyboard */; };
@@ -224,6 +226,10 @@
 		EBC2B8111CEE132D00C8752D /* AddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressController.m; sourceTree = "<group>"; };
 		EBC2B8131CEE16A200C8752D /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recipient.h; path = MolijieIos/Classes/Me/Controller/Recipient.h; sourceTree = SOURCE_ROOT; };
 		EBC2B8141CEE16A200C8752D /* Recipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Recipient.m; path = MolijieIos/Classes/Me/Controller/Recipient.m; sourceTree = SOURCE_ROOT; };
+		EBF749391CF5D7580053884C /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		EBF7493A1CF5D7580053884C /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		EBF7493C1CF5D8970053884C /* Items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
+		EBF7493D1CF5D8970053884C /* Items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Items.m; sourceTree = "<group>"; };
 		FC11BFAC1C10392400D4305A /* MolijieIos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MolijieIos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC11BFB01C10392400D4305A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FC11BFB91C10392400D4305A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -556,6 +562,10 @@
 		EB1F739C1CEB4050002A3291 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EBF749391CF5D7580053884C /* Order.h */,
+				EBF7493A1CF5D7580053884C /* Order.m */,
+				EBF7493C1CF5D8970053884C /* Items.h */,
+				EBF7493D1CF5D8970053884C /* Items.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1504,6 +1514,7 @@
 				FCC46A7A1C23A87C00611576 /* NSData+Base64.m in Sources */,
 				FCC46AAC1C23A87D00611576 /* UzysGroupViewCell.m in Sources */,
 				FCC46A851C23A87D00611576 /* AFURLResponseSerialization.m in Sources */,
+				EBF7493B1CF5D7580053884C /* Order.m in Sources */,
 				FCC46A9D1C23A87D00611576 /* MJPhotoLoadingView.m in Sources */,
 				EB1F73A71CEB4CA2002A3291 /* OrderLocal.m in Sources */,
 				FC6513031CEEACA9009B3F2A /* AddressCellFrame.m in Sources */,
@@ -1583,6 +1594,7 @@
 				FCC46A841C23A87D00611576 /* AFURLRequestSerialization.m in Sources */,
 				FCC46A971C23A87D00611576 /* NSObject+MJCoding.m in Sources */,
 				FCC46A751C23A87C00611576 /* NSDate+MG.m in Sources */,
+				EBF7493E1CF5D8970053884C /* Items.m in Sources */,
 				EB1F73981CEB3EAD002A3291 /* FMDatabaseQueue.m in Sources */,
 				FCC46A7F1C23A87C00611576 /* AFHTTPRequestOperationManager.m in Sources */,
 				EBB0F5971CE7838F00278E7B /* CompositeSKUValue.m in Sources */,

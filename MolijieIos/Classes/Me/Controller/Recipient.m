@@ -68,6 +68,6 @@
 
 
 -(NSString *)getJsonString{
-    return [NSString stringWithFormat:@"{\"Address\":\"%@\",\"AsDefault\":%@,\"Mobile\":\"%@\",\"Number\":%ld,\"PostCode\":\"%@\",\"RealName\":\"%@\",\"Tel\":\"%@\"}",self.Address,_AsDefault?@"true":@"false",_Mobile,_Number,_PostCode,_RealName,_Tel];
+        return [NSString stringWithFormat:@"{\"Address\":\"%@\",\"AsDefault\":%@,\"Mobile\":\"%@\",\"Number\":%ld,\"PostCode\":\"%@\",\"RealName\":\"%@\",\"Tel\":\"%@\"}",self.Address,_AsDefault?@"true":@"false",_Mobile,_Number,_PostCode,_RealName,_Tel];
 }
 @end

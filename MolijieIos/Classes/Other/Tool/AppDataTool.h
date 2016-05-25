@@ -10,6 +10,7 @@
 #import "Token.h"
 #import "MLJResponse.h"
 #import "Goods.h"
+#import "Order.h"
 
 #define UseForAppSource     @"UseForAppSource"
 #define  UseForGoodSource   @"UseForGoodSource"
@@ -36,6 +37,7 @@ typedef void(^GoodsListResultBlock)(NSArray<Goods*>*);
 typedef void(^GoodsDetailResultBlock)(Goods*);
 typedef void(^AddressesResultBlock)(NSArray*);
 typedef void(^FreightResultBlock)(CGFloat);
+typedef void(^CreateOrderResultBlock)(Order*);
 
 
 
@@ -53,7 +55,12 @@ typedef void(^FreightResultBlock)(CGFloat);
 
 +(void)requestAddress:(AddressesResultBlock)onResponse onError:(ErrorBlock)error;
 
+//计算运费
 +(void)calculateFreight:(NSString*)cartItemJson recipient:(NSString*)recipient response:(FreightResultBlock)onResponse onError:(ErrorBlock)error;
+
+//创建订单
++(void)createOrder:(NSString*)cartItemJson recipient:(NSString*)recipient paymentType:(NSString*)payment response:(CreateOrderResultBlock)onResponse onError:(ErrorBlock)error;
+
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 

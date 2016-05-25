@@ -15,7 +15,6 @@
     NSMutableArray* settlementItemFrames;
     AddressNoOperateCellFrame* addressNoOperateCellFrame;
     Recipient* recipient;
-    
 }
 
 @property(nonatomic,weak)UITableView* tableView;

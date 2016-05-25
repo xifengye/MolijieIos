@@ -182,6 +182,18 @@
 
 -(void)bottomViewDidCommit:(MGSettlementBottomView *)view{
     NSLog(@"提交订单");
+    [self createOrder];
+}
+
+-(void)createOrder{
+    NSString* payment = @"AliPayment";
+    NSString* cartItemJson = [self getCartItemsJson];
+    NSString* recipientJson = [recipient getJsonString];
+    [AppDataTool createOrder:cartItemJson recipient:recipientJson paymentType:payment response:^(Order *order) {
+        NSLog(@"Order=%@",order);
+        
+    } onError:^(ErrorCode errorCode) {
+    }];
 }
 
 
