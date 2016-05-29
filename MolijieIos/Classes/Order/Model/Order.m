@@ -12,11 +12,6 @@
 
 @implementation Order
 
--(void)setRecipient:(id)Recipient{
-    NSDictionary*d  = Recipient;
-    _Recipient = [Recipient objectWithKeyValues:d];
-}
-
 -(void)setItems:(id)is{
     if([is isKindOfClass:[NSDictionary class]]){
         _Items = [NSArray arrayWithObject:[Items objectWithKeyValues:is]];
@@ -24,4 +19,28 @@
         _Items = [Items objectArrayWithKeyValuesArray:is];
     }
 }
+
+
+-(NSString*)getOrderProgressText{
+    switch(self.OrderProgress){
+        case WaitForConfirm:
+            return @"客户未确认";
+        case WaitForProcess:
+            return @"待处理";
+        case Processing:
+            return @"处理中";
+        case Cancelled:
+            return @"已取消";
+        case Succeed:
+            return @"交易成功";
+        default:
+            return @"未知状态";
+    }
+    
+}
+
+-(BOOL)canViewLogistics{
+    return self.OrderProgress == Succeed || self.OrderProgress == Processing;
+}
+
 @end

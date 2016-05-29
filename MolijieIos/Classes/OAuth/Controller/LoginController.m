@@ -9,9 +9,10 @@
 #import "LoginController.h"
 #import "AppDataTool.h"
 #import "SandBoxTool.h"
-#import "LoginParams.h"
 #import "MainController.h"
 #import "MBProgressHUD+MJ.h"
+#import "User.h"
+#import "AppDataMemory.h"
 
 
 
@@ -39,7 +40,7 @@
 }
 
 -(void)onLoginSuccess{
-    [self saveLoginParams];
+    [self saveUser];
     [self goMainController];
 }
 
@@ -48,14 +49,13 @@
     [self presentViewController:mainController animated:true completion:nil];
 }
 
--(void)saveLoginParams{
-    LoginParams* params = [[LoginParams alloc]init];
-    params.username = _tfUsername.text;
+-(void)saveUser{
+    [AppDataMemory instance].user.UserName = _tfUsername.text;
     if(_remenmberPassword.isOn){
-        params.password = _tfPassword.text;
-        params.autoLogin = _autoLogin.on;
+        [AppDataMemory instance].user.password = _tfPassword.text;
+        [AppDataMemory instance].user.autoLogin = _autoLogin.on;
     }
-    [SandBoxTool saveLoginParams:params];
+    [SandBoxTool saveUser:[AppDataMemory instance].user];
 
 }
 

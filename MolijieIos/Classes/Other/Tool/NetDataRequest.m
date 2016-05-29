@@ -80,8 +80,13 @@
                 
                 break;
             }
-            case OrderLocal:{
-                
+            case LoadOrder:{
+                [AppDataTool loadRecentOrders:^(NSArray * orders) {
+                    [[AppDataMemory instance]addOrders:orders];
+                    [self loadNetData];
+                } onError:^(ErrorCode errorCode) {
+                    [self loadNetData];
+                }];
                 break;
             }
             case HomePage:{

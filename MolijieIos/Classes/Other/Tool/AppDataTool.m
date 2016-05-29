@@ -13,11 +13,14 @@
 #import "IndexBlock.h"
 #import "Childs.h"
 #import "Recipient.h"
+#import "AppDataMemory.h"
+#import "OrderConsignments.h"
 
 @implementation AppDataTool
 +(void)requestAppToken:(TokenResultBlock)onResponse onError:(ErrorBlock)error{
     
-    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:@"MoLiJieClientForAndroid",@"appid",@"18259181651",@"password",@"xx-xxx-xxxx",@"device_code", nil];
+//    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:@"MoLiJieClientForAndroid",@"appid",@"18259181651",@"password",@"xx-xxx-xxxx",@"device_code", nil];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys:@"MoLiJieClientForIOS",@"appid",@"15005919722",@"password",@"xx-xxx-xxxx-xxxx",@"device_code", nil];
     [HttpTool MLJPOST:@"AppAuthorize" params:dic hasAppToken:false hasUserToken:false hasAES:true success:^(MLJResponse *response) {
         if(response.HasError){
             NSLog(@"Error:%lld",response.ErrorCode);
@@ -167,9 +170,11 @@
 +(void)createOrder:(NSString *)cartItemJson recipient:(NSString *)recipient paymentType:(NSString *)payment response:(CreateOrderResultBlock)onResponse onError:(ErrorBlock)error{
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:cartItemJson forKey:@"car_items_json"];
     [params setObject:recipient forKey:@"recipient_json"];
-    [HttpTool MLJPOST:@"CalculateFreight" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+    [params setObject:payment forKey:@"payment"];
+    [HttpTool MLJPOST:@"NewOrder" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
         if(response.HasError){
             NSLog(@"createOrder Error:%lld",response.ErrorCode);
             error(response.ErrorCode);
@@ -184,9 +189,124 @@
 
 }
 
++(void)loadRecentOrders:(LoadOrderResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [HttpTool MLJPOST:@"LoadRecentOrders" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"loadRecentOrders Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"loadRecentOrders resp:%@",response.Data);
+            onResponse([Order objectArrayWithKeyValuesArray:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"loadRecentOrders failure:%@",error);
+    }];
+
+}
+
 +(NSString *)imageUrlFor:(NSString*)imgType withImgid:(NSString *)img_id{
     return [NSString stringWithFormat:@"http://112.124.61.35:9999/int/android_api/LoadImage?img_id=%@&img_type=%@&size=%@",img_id,imgType,@"Original"];
 }
 
++(void)confirmReceipt:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [params setObject:sn forKey:@"order_sn"];
+    [HttpTool MLJPOST:@"ConfirmReceipt" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"confirmReceipt Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"confirmReceipt resp:%@",response.Data);
+            onResponse();
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"confirmReceipt failure:%@",error);
+    }];
+}
+
++(void)cancelOrder:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [params setObject:sn forKey:@"order_sn"];
+    [HttpTool MLJPOST:@"CancelOrder" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"cancelOrder Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"cancelOrder resp:%@",response.Data);
+            onResponse();
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"cancelOrder failure:%@",error);
+    }];
+
+}
+
++(void)confirmOrder:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [params setObject:sn forKey:@"order_sn"];
+    [HttpTool MLJPOST:@"ConfirmOrder" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"confirmOrder Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"confirmOrder resp:%@",response.Data);
+            onResponse();
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"confirmOrder failure:%@",error);
+    }];
+
+}
+
+
++(void)deliverBack:(NSString *)sn lspCode:(NSString *)lspCode postReceptCode:(NSString *)postReceptCode postFrom:(NSString *)postFrom response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [params setObject:sn forKey:@"order_sn"];
+    [params setObject:lspCode forKey:@"lsp_code"];
+    [params setObject:postReceptCode forKey:@"post_recept_code"];
+    [params setObject:postFrom forKey:@"post_from"];
+    [HttpTool MLJPOST:@"DeliverBack" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"deliverBack Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"deliverBack resp:%@",response.Data);
+            onResponse();
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"deliverBack failure:%@",error);
+    }];
+
+}
+
++(void)loadOrderConsignments:(NSString *)sn response:(OrderConsignmentsResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
+    [params setObject:sn forKey:@"order_sn"];
+    [HttpTool MLJPOST:@"LoadOrderConsignments" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"loadOrderConsignments Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"loadOrderConsignments resp:%@",response.Data);
+            onResponse([OrderConsignments objectArrayWithKeyValuesArray:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"loadOrderConsignments failure:%@",error);
+    }];
+
+}
 
 @end

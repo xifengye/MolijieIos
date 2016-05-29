@@ -10,6 +10,23 @@
 #import "Recipient.h"
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    WaitForConfirm,
+    WaitForProcess,
+    Processing,
+    Cancelled,
+    Succeed
+} OrderProgress;
+
+typedef enum : NSUInteger {
+    CancelTab,
+    ConfirmOrderTag,
+    DeliverBackTag,
+    ConfirmReceiptTag,
+    PayTag,
+    ViewLogisticsTag
+} OrderOperateTag;
+
 @interface Order : NSObject
 
 @property(nonatomic,strong)NSArray* Items;
@@ -27,5 +44,8 @@
 @property(nonatomic,copy)NSString* CanDoList;
 @property(nonatomic,assign)int OrderProgress;
 @property(nonatomic,copy)NSString* Payment;
+
+-(NSString*)getOrderProgressText;
+-(BOOL)canViewLogistics;
 
 @end

@@ -35,7 +35,16 @@
 }
 
 -(void)initData{
+    [self loadOrders];
     [self updateBadge];
+}
+
+-(void)loadOrders{
+    [AppDataTool loadRecentOrders:^(NSArray * orders) {
+        [[AppDataMemory instance]addOrders:orders];
+    } onError:^(ErrorCode errorCode) {
+    }];
+
 }
 
 -(void)updateBadge{

@@ -38,6 +38,9 @@ typedef void(^GoodsDetailResultBlock)(Goods*);
 typedef void(^AddressesResultBlock)(NSArray*);
 typedef void(^FreightResultBlock)(CGFloat);
 typedef void(^CreateOrderResultBlock)(Order*);
+typedef void(^LoadOrderResultBlock)(NSArray*);
+typedef void(^ResponseResultBlock)();
+typedef void(^OrderConsignmentsResultBlock)(NSArray*);
 
 
 
@@ -61,6 +64,20 @@ typedef void(^CreateOrderResultBlock)(Order*);
 //创建订单
 +(void)createOrder:(NSString*)cartItemJson recipient:(NSString*)recipient paymentType:(NSString*)payment response:(CreateOrderResultBlock)onResponse onError:(ErrorBlock)error;
 
++(void)loadRecentOrders:(LoadOrderResultBlock)response onError:(ErrorBlock)error;
+
++(void)confirmReceipt:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)loadOrderConsignments:(NSString*)sn response:(OrderConsignmentsResultBlock)onResponse onError:(ErrorBlock)error;
+
+
++(void)confirmOrder:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)cancelOrder:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)deliverBack:(NSString*)sn lspCode:(NSString*)lspCode postReceptCode:(NSString*)postReceptCode postFrom:(NSString*)postFrom response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)pay:(NSString*)sn price:(CGFloat)price payment:(NSString*)payment response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 

@@ -13,6 +13,8 @@ static AppDataMemory*shareInstance = nil;
 +(instancetype)instance{
     if(shareInstance==nil){
         shareInstance = [[self alloc]init];
+        shareInstance.user = [[User alloc]init];
+        shareInstance.orderDict = [NSMutableDictionary dictionary];
     }
     return shareInstance;
 }
@@ -57,6 +59,18 @@ static AppDataMemory*shareInstance = nil;
         }
     }
     return nil;
+}
+
+-(void)addOrder:(Order *)order{
+    if(![self.orderDict.allKeys containsObject:order.SN]){
+        [self.orderDict setObject:order forKey:order.SN];
+    }
+}
+
+-(void)addOrders:(NSArray *)orders{
+    for(Order* order in orders){
+        [self addOrder:order];
+    }
 }
 
 @end

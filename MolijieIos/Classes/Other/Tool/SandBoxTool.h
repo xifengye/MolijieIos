@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Token.h"
-#import "LoginParams.h"
+#import "User.h"
 
 @interface SandBoxTool : NSObject
 
@@ -19,6 +18,6 @@
 +(void)saveUserToken:(Token*)token;
 
 
-+(void)saveLoginParams:(LoginParams*)loginParams;
-+(LoginParams*)loginParams;
++(void)saveUser:(User*)user;
++(User*)user;
 @end

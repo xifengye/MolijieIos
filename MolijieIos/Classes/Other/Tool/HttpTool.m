@@ -12,9 +12,13 @@
 #import "BinaryData.h"
 #import "AppDataMemory.h"
 #import "AESCrypt.h"
+#import "SecurityUtil.h";
+#import "User.h"
 
-#define AFManager [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://112.124.61.35:9999/int/android_api/"]]
+//#define AFManager [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://112.124.61.35:9999/int/android_api/"]]
 #define AES_PASSWORD @"c028a24f2c6a5c39"
+
+#define AFManager [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://112.124.61.35:9999/int/ios_api/"]]
 
 @implementation HttpTool
 
@@ -25,7 +29,8 @@
     {
         NSString* key = [keys objectAtIndex: i];
         id value = [params objectForKey: key];
-        [aesParams setObject:[AESCrypt encrypt:value password:AES_PASSWORD] forKey:key];
+//        [aesParams setObject:[AESCrypt encrypt:value password:AES_PASSWORD] forKey:key];
+        [aesParams setObject:[SecurityUtil encryptAESData:value] forKey:key];
     }
     return aesParams;
 }
@@ -33,10 +38,13 @@
 +(NSDictionary*)getHeaderParams:(BOOL)appToken hasUserToken:(BOOL)userToken{
     NSMutableDictionary* headerParams = [NSMutableDictionary dictionary];
     if(appToken){
-        [headerParams setObject:[AESCrypt encrypt:[AppDataMemory instance].appToken.token password:AES_PASSWORD] forKey:@"CLIENT_HEADER_1"];
+//        [headerParams setObject:[AESCrypt encrypt:[AppDataMemory instance].appToken.token password:AES_PASSWORD] forKey:@"CLIENT_HEADER_1"];
+        [headerParams setObject:[SecurityUtil encryptAESData:[AppDataMemory instance].appToken.token] forKey:@"CLIENT_HEADER_1"];
     }
     if(userToken){
-        [headerParams setObject:[AESCrypt encrypt:[AppDataMemory instance].userToken.token password:AES_PASSWORD] forKey:@"CLIENT_HEADER_2"];
+//        [headerParams setObject:[AESCrypt encrypt:[AppDataMemory instance].userToken.token password:AES_PASSWORD] forKey:@"CLIENT_HEADER_2"];
+        User* user = [AppDataMemory instance].user;
+        [headerParams setObject:[SecurityUtil encryptAESData:user.userToken.token] forKey:@"CLIENT_HEADER_2"];
     }
     return headerParams;
 }

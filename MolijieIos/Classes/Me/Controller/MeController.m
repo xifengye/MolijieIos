@@ -10,6 +10,7 @@
 #import "MGMeCellView.h"
 #import "MGMeOrderStatusCell.h"
 #import "AddressController.h"
+#import "OrderController.h"
 
 
 @interface MeController ()
@@ -55,7 +56,8 @@
             cell.imageView.image = [UIImage imageNamed:@"list_icon_order"];
             cell.textLabel.text = @"查看全部订单";
         } whenSelected:^(NSIndexPath *indexPath) {
-            
+            OrderController* controller = [[OrderController alloc]init];
+            [self presentViewController:controller animated:true completion:nil];
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"MeOrderStatusCell";

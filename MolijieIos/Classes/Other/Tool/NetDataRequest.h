@@ -14,7 +14,7 @@ typedef NS_OPTIONS(int, NetDataType){
     CheckVersion = 2,
     CataList = 3,//加载目录
     HomePage = 4,//主页数据(滚动广告+IndexBlock)
-    OrderLocal = 5,//用户订单数据
+    LoadOrder = 5,//用户订单数据
     ArticleBadge = 6,//文章数量
     LoadLSPList = 7,//物流列表
     LoadGoods = 8//加载商品详情

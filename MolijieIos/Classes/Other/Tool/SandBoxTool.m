@@ -13,7 +13,7 @@
 
 #define userTokenFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"userToken.data"]
 
-#define loginParamsFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"loginParams.data"]
+#define userFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"user.data"]
 
 @implementation SandBoxTool
 
@@ -39,7 +39,7 @@
 
 +(void)saveUserToken:(Token *)token{
     if(token!=nil){
-        [AppDataMemory instance].userToken = token;
+        [AppDataMemory instance].user.userToken = token;
         NSDate* now = [NSDate date];
         token.expireDate = [now dateByAddingTimeInterval:token.Expire];
         [NSKeyedArchiver archiveRootObject:token toFile:userTokenFile];
@@ -50,22 +50,24 @@
     NSDate* now = [NSDate date];
     Token* token = [NSKeyedUnarchiver unarchiveObjectWithFile:userTokenFile];
     if([now compare:token.expireDate] == NSOrderedAscending){
-        [AppDataMemory instance].userToken = token;
+        User* user = [SandBoxTool user];
+        [[AppDataMemory instance].user update:user];
+        [AppDataMemory instance].user.userToken = token;
         return token;
     }else{
         return nil;
     }
 }
 
-+(void)saveLoginParams:(LoginParams *)loginParams{
-    if(loginParams!=nil){
-        [NSKeyedArchiver archiveRootObject:loginParams toFile:loginParamsFile];
++(void)saveUser:(User *)user{
+    if(user!=nil){
+        [NSKeyedArchiver archiveRootObject:user toFile:userFile];
     }
 }
 
 
-+(LoginParams *)loginParams{
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:loginParamsFile];
++(User *)user{
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:userFile];
 }
 
 @end
