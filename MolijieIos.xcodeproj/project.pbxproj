@@ -23,6 +23,14 @@
 		EB3D756A1CF8989C007DAB38 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3D75661CF8989C007DAB38 /* NSData+AES.m */; };
 		EB3D756B1CF8989C007DAB38 /* SecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3D75681CF8989C007DAB38 /* SecurityUtil.m */; };
 		EB3D75711CF8A22F007DAB38 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3D75701CF8A22F007DAB38 /* User.m */; };
+		EB467C4D1D006256009BE10B /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C4C1D006256009BE10B /* OrderViewController.m */; };
+		EB467C551D0062A5009BE10B /* DAPageIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C501D0062A5009BE10B /* DAPageIndicatorView.m */; };
+		EB467C561D0062A5009BE10B /* DAPagesContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C521D0062A5009BE10B /* DAPagesContainer.m */; };
+		EB467C571D0062A5009BE10B /* DAPagesContainerTopBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C541D0062A5009BE10B /* DAPagesContainerTopBar.m */; };
+		EB467C5A1D008CA7009BE10B /* WaitSendController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C591D008CA7009BE10B /* WaitSendController.m */; };
+		EB467C5D1D008CBB009BE10B /* WaitReceiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C5C1D008CBB009BE10B /* WaitReceiveController.m */; };
+		EB467C601D008CD2009BE10B /* WaitConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C5F1D008CD2009BE10B /* WaitConfirmController.m */; };
+		EB467C631D008CE2009BE10B /* AllOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB467C621D008CE1009BE10B /* AllOrderController.m */; };
 		EB6CF8201CF9A0E7009B90C2 /* get.png in Resources */ = {isa = PBXBuildFile; fileRef = EB6CF8121CF9A0E7009B90C2 /* get.png */; };
 		EB6CF8211CF9A0E7009B90C2 /* YGPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6CF8141CF9A0E7009B90C2 /* YGPCache.m */; };
 		EB6CF8221CF9A0E8009B90C2 /* YGPCacheDisk.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6CF8161CF9A0E7009B90C2 /* YGPCacheDisk.m */; };
@@ -45,6 +53,7 @@
 		EBB0F59D1CE8576A00278E7B /* GoodsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F59C1CE8576A00278E7B /* GoodsListCell.m */; };
 		EBB0F5A01CE8681400278E7B /* GoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F59F1CE8681400278E7B /* GoodsDetailController.m */; };
 		EBB0F5A31CE8CDB500278E7B /* GoodsDetailBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */; };
+		EBB98F5B1CFDD57400244358 /* LPS.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB98F5A1CFDD57400244358 /* LPS.m */; };
 		EBC2B8121CEE132D00C8752D /* AddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8111CEE132D00C8752D /* AddressController.m */; };
 		EBC2B8151CEE16A200C8752D /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC2B8141CEE16A200C8752D /* Recipient.m */; };
 		EBF7493B1CF5D7580053884C /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = EBF7493A1CF5D7580053884C /* Order.m */; };
@@ -228,6 +237,22 @@
 		EB3D75681CF8989C007DAB38 /* SecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityUtil.m; sourceTree = "<group>"; };
 		EB3D756F1CF8A22F007DAB38 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		EB3D75701CF8A22F007DAB38 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		EB467C4B1D006256009BE10B /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
+		EB467C4C1D006256009BE10B /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
+		EB467C4F1D0062A5009BE10B /* DAPageIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAPageIndicatorView.h; sourceTree = "<group>"; };
+		EB467C501D0062A5009BE10B /* DAPageIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPageIndicatorView.m; sourceTree = "<group>"; };
+		EB467C511D0062A5009BE10B /* DAPagesContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAPagesContainer.h; sourceTree = "<group>"; };
+		EB467C521D0062A5009BE10B /* DAPagesContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPagesContainer.m; sourceTree = "<group>"; };
+		EB467C531D0062A5009BE10B /* DAPagesContainerTopBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAPagesContainerTopBar.h; sourceTree = "<group>"; };
+		EB467C541D0062A5009BE10B /* DAPagesContainerTopBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPagesContainerTopBar.m; sourceTree = "<group>"; };
+		EB467C581D008CA7009BE10B /* WaitSendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitSendController.h; sourceTree = "<group>"; };
+		EB467C591D008CA7009BE10B /* WaitSendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitSendController.m; sourceTree = "<group>"; };
+		EB467C5B1D008CBB009BE10B /* WaitReceiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitReceiveController.h; sourceTree = "<group>"; };
+		EB467C5C1D008CBB009BE10B /* WaitReceiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitReceiveController.m; sourceTree = "<group>"; };
+		EB467C5E1D008CD2009BE10B /* WaitConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitConfirmController.h; sourceTree = "<group>"; };
+		EB467C5F1D008CD2009BE10B /* WaitConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitConfirmController.m; sourceTree = "<group>"; };
+		EB467C611D008CE1009BE10B /* AllOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrderController.h; sourceTree = "<group>"; };
+		EB467C621D008CE1009BE10B /* AllOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderController.m; sourceTree = "<group>"; };
 		EB6CF8121CF9A0E7009B90C2 /* get.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = get.png; sourceTree = "<group>"; };
 		EB6CF8131CF9A0E7009B90C2 /* YGPCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPCache.h; sourceTree = "<group>"; };
 		EB6CF8141CF9A0E7009B90C2 /* YGPCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPCache.m; sourceTree = "<group>"; };
@@ -272,6 +297,8 @@
 		EBB0F59F1CE8681400278E7B /* GoodsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailController.m; sourceTree = "<group>"; };
 		EBB0F5A11CE8CDB500278E7B /* GoodsDetailBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailBottomBar.h; sourceTree = "<group>"; };
 		EBB0F5A21CE8CDB500278E7B /* GoodsDetailBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailBottomBar.m; sourceTree = "<group>"; };
+		EBB98F591CFDD57400244358 /* LPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPS.h; sourceTree = "<group>"; };
+		EBB98F5A1CFDD57400244358 /* LPS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPS.m; sourceTree = "<group>"; };
 		EBC2B8101CEE132D00C8752D /* AddressController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressController.h; sourceTree = "<group>"; };
 		EBC2B8111CEE132D00C8752D /* AddressController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressController.m; sourceTree = "<group>"; };
 		EBC2B8131CEE16A200C8752D /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recipient.h; path = MolijieIos/Classes/Me/Controller/Recipient.h; sourceTree = SOURCE_ROOT; };
@@ -603,6 +630,16 @@
 			children = (
 				EB6CF8271CF9A115009B90C2 /* OrderController.h */,
 				EB6CF8281CF9A115009B90C2 /* OrderController.m */,
+				EB467C4B1D006256009BE10B /* OrderViewController.h */,
+				EB467C4C1D006256009BE10B /* OrderViewController.m */,
+				EB467C581D008CA7009BE10B /* WaitSendController.h */,
+				EB467C591D008CA7009BE10B /* WaitSendController.m */,
+				EB467C5B1D008CBB009BE10B /* WaitReceiveController.h */,
+				EB467C5C1D008CBB009BE10B /* WaitReceiveController.m */,
+				EB467C5E1D008CD2009BE10B /* WaitConfirmController.h */,
+				EB467C5F1D008CD2009BE10B /* WaitConfirmController.m */,
+				EB467C611D008CE1009BE10B /* AllOrderController.h */,
+				EB467C621D008CE1009BE10B /* AllOrderController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -618,6 +655,8 @@
 				EB6CF82E1CF9FBBB009B90C2 /* OrderFrame.m */,
 				EB6CF8361CFAE2F4009B90C2 /* OrderConsignments.h */,
 				EB6CF8371CFAE2F4009B90C2 /* OrderConsignments.m */,
+				EBB98F591CFDD57400244358 /* LPS.h */,
+				EBB98F5A1CFDD57400244358 /* LPS.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -664,6 +703,19 @@
 				EB3D75641CF8989C007DAB38 /* GTMDefines.h */,
 			);
 			path = GTMBase64;
+			sourceTree = "<group>";
+		};
+		EB467C4E1D0062A5009BE10B /* DAPagesContainer */ = {
+			isa = PBXGroup;
+			children = (
+				EB467C4F1D0062A5009BE10B /* DAPageIndicatorView.h */,
+				EB467C501D0062A5009BE10B /* DAPageIndicatorView.m */,
+				EB467C511D0062A5009BE10B /* DAPagesContainer.h */,
+				EB467C521D0062A5009BE10B /* DAPagesContainer.m */,
+				EB467C531D0062A5009BE10B /* DAPagesContainerTopBar.h */,
+				EB467C541D0062A5009BE10B /* DAPagesContainerTopBar.m */,
+			);
+			path = DAPagesContainer;
 			sourceTree = "<group>";
 		};
 		EB6CF8111CF9A0E7009B90C2 /* YLSlideView */ = {
@@ -1149,6 +1201,7 @@
 		FCC469C81C23A87C00611576 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EB467C4E1D0062A5009BE10B /* DAPagesContainer */,
 				EB6CF8111CF9A0E7009B90C2 /* YLSlideView */,
 				EB1F73891CEB3EAD002A3291 /* fmdb */,
 				FCC469C91C23A87C00611576 /* AESCrypt */,
@@ -1572,6 +1625,7 @@
 			files = (
 				FCC46A861C23A87D00611576 /* AFURLSessionManager.m in Sources */,
 				FCC46AA91C23A87D00611576 /* UzysAssetsViewCell.m in Sources */,
+				EB467C561D0062A5009BE10B /* DAPagesContainer.m in Sources */,
 				EB6CF8221CF9A0E8009B90C2 /* YGPCacheDisk.m in Sources */,
 				FCC46AAB1C23A87D00611576 /* UzysGroupPickerViewController.m in Sources */,
 				FCC46A9A1C23A87D00611576 /* MJPhoto.m in Sources */,
@@ -1605,6 +1659,7 @@
 				FC4939961CE5CE48001E4481 /* HomeCollectionViewCell.m in Sources */,
 				FCC46AC31C23A87D00611576 /* HttpTool.m in Sources */,
 				FCC46A951C23A87D00611576 /* MJType.m in Sources */,
+				EB467C4D1D006256009BE10B /* OrderViewController.m in Sources */,
 				EB1F73991CEB3EAD002A3291 /* FMResultSet.m in Sources */,
 				FCC46A871C23A87D00611576 /* CycleScrollView.m in Sources */,
 				FC11C0E51C103A6D00D4305A /* Token.m in Sources */,
@@ -1612,6 +1667,7 @@
 				FCC46AB91C23A87D00611576 /* UIImage+GIF.m in Sources */,
 				FCC46AAA1C23A87D00611576 /* UzysGroupPickerView.m in Sources */,
 				FCC46A801C23A87C00611576 /* AFHTTPSessionManager.m in Sources */,
+				EB467C5D1D008CBB009BE10B /* WaitReceiveController.m in Sources */,
 				FCC46A7A1C23A87C00611576 /* NSData+Base64.m in Sources */,
 				FCC46AAC1C23A87D00611576 /* UzysGroupViewCell.m in Sources */,
 				FCC46A851C23A87D00611576 /* AFURLResponseSerialization.m in Sources */,
@@ -1637,6 +1693,7 @@
 				FCC46ABF1C23A87D00611576 /* MLJResponse.m in Sources */,
 				FC11C0E41C103A6D00D4305A /* LoginController.m in Sources */,
 				FCC46AC01C23A87D00611576 /* NetData.m in Sources */,
+				EB467C551D0062A5009BE10B /* DAPageIndicatorView.m in Sources */,
 				EB3D75691CF8989C007DAB38 /* Base64.m in Sources */,
 				FCC46ABE1C23A87D00611576 /* BinaryData.m in Sources */,
 				FCBC753E1CE9BD8000A3DD55 /* MGUnitView.m in Sources */,
@@ -1645,6 +1702,7 @@
 				FC6512FD1CEDB478009B3F2A /* MGSettlementBottomView.m in Sources */,
 				FCC46A961C23A87D00611576 /* MJTypeEncoding.m in Sources */,
 				FC11C0DF1C103A6D00D4305A /* MGTitleButton.m in Sources */,
+				EBB98F5B1CFDD57400244358 /* LPS.m in Sources */,
 				FCC46AAD1C23A87D00611576 /* UzysWrapperPickerController.m in Sources */,
 				FCBC753B1CE9BC9900A3DD55 /* MGBuyPanel.m in Sources */,
 				EBB0F5911CE7810200278E7B /* GoodsListController.m in Sources */,
@@ -1657,6 +1715,7 @@
 				EB1F73AF1CEB7242002A3291 /* CartCell.m in Sources */,
 				FCC46ABD1C23A87D00611576 /* main.m in Sources */,
 				EB1F73971CEB3EAD002A3291 /* FMDatabasePool.m in Sources */,
+				EB467C5A1D008CA7009BE10B /* WaitSendController.m in Sources */,
 				FCC46AC41C23A87D00611576 /* NetDataRequest.m in Sources */,
 				FC49399A1CE5DBEF001E4481 /* BaseViewController.m in Sources */,
 				EB1F73881CEB3E9E002A3291 /* DataBaseManager.m in Sources */,
@@ -1684,6 +1743,7 @@
 				EB6CF82F1CF9FBBB009B90C2 /* OrderFrame.m in Sources */,
 				FCC46AA31C23A87D00611576 /* MJRefreshConst.m in Sources */,
 				FC11C0DA1C103A6D00D4305A /* MGNavigationController.m in Sources */,
+				EB467C631D008CE2009BE10B /* AllOrderController.m in Sources */,
 				FC6512F41CEDAC63009B3F2A /* SettlementController.m in Sources */,
 				EB1F73A11CEB40C5002A3291 /* ModelBase.m in Sources */,
 				FCB866ED1C22BCA1009A7EEE /* Childs.m in Sources */,
@@ -1713,8 +1773,10 @@
 				EB3D75711CF8A22F007DAB38 /* User.m in Sources */,
 				EB1F73981CEB3EAD002A3291 /* FMDatabaseQueue.m in Sources */,
 				FCC46A7F1C23A87C00611576 /* AFHTTPRequestOperationManager.m in Sources */,
+				EB467C571D0062A5009BE10B /* DAPagesContainerTopBar.m in Sources */,
 				EBB0F5971CE7838F00278E7B /* CompositeSKUValue.m in Sources */,
 				FC11C0DB1C103A6D00D4305A /* MGBadgeView.m in Sources */,
+				EB467C601D008CD2009BE10B /* WaitConfirmController.m in Sources */,
 				FCC46A8A1C23A87D00611576 /* JMStaticContentTableViewController.m in Sources */,
 				FCC46A8C1C23A87D00611576 /* StaticTextFieldTableViewCell.m in Sources */,
 				FC11C0E31C103A6D00D4305A /* NewFeatureController.m in Sources */,

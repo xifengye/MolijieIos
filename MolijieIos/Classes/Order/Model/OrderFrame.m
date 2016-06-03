@@ -23,6 +23,6 @@
     self.itemsF = CGRectMake(0, statusHeight, width, order_item_height*order.Items.count);
     self.descF = CGRectMake(0, CGRectGetMaxY(_itemsF), width-margin, statusHeight);
     self.btnsF = CGRectMake(0, CGRectGetMaxY(_descF), width, 44);
-    self.cellHeight = CGRectGetMaxY(_btnsF);
+    self.cellHeight = CGRectGetMaxY([order canDoArray].count>0?_btnsF:_descF);
 }
 @end

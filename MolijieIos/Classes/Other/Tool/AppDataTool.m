@@ -14,6 +14,7 @@
 #import "Childs.h"
 #import "Recipient.h"
 #import "AppDataMemory.h"
+#import "LPS.h"
 #import "OrderConsignments.h"
 
 @implementation AppDataTool
@@ -72,7 +73,7 @@
 
 }
 
-+(void)requestCataList:(CataListResultBlock)onResponse onError:(ErrorBlock)error{
++(void)requestCataList:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
     NSDictionary* params = [NSDictionary dictionary];
     [HttpTool MLJPOST:@"LoadTopCataList" params:params hasAppToken:true hasUserToken:false hasAES:true success:^(MLJResponse *response) {
         if(response.HasError){
@@ -89,7 +90,7 @@
 
 }
 
-+(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(GoodsListResultBlock)onResponse onError:(ErrorBlock)error{
++(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:cataID forKey:@"cata_id"];
     [params setObject:[NSString stringWithFormat:@"%ld",pageNo] forKey:@"page_no"];
@@ -129,7 +130,7 @@
 
 }
 
-+(void)requestAddress:(AddressesResultBlock)onResponse onError:(ErrorBlock)error{
++(void)requestAddress:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
     
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [HttpTool MLJPOST:@"LoadUserAddressBook" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
@@ -147,7 +148,7 @@
 
 }
 
-+(void)calculateFreight:(NSString *)cartItemJson recipient:(NSString *)recipient response:(FreightResultBlock)onResponse onError:(ErrorBlock)error{
++(void)calculateFreight:(NSString *)cartItemJson recipient:(NSString *)recipient response:(FloatResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:cartItemJson forKey:@"car_items_json"];
     [params setObject:recipient forKey:@"recipient_json"];
@@ -189,7 +190,7 @@
 
 }
 
-+(void)loadRecentOrders:(LoadOrderResultBlock)onResponse onError:(ErrorBlock)error{
++(void)loadRecentOrders:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [HttpTool MLJPOST:@"LoadRecentOrders" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
@@ -211,7 +212,7 @@
     return [NSString stringWithFormat:@"http://112.124.61.35:9999/int/android_api/LoadImage?img_id=%@&img_type=%@&size=%@",img_id,imgType,@"Original"];
 }
 
-+(void)confirmReceipt:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
++(void)confirmReceipt:(NSString *)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:sn forKey:@"order_sn"];
@@ -229,7 +230,7 @@
     }];
 }
 
-+(void)cancelOrder:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
++(void)cancelOrder:(NSString *)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:sn forKey:@"order_sn"];
@@ -248,7 +249,7 @@
 
 }
 
-+(void)confirmOrder:(NSString *)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
++(void)confirmOrder:(NSString *)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:sn forKey:@"order_sn"];
@@ -268,7 +269,7 @@
 }
 
 
-+(void)deliverBack:(NSString *)sn lspCode:(NSString *)lspCode postReceptCode:(NSString *)postReceptCode postFrom:(NSString *)postFrom response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error{
++(void)deliverBack:(NSString *)sn lspCode:(NSString *)lspCode postReceptCode:(NSString *)postReceptCode postFrom:(NSString *)postFrom response:(BoolResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:sn forKey:@"order_sn"];
@@ -281,7 +282,8 @@
             error(response.ErrorCode);
         }else{
             NSLog(@"deliverBack resp:%@",response.Data);
-            onResponse();
+            NSNumber* number =  response.Data;
+            onResponse(number.boolValue);
         }
         
     } failure:^(NSError *error) {
@@ -290,7 +292,7 @@
 
 }
 
-+(void)loadOrderConsignments:(NSString *)sn response:(OrderConsignmentsResultBlock)onResponse onError:(ErrorBlock)error{
++(void)loadOrderConsignments:(NSString *)sn response:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
     NSMutableDictionary* params = [NSMutableDictionary dictionary];
     [params setObject:[AppDataMemory instance].user.UserName forKey:@"customer_id"];
     [params setObject:sn forKey:@"order_sn"];
@@ -305,6 +307,23 @@
         
     } failure:^(NSError *error) {
         NSLog(@"loadOrderConsignments failure:%@",error);
+    }];
+
+}
+
++(void)loadLSPList:(ArrayResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [HttpTool MLJPOST:@"LoadLSPList" params:params hasAppToken:true hasUserToken:false hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"loadLSPList Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"loadLSPList resp:%@",response.Data);
+            onResponse([LPS objectArrayWithKeyValuesArray:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"loadLSPList failure:%@",error);
     }];
 
 }

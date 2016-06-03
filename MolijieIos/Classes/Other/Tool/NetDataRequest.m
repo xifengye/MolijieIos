@@ -100,6 +100,16 @@
                 }];
                 break;
             }
+            case LoadConsignments:{
+                [AppDataTool loadLSPList:^(NSArray * lspList) {
+                    [[AppDataMemory instance] addLpsList:lspList];
+                    [self loadNetData];
+                } onError:^(ErrorCode errorCode) {
+                    [self loadNetData];
+                }];
+
+                break;
+            }
         }
     }
 }

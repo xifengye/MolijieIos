@@ -17,6 +17,7 @@
 #import "SandBoxTool.h"
 #import "AppDataMemory.h"
 #import "DataBaseManager.h"
+#import "NetData.h"
 
 
 @interface MainController ()
@@ -35,17 +36,18 @@
 }
 
 -(void)initData{
-    [self loadOrders];
+    [self requestData];
     [self updateBadge];
 }
 
--(void)loadOrders{
-    [AppDataTool loadRecentOrders:^(NSArray * orders) {
-        [[AppDataMemory instance]addOrders:orders];
-    } onError:^(ErrorCode errorCode) {
-    }];
 
+-(void)requestData{
+    NSArray* types = @[[NetData dataWithType:LoadOrder param:nil],[NetData dataWithType:LoadConsignments param:nil]];
+    [[NetDataRequest requestWithTypes:^{
+        NSLog(@"Main requestNetData finish");
+    } requestType:types]start];
 }
+
 
 -(void)updateBadge{
     [self updateCartBadge];

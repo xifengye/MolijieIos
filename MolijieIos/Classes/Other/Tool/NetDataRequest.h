@@ -17,7 +17,8 @@ typedef NS_OPTIONS(int, NetDataType){
     LoadOrder = 5,//用户订单数据
     ArticleBadge = 6,//文章数量
     LoadLSPList = 7,//物流列表
-    LoadGoods = 8//加载商品详情
+    LoadGoods = 8,//加载商品详情
+    LoadConsignments = 9
 };
 
 typedef void (^FinishBlock)();

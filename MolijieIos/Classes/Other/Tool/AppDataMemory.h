@@ -14,6 +14,7 @@
 #import "Recipient.h"
 #import "User.h"
 #import "Order.h"
+#import "LPS.h"
 
 
 @interface AppDataMemory : NSObject
@@ -24,12 +25,17 @@
 @property(nonatomic,strong)NSArray<Childs*>* childs;
 @property(nonatomic,strong)NSArray<Recipient*>* recipients;
 @property(nonatomic,strong)NSMutableDictionary* orderDict;
+@property(nonatomic,strong)NSMutableDictionary* lpsDict;
 
 -(Childs*)getChilds:(NSString*)cataId;
 -(Recipient*)defaultRecipient;
 
 -(void)addOrders:(NSArray*)order;
 -(void)addOrder:(Order*)order;
+-(void)clearOrders;
+
+-(void)addLpsList:(NSArray*)lpsList;
+-(NSString*) getLpsCodeByLpsName:(NSString*) name;
 
 +(instancetype)instance;
 @end

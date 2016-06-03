@@ -29,5 +29,9 @@
 @property(nonatomic,weak)UIView* items;
 @property(nonatomic,weak)UIView* btns;
 
+@property(nonatomic,weak)UIView* lineView1;
+@property(nonatomic,weak)UIView* lineView2;
+@property(nonatomic,weak)UIView* lineView3;
+
 @property(nonatomic,weak)id<OrderCellDelegate> delegate;
 @end

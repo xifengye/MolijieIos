@@ -15,6 +15,7 @@ static AppDataMemory*shareInstance = nil;
         shareInstance = [[self alloc]init];
         shareInstance.user = [[User alloc]init];
         shareInstance.orderDict = [NSMutableDictionary dictionary];
+        shareInstance.lpsDict = [NSMutableDictionary dictionary];
     }
     return shareInstance;
 }
@@ -71,6 +72,24 @@ static AppDataMemory*shareInstance = nil;
     for(Order* order in orders){
         [self addOrder:order];
     }
+}
+
+-(void)clearOrders{
+    [self.orderDict removeAllObjects];
+}
+
+-(void)addLpsList:(NSArray *)lpss{
+    for(LPS* l in lpss){
+        [self.lpsDict setObject:l forKey:l.Title];
+    }
+}
+
+-(NSString*) getLpsCodeByLpsName:(NSString*) name{
+    LPS* lps = self.lpsDict[name];
+    if(lps!=nil){
+        return lps.Code;
+    }
+    return name;
 }
 
 @end

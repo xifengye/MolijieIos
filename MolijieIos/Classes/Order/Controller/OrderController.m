@@ -9,6 +9,8 @@
 #import "OrderController.h"
 #import "AppDataMemory.h"
 #import "AppDataTool.h"
+#import "MBProgressHUD+MJ.h"
+#import "OrderConsignments.h"
 typedef void(^UIActionHandler)(UIAlertAction *action);
 
 typedef enum : NSUInteger {
@@ -20,9 +22,10 @@ typedef enum : NSUInteger {
 
 @interface OrderController(){
     YLSlideView * _slideView;
-    NSArray *_orders;
+//    NSArray *_orders;
     NSMutableArray* _orderFrames;
     UIView* orderEmptyView;
+    NSUInteger currentIndex;
 }
 @end
 @implementation OrderController
@@ -53,6 +56,19 @@ typedef enum : NSUInteger {
     
    }
 
+
+-(void)reloadOrderFromNet{
+    [MBProgressHUD showMessage:@""];
+    [AppDataTool loadRecentOrders:^(NSArray * orders) {
+        [MBProgressHUD hideHUD];
+        [[AppDataMemory instance]clearOrders];
+        [[AppDataMemory instance]addOrders:orders];
+        [self updateOrder:currentIndex];
+    } onError:^(ErrorCode errorCode) {
+    }];
+
+}
+
 - (NSInteger)columnNumber{
     return 4;
 }
@@ -72,12 +88,15 @@ typedef enum : NSUInteger {
     return cell;
 }
 - (void)slideVisibleView:(YLSlideCell *)cell forIndex:(NSUInteger)index{
-    NSLog(@"index :%@ ",@(index));
+    NSLog(@"show index :%@ %@",@(index),[cell description]);
     [self updateOrder:index];
     [cell reloadData]; //刷新TableView
     //    NSLog(@"刷新数据");
 }
 
+-(void)slideHiddenView:(YLSlideCell *)cell forIndex:(NSUInteger)index{
+    NSLog(@"hidden index :%@",@(index));
+}
 
 - (void)slideViewInitiatedComplete:(YLSlideCell *)cell forIndex:(NSUInteger)index{
     
@@ -85,8 +104,7 @@ typedef enum : NSUInteger {
     NSLog(@"缓存数据 %@",@(index));
     
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self updateOrder:index];
-        [cell reloadData];
+//        [cell reloadData];
         
     });
 }
@@ -101,10 +119,10 @@ typedef enum : NSUInteger {
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *Identifier = @"orderCell";
-    OrderCell * cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-    if (!cell) {
-        cell = [[OrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
-    }
+    OrderCell * cell = [[OrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+//    if (!cell) {
+//        cell = [[OrderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+//    }
     cell.delegate = self;
     OrderFrame* orderFrame = [_orderFrames objectAtIndex:indexPath.row];
     [cell setOrderFrame:orderFrame];
@@ -118,6 +136,7 @@ typedef enum : NSUInteger {
 }
 
 -(void)updateOrder:(NSUInteger)index{
+    currentIndex = index;
     NSArray* orders = [AppDataMemory instance].orderDict.allValues.copy;
     orderEmptyView.hidden = orders.count > 0;
     NSMutableArray* finalOrder = [NSMutableArray array];
@@ -147,8 +166,7 @@ typedef enum : NSUInteger {
             }
             [finalOrder addObject:order];
         }
-        _orders = finalOrder;
-        for(Order* o in _orders){
+        for(Order* o in finalOrder){
             OrderFrame* of = [[OrderFrame alloc]init];
             [of setOrder:o];
             [_orderFrames addObject:of];
@@ -184,7 +202,7 @@ typedef enum : NSUInteger {
             [self pay:order];
             break;
         case ViewLogisticsTag:
-            [self viewLogistics];
+            [self viewLogistics:order];
             break;
         default:
             break;
@@ -202,7 +220,7 @@ typedef enum : NSUInteger {
 
 -(void)cancelOrder:(Order*)order{
     [AppDataTool cancelOrder:order.SN response:^(){
-        
+        [self reloadOrderFromNet];
     } onError:^(ErrorCode errorCode) {
         
     }];
@@ -210,22 +228,79 @@ typedef enum : NSUInteger {
 
 -(void)confirmOrder:(Order*)order{
     NSLog(@"确认订单");
+    [AppDataTool confirmOrder:order.SN response:^(){
+        [self reloadOrderFromNet];
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
+
 }
 
 -(void)deliverBack:(Order*)order{
     NSLog(@"退货");
+    [AppDataTool loadOrderConsignments:order.SN response:^(NSArray * consignments) {
+        if(consignments.count>0){
+            OrderConsignments* consignment = consignments[0];
+            [AppDataTool deliverBack:order.SN lspCode:[[AppDataMemory instance]getLpsCodeByLpsName: consignment.DSPName] postReceptCode:consignment.PostReceptCode postFrom:consignment.SendFrom response:^(BOOL s){
+                if(s){
+                    [MBProgressHUD showSuccess:@"退货成功"];
+                    [self reloadOrderFromNet];
+                }
+            } onError:^(ErrorCode errorCode) {
+                
+            }];
+            }
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
+    
+
 }
 
 -(void)confirmReceipt:(Order*)order{
     NSLog(@"确认收货");
+    [AppDataTool confirmReceipt:order.SN response:^(){
+        [self reloadOrderFromNet];
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
 }
 
 -(void)pay:(Order*)order{
     NSLog(@"支付");
 }
 
--(void)viewLogistics{
+-(void)viewLogistics:(Order*)order{
     NSLog(@"查看物流");
+    [AppDataTool loadOrderConsignments:order.SN response:^(NSArray * consigments) {
+        if(consigments.count>0){
+            NSMutableString* msg = [NSMutableString string];
+            NSMutableString* orderNumber = [NSMutableString string];
+            for (int i = 0; i < consigments.count; i++) {
+                OrderConsignments* oc = [consigments objectAtIndex:i];
+                [msg appendFormat:@"物流公司:%@\n",oc.DSPName];
+                [msg appendFormat:@"物流单号:%@\n",oc.PostReceptCode];
+                [msg appendFormat:@"发货时间:%@\n",oc.CreatedText];
+                [msg appendFormat:@"起运地址:%@\n",oc.SendFrom];
+                [msg appendFormat:@"收件地址:%@\n\n",[order.Recipient getSimpleAddress]];
+                
+                [orderNumber appendString: oc.PostReceptCode];
+                if (i < consigments.count - 1) {
+                    [orderNumber appendString:@","];
+                }
+            }
+            [self alertTip:@"物流信息" msg:msg cancelActionTitle:@"关闭" okActionTitle:@"拷贝物流单号" okHandler:^(UIAlertAction *action) {
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = orderNumber;
+                [MBProgressHUD showSuccess:@"单号复制成功"];
+            }];
+        }
+    } onError:^(ErrorCode errorCode) {
+        
+    }];
+
 }
+
+
 
 @end

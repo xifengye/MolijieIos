@@ -51,7 +51,24 @@
         self.descLabel = descLabel;
         self.descLabel.textAlignment = NSTextAlignmentRight;
         
+        UIView* btns = [[UIView alloc]init];
+        self.btns = btns;
+        [self addSubview:btns];
         
+        UIView* line1 = [[UIView alloc]init];
+        line1.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        [self addSubview:line1];
+        self.lineView1 = line1;
+        
+        UIView* line2 = [[UIView alloc]init];
+        line2.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        [self addSubview:line2];
+        self.lineView2 = line2;
+        
+        UIView* line3 = [[UIView alloc]init];
+        line3.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        [self addSubview:line3];
+        self.lineView3 = line3;
 
         
     }
@@ -65,18 +82,12 @@
     self.statusLabel.frame = orderFrame.statusF;
     self.items.frame = orderFrame.itemsF;
     self.descLabel.frame = orderFrame.descF;
-    UIView* line1 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMinY(orderFrame.itemsF), orderFrame.itemsF.size.width, 0.5f)];
-    line1.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
-    [self addSubview:line1];
+    self.btns.frame = orderFrame.btnsF;
+    self.lineView1.frame = CGRectMake(0, CGRectGetMinY(orderFrame.itemsF), orderFrame.itemsF.size.width, 0.5f);
     
-    UIView* line2 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(orderFrame.itemsF), orderFrame.itemsF.size.width, 0.5f)];
-    line2.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
-    [self addSubview:line2];
+    self.lineView2.frame = CGRectMake(0, CGRectGetMaxY(orderFrame.itemsF), orderFrame.itemsF.size.width, 0.5f);
     
-    UIView* line3 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(orderFrame.descF), orderFrame.itemsF.size.width, 0.5f)];
-    line3.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
-    [self addSubview:line3];
-
+    self.lineView3.frame = CGRectMake(0, CGRectGetMaxY(orderFrame.descF), orderFrame.itemsF.size.width, 0.5f);
     
     self.smLabel.text = orderFrame.order.SN;
     self.timeLabel.text = orderFrame.order.CreatedText;
@@ -90,22 +101,16 @@
         [self.items addSubview:oiv];
     }
     self.descLabel.text = [NSString stringWithFormat:@"共%ld件商品 合计:%@(含运费%@)",orderFrame.order.Items.count,[NSString priceString:orderFrame.order.TotalPrice],[NSString priceString:orderFrame.order.Freight]];
-    NSArray* clientSupportCanDoList = @[@"Cancel",@"ConfirmOrder",@"DeliverBack",@"ConfirmReceipt",@"Pay"];
+    NSArray* canDoList = [orderFrame.order canDoArray];
+    for(UIView* view in self.btns.subviews){
+        [view removeFromSuperview];
+    }
+    self.lineView3.hidden = (canDoList.count<=0);
     
-    NSArray* cdl = [orderFrame.order.CanDoList componentsSeparatedByString:@","];
-    NSMutableArray* canDoList = [NSMutableArray array];
-    for(NSString* canDo in cdl){
-        if([clientSupportCanDoList containsObject:canDo]){
-            [canDoList addObject:canDo];
-        }
-    }
-    if([orderFrame.order canViewLogistics]){
-        [canDoList addObject:@"ViewLogistics"];
-    }
     CGFloat btnWidth = orderFrame.btnsF.size.width/canDoList.count;
     CGFloat btnX = 0;
     for(NSString* canDo in canDoList){
-        UIButton* btn = [[UIButton alloc]initWithFrame:CGRectMake(btnX, orderFrame.btnsF.origin.y, btnWidth, orderFrame.btnsF.size.height)];
+        UIButton* btn = [[UIButton alloc]initWithFrame:CGRectMake(btnX, 0, btnWidth, orderFrame.btnsF.size.height)];
         btn.font = normalFont;
         [btn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [btn addTarget:self action:@selector(onOrderOperate:) forControlEvents:UIControlEventTouchUpInside];
@@ -114,29 +119,29 @@
         if([@"Cancel" isEqualToString:canDo]){
             [btn setTitle:@"取消订单" forState:UIControlStateNormal];
             [btn setTag:CancelTab];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
 //        }else if([@"EditPrice" isEqualToString:canDo]){
 //            [btn setTitle:@"改价" forState:UIControlStateNormal];
         }else if([@"ConfirmOrder" isEqualToString:canDo]){
             [btn setTitle:@"确认订单" forState:UIControlStateNormal];
             [btn setTag:ConfirmOrderTag];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
         }else if([@"DeliverBack" isEqualToString:canDo]){
             [btn setTitle:@"退货" forState:UIControlStateNormal];
             [btn setTag:DeliverBackTag];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
         }else if([@"ConfirmReceipt" isEqualToString:canDo]){
             [btn setTitle:@"确认收货" forState:UIControlStateNormal];
             [btn setTag:ConfirmReceiptTag];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
         }else if([@"Pay" isEqualToString:canDo]){
             [btn setTitle:@"支付" forState:UIControlStateNormal];
             [btn setTag:PayTag];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
         }else if([@"ViewLogistics" isEqualToString:canDo]){
             [btn setTitle:@"查看物流" forState:UIControlStateNormal];
             [btn setTag:ViewLogisticsTag];
-            [self addSubview:btn];
+            [self.btns addSubview:btn];
         }else{
             
         }

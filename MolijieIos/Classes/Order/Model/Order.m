@@ -43,4 +43,20 @@
     return self.OrderProgress == Succeed || self.OrderProgress == Processing;
 }
 
+-(NSArray *)canDoArray{
+    NSArray* clientSupportCanDoList = @[@"Cancel",@"ConfirmOrder",@"DeliverBack",@"ConfirmReceipt",@"Pay"];
+    
+    NSArray* cdl = [_CanDoList componentsSeparatedByString:@","];
+    NSMutableArray* canDoArray = [NSMutableArray array];
+    for(NSString* canDo in cdl){
+        if([clientSupportCanDoList containsObject:canDo]){
+            [canDoArray addObject:canDo];
+        }
+    }
+    if([self canViewLogistics]){
+        [canDoArray addObject:@"ViewLogistics"];
+    }
+    return canDoArray;
+}
+
 @end

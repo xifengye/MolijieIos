@@ -47,5 +47,6 @@ typedef enum : NSUInteger {
 
 -(NSString*)getOrderProgressText;
 -(BOOL)canViewLogistics;
+-(NSArray*)canDoArray;
 
 @end

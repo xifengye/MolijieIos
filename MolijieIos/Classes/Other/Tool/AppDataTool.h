@@ -30,18 +30,14 @@
 
 
 typedef void(^HomePageResultBlock)(NSArray*,NSArray*);
-typedef void(^CataListResultBlock)(NSArray*);
 typedef void(^ErrorBlock)(ErrorCode);
 typedef void(^TokenResultBlock)(Token*);
-typedef void(^GoodsListResultBlock)(NSArray<Goods*>*);
 typedef void(^GoodsDetailResultBlock)(Goods*);
-typedef void(^AddressesResultBlock)(NSArray*);
-typedef void(^FreightResultBlock)(CGFloat);
+typedef void(^FloatResultBlock)(CGFloat);
 typedef void(^CreateOrderResultBlock)(Order*);
-typedef void(^LoadOrderResultBlock)(NSArray*);
-typedef void(^ResponseResultBlock)();
-typedef void(^OrderConsignmentsResultBlock)(NSArray*);
-
+typedef void(^EmptyResultBlock)();
+typedef void(^ArrayResultBlock)(NSArray*);
+typedef void(^BoolResultBlock)(BOOL);
 
 
 
@@ -51,33 +47,35 @@ typedef void(^OrderConsignmentsResultBlock)(NSArray*);
 
 +(void)requestHomePage:(HomePageResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)requestCataList:(CataListResultBlock)onResponse onError:(ErrorBlock)error;
-+(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(GoodsListResultBlock)onResponse onError:(ErrorBlock)error;
++(void)requestCataList:(ArrayResultBlock)onResponse onError:(ErrorBlock)error;
++(void)requestGoodsList:(NSString*)cataID pageNo:(NSUInteger)pageNo pageSize:(NSUInteger)pageSize response:(ArrayResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(void)requestGoodsDetail:(NSString*)cataID objectID:(NSString*)oId response:(GoodsDetailResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)requestAddress:(AddressesResultBlock)onResponse onError:(ErrorBlock)error;
++(void)requestAddress:(ArrayResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)loadLSPList:(ArrayResultBlock)onResponse onError:(ErrorBlock)error;
 
 //计算运费
-+(void)calculateFreight:(NSString*)cartItemJson recipient:(NSString*)recipient response:(FreightResultBlock)onResponse onError:(ErrorBlock)error;
++(void)calculateFreight:(NSString*)cartItemJson recipient:(NSString*)recipient response:(FloatResultBlock)onResponse onError:(ErrorBlock)error;
 
 //创建订单
 +(void)createOrder:(NSString*)cartItemJson recipient:(NSString*)recipient paymentType:(NSString*)payment response:(CreateOrderResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)loadRecentOrders:(LoadOrderResultBlock)response onError:(ErrorBlock)error;
++(void)loadRecentOrders:(ArrayResultBlock)response onError:(ErrorBlock)error;
 
-+(void)confirmReceipt:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
++(void)confirmReceipt:(NSString*)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)loadOrderConsignments:(NSString*)sn response:(OrderConsignmentsResultBlock)onResponse onError:(ErrorBlock)error;
++(void)loadOrderConsignments:(NSString*)sn response:(ArrayResultBlock)onResponse onError:(ErrorBlock)error;
 
 
-+(void)confirmOrder:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
++(void)confirmOrder:(NSString*)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)cancelOrder:(NSString*)sn response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
++(void)cancelOrder:(NSString*)sn response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)deliverBack:(NSString*)sn lspCode:(NSString*)lspCode postReceptCode:(NSString*)postReceptCode postFrom:(NSString*)postFrom response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
++(void)deliverBack:(NSString*)sn lspCode:(NSString*)lspCode postReceptCode:(NSString*)postReceptCode postFrom:(NSString*)postFrom response:(BoolResultBlock)onResponse onError:(ErrorBlock)error;
 
-+(void)pay:(NSString*)sn price:(CGFloat)price payment:(NSString*)payment response:(ResponseResultBlock)onResponse onError:(ErrorBlock)error;
++(void)pay:(NSString*)sn price:(CGFloat)price payment:(NSString*)payment response:(EmptyResultBlock)onResponse onError:(ErrorBlock)error;
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 
