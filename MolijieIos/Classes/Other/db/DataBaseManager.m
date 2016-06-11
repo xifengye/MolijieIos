@@ -72,13 +72,18 @@
 -(void)createTables{
 //    [self dropTable:TableOrder];
     NSString *orderSqlCreateTable =  [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' ('%@' INTEGER PRIMARY KEY AUTOINCREMENT, '%@' TEXT, '%@' TEXT, '%@' INTEGER, '%@' INTEGER)",TableOrder,@"ID",@"cataId",@"objectId",@"skuIndex",@"amount"];
-       [self createTable:orderSqlCreateTable];//中奖人员
+       [self createTable:orderSqlCreateTable];
+    
+    NSString* favouriteSqlCreateTable = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' ('%@' INTEGER PRIMARY KEY AUTOINCREMENT, '%@' TEXT, '%@' TEXT)",TableFavourite,@"ID",@"ObjectID",@"CataID"];
+    [self createTable:favouriteSqlCreateTable];
 }
 
 
 #pragma mark 初始化数据
+
 -(void)initData{
     orders = [self queryOrders];
+    favourites = [self queryFavourite];
 }
 
 
@@ -98,6 +103,17 @@
         
     }
     return ID;
+}
+
+-(BOOL)insertFavourite:(Favourite *)favourite{
+    NSUInteger ID = [self insert:TableFavourite value:favourite];
+    if(ID>0){
+        favourite.ID = ID;
+        [favourites addObject:favourite];
+        
+    }
+    return ID;
+
 }
 
 -(NSUInteger)orderIsExist:(OrderLocal*)order{
@@ -162,24 +178,52 @@
     return os;
 }
 
-
-//从内存中删除员工
--(void)removeOrder:(OrderLocal*)order{
-    for(OrderLocal* o in orders){
-        if(o.ID == order.ID){
-            [orders removeObject:o];
-            break;
+-(NSMutableArray*)queryFavourite{
+    NSMutableArray* os = [NSMutableArray array];
+    if ([self.dataBase open]) {
+        FMResultSet *rs = [self.dataBase executeQuery:[NSString stringWithFormat:@"SELECT ID,CataID,ObjectID FROM %@",TableFavourite]];
+        while ([rs next]) {
+            int ID = [rs intForColumn:@"ID"];
+            NSString *cataId = [rs stringForColumn:@"CataID"];
+            NSString *ojbectId = [rs stringForColumn:@"ObjectID"];
+            Favourite* favourite = [[Favourite alloc]init];
+            favourite.ID = ID;
+            favourite.CataID = cataId;
+            favourite.ObjectID = ojbectId;
+            [os addObject:favourite];
         }
+        [rs close];
     }
-
+    return os;
 }
+
+
+////从内存中删除员工
+//-(void)removeOrder:(OrderLocal*)order{
+//    for(OrderLocal* o in orders){
+//        if(o.ID == order.ID){
+//            [orders removeObject:o];
+//            break;
+//        }
+//    }
+//
+//}
 
 -(BOOL)deleteOrder:(OrderLocal *)order{
     BOOL reslut = [self deleteByID:TableOrder ID:order.ID];
     if(reslut){
-        [self removeOrder:order];
+        [orders removeObject:order];
     }
     return reslut;
+}
+
+-(BOOL)deleteFavourite:(Favourite *)favourite{
+    BOOL reslut = [self deleteByID:TableFavourite ID:favourite.ID];
+    if(reslut){
+        [favourites removeObject:favourite];
+    }
+    return reslut;
+
 }
 
 -(NSArray *)allOrder{
@@ -326,7 +370,14 @@
     [orders removeAllObjects];
 }
 
-
+-(BOOL)isFavourite:(Favourite *)favourite{
+    for(Favourite* fav in favourites){
+        if([fav isEqual:favourite]){
+            return YES;
+        }
+    }
+    return NO;
+}
 
 
 @end

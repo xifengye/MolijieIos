@@ -11,6 +11,8 @@
 #import "SettlementCell.h"
 #import "AppDataMemory.h"
 #import "AppDataTool.h"
+#import "OrderViewController.h"
+#import "AddressController.h"
 
 @implementation SettlementController
 
@@ -62,12 +64,8 @@
     }
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    CGRect rect = self.navigationController.navigationBar.frame;
-    float y = rect.size.height + rect.origin.y;
-    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
+-(UIScrollView *)adjustContentInsetView{
+    return _tableView;
 }
 
 
@@ -83,25 +81,25 @@
     [self.view addSubview:paymentView];
     
     UIImage* payIcon = [UIImage imageNamed:@"zfb"];
-    UIImageView* payIconView = [[UIImageView alloc]initWithFrame:CGRectMake(margin, (paymentViewHeight-payIcon.size.height)/2, payIcon.size.width, payIcon.size.height)];
+    UIImageView* payIconView = [[UIImageView alloc]initWithFrame:CGRectMake(_margin, (paymentViewHeight-payIcon.size.height)/2, payIcon.size.width, payIcon.size.height)];
     [paymentView addSubview:payIconView];
     [payIconView setImage:payIcon];
     
     NSString* payName = @"支付宝";
-    CGSize payNameSize = [payName sizeWithFont:labelFont];
-    UILabel* payLabel = [[UILabel alloc]initWithFrame:CGRectMake(margin*2+payIcon.size.width, (paymentViewHeight-payNameSize.height)/2, payNameSize.width, payNameSize.height)];
+    CGSize payNameSize = [payName sizeWithFont:mljLabelFont];
+    UILabel* payLabel = [[UILabel alloc]initWithFrame:CGRectMake(_margin*2+payIcon.size.width, (paymentViewHeight-payNameSize.height)/2, payNameSize.width, payNameSize.height)];
     payLabel.text = payName;
-    payLabel.font = labelFont;
+    payLabel.font = mljLabelFont;
     [paymentView addSubview:payLabel];
     
     UIImage* checkImg = [UIImage imageNamed:@"btn_radio_on"];
-    UIButton* btnCheck = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-margin-checkImg.size.width, (paymentViewHeight-checkImg.size.height)/2, checkImg.size.width, checkImg.size.height)];
+    UIButton* btnCheck = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-_margin-checkImg.size.width, (paymentViewHeight-checkImg.size.height)/2, checkImg.size.width, checkImg.size.height)];
     [btnCheck setImage:checkImg forState:UIControlStateSelected];
     btnCheck.selected = YES;
     [paymentView addSubview:btnCheck];
     
     
-    UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight-paymentViewHeight-margin)];
+    UITableView* tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight-paymentViewHeight-_margin)];
     [self.view addSubview:tableView];
     self.tableView = tableView;
 
@@ -110,14 +108,6 @@
     self.tableView.dataSource = self;
 }
 
-
--(BOOL)hiddenNavigationBar{
-    return NO;
-}
-
--(BOOL)needGoBack{
-    return YES;
-}
 
 
 #pragma mark - Table view data source
@@ -154,7 +144,7 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    MGAddressView* addressView = [[MGAddressView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, addressNoOperateCellFrame.cellHeight+margin)];
+    MGAddressView* addressView = [[MGAddressView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, addressNoOperateCellFrame.cellHeight+_margin)];
     addressView.addressFrame = addressNoOperateCellFrame;
     [addressView addTarget:self action:@selector(onAddressClicked) forControlEvents:UIControlEventTouchUpInside];
     return addressView;
@@ -162,12 +152,15 @@
 
 -(void)onAddressClicked{
     NSLog(@"address clicked");
+    AddressController* controller = [[AddressController alloc]init];
+    controller.isSelectForSettlement = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     addressNoOperateCellFrame = [[AddressNoOperateCellFrame alloc]init];
     [addressNoOperateCellFrame setRecipient:[[AppDataMemory instance] defaultRecipient]];
-    return addressNoOperateCellFrame.cellHeight+margin;
+    return addressNoOperateCellFrame.cellHeight+_margin;
 }
 
 -(void)caculatePrice{
@@ -191,6 +184,11 @@
     NSString* recipientJson = [recipient getJsonString];
     [AppDataTool createOrder:cartItemJson recipient:recipientJson paymentType:payment response:^(Order *order) {
         NSLog(@"Order=%@",order);
+        if(order){
+            [[AppDataMemory instance]addOrder:order];
+            OrderViewController* controller = [[OrderViewController alloc]init];
+            [self presentViewController:controller animated:true completion:nil];
+        }
         
     } onError:^(ErrorCode errorCode) {
     }];

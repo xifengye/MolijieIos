@@ -11,6 +11,7 @@
 #import "MLJResponse.h"
 #import "Goods.h"
 #import "Order.h"
+#import "User.h"
 
 #define UseForAppSource     @"UseForAppSource"
 #define  UseForGoodSource   @"UseForGoodSource"
@@ -38,6 +39,7 @@ typedef void(^CreateOrderResultBlock)(Order*);
 typedef void(^EmptyResultBlock)();
 typedef void(^ArrayResultBlock)(NSArray*);
 typedef void(^BoolResultBlock)(BOOL);
+typedef void(^UserResultBlock)(User*);
 
 
 
@@ -79,4 +81,10 @@ typedef void(^BoolResultBlock)(BOOL);
 
 +(NSString*)imageUrlFor:(NSString*)imgType withImgid:(NSString*)img_id;
 
+
++(void)setAddresses:(BoolResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)requestUserInfo:(UserResultBlock)onResponse onError:(ErrorBlock)error;
+
++(void)commitSuggest:(NSString*)suggest response:(BoolResultBlock)onResponse onError:(ErrorBlock)error;
 @end

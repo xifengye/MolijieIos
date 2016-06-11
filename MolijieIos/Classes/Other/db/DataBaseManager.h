@@ -9,15 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 #import "OrderLocal.h"
+#import "Favourite.h"
 
 
 #define TableOrder   @"LocalOrder"
+#define TableFavourite @"favourite"
 
 #define log false
 
 
 @interface DataBaseManager : NSObject{
     NSMutableArray* orders;
+    NSMutableArray* favourites;
 }
 
 +(instancetype)instance;
@@ -28,6 +31,12 @@
 -(BOOL)updateOrderAmount:(OrderLocal *)order;
 -(OrderLocal*)orderByID:(NSUInteger)ID;
 -(BOOL)deleteOrder:(OrderLocal*)order;
+
+-(BOOL)insertFavourite:(Favourite*)favourite;
+-(BOOL)deleteFavourite:(Favourite*)favourite;
+-(NSArray*)favouriteList;
+-(BOOL)isFavourite:(Favourite*)favourite;
+
 
 -(NSArray*)allOrder;
 

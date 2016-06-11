@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MGTitleButton.h"
-#import "BaseTableViewController.h"
-#import "CycleScrollView.h"
 #import "BaseViewController.h"
+#import "CycleScrollView.h"
 
 @interface HomeController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)UICollectionView* collectionView;

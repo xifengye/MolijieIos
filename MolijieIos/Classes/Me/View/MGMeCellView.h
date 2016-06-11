@@ -9,4 +9,6 @@
 #import <UIKit/UIKit.h>
 #define CELL_HEIGHT 100
 @interface MGMeCellView : UITableViewCell
+@property(nonatomic,weak)UILabel* nameLabel;
+@property(nonatomic,weak)UILabel* descLabel;
 @end

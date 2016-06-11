@@ -15,9 +15,9 @@
 #import "MGBuyPanel.h"
 #import "SettlementNowView.h"
 #import "BaseViewController.h"
+#import "Favourite.h"
 
 @interface GoodsDetailController : BaseViewController<UIGoodsBottomBarDelegate,UIBuyPanelDelegate>{
-
 }
 @property(nonatomic,strong)Goods* goods;
 @property(nonatomic,strong)UIScrollView* scrollView;

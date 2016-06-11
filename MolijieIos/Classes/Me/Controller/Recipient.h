@@ -27,4 +27,12 @@
 -(NSString*)getJsonString;
 +(NSString*)getLocate:(NSString*)pro city:(NSString*)cit district:(NSString*)dis;
 -(NSString*)getSimpleAddress;
+-(NSString*)getPCD;
+-(NSString*)getDetail;
+-(void)setPCD:(NSString*) pro city:(NSString*)cit district:(NSString*)dis detail:(NSString*)det;
+-(BOOL)checkSelf;
+-(NSString*)getProvince;
+-(NSString*)getCity;
+
+-(NSString*)getDistrict;
 @end

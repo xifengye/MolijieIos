@@ -24,8 +24,8 @@
 
 
 -(void)viewDidLoad{
+    self.title = @"商品详情";
     [super viewDidLoad];
-//    [self setupNavBar];
     [self initView];
     [self initData];
     
@@ -33,14 +33,17 @@
 
 -(void)initData{
     [self updateCartBadge];
+    self.bottomBar.btnFavourite.selected = [[DataBaseManager instance]isFavourite:[self.goods favourite]];
+    
 }
+
 
 -(void)initView{
     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-barHeight)];
     [self.scrollView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:_scrollView];
     
-    [self initTopBar];
+//    [self initTopBar];
     [self initBottomBar];
     [self initBuyPanel];
     
@@ -183,16 +186,6 @@
     [browser show];
 }
 
--(void)setupNavBar{
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
-    self.navigationItem.title = _goods.Title;
-    
-}
-
--(void)goBack:(id)sender{
-    [self dismissViewControllerAnimated:true completion:nil];
-}
 
 -(void)showBuyPanel{
     self.buyPanel.hidden = NO;
@@ -240,6 +233,12 @@
 
 -(void)bottomBarDidClickedFavourite:(GoodsDetailBottomBar *)bottomBar forStatus:(BOOL)status{
     NSLog(@"favourite clicked");
+    if(status){
+        [[DataBaseManager instance]insertFavourite:[self.goods favourite]];
+    }else{
+        [[DataBaseManager instance]deleteFavourite:[self.goods favourite]];
+    }
+    
 }
 
 #pragma mark BuyPanelDelegate
@@ -312,9 +311,7 @@
 
 -(void)goViewCart{
     CartController* cartController = [[CartController alloc]init];
-    cartController.navigationBarHidden = false;
-    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:cartController];
-    [self presentViewController:navController animated:true completion:nil];
+    [self.navigationController pushViewController:cartController animated:YES];
 }
 
 @end

@@ -44,23 +44,23 @@
     
     UILabel* nameLabel = [[UILabel alloc]init];
     self.nameLabel = nameLabel;
-    self.nameLabel.font = labelFont;
+    self.nameLabel.font = mljLabelFont;
     [self addSubview:nameLabel];
     
     UILabel* priceLabel = [[UILabel alloc]init];
     self.priceLabel = priceLabel;
-    self.priceLabel.font = labelFont;
+    self.priceLabel.font = mljLabelFont;
     [self addSubview:priceLabel];
     
     UILabel* allPriceLabel = [[UILabel alloc]init];
     self.allPriceLabel = allPriceLabel;
-    self.allPriceLabel.font = labelFont;
+    self.allPriceLabel.font = mljLabelFont;
     self.allPriceLabel.textColor = [UIColor orangeColor];
     [self addSubview:allPriceLabel];
     
     UILabel* unitLabel = [[UILabel alloc]init];
     self.unitLabel = unitLabel;
-    self.unitLabel.font = labelFont;
+    self.unitLabel.font = mljLabelFont;
     [self addSubview:unitLabel];
     
     MGAmountView* amountView = [[MGAmountView alloc]init];

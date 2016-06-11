@@ -92,4 +92,62 @@ static AppDataMemory*shareInstance = nil;
     return name;
 }
 
+-(NSString *)recipientJsonArray{
+    BOOL findDefault = false;
+    for(Recipient* r in self.recipients){
+        if(r.AsDefault){
+            findDefault = true;
+            break;
+        }
+    }
+    NSMutableString* sb = [NSMutableString stringWithString:@"["];
+    int i=0;
+    for(Recipient *r in self.recipients){
+        if(r.Number<=0){
+            continue;
+        }
+        if(!findDefault && sb.length<2){
+            [r setAsDefault:true];
+        }
+        [sb appendString:[r getJsonString]];
+        if(i++<self.recipients.count-1){
+            [sb appendString:@","];
+        }
+    }
+    [sb appendString:@"]"];
+    return sb;
+}
+
+-(void)addRecipient:(Recipient *)re{
+    if(re.AsDefault){
+        for(Recipient* r in self.recipients){
+            r.AsDefault = false;
+        }
+    }
+    [self.recipients addObject:re];
+}
+
+-(void)modifyRecipient:(Recipient *)re{
+    if(self.recipients.count>1){
+        if(re.AsDefault){
+            for(Recipient* r in self.recipients){
+                if(r!=re){
+                    r.AsDefault = false;
+                }
+            }
+        }else{
+            BOOL hasDefalut = false;
+            for(Recipient* r in self.recipients){
+                if(r.AsDefault){
+                    hasDefalut = true;
+                    break;
+                }
+            }
+            if(!hasDefalut){
+                self.recipients[0].AsDefault = true;
+            }
+        }
+    }
+}
+
 @end

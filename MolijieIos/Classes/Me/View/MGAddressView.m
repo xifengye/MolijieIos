@@ -18,17 +18,17 @@
         [self setBackgroundImage:[UIImage createImageWithColor:[UIColor grayColor]] forState:UIControlStateHighlighted];
         UILabel* nameLabel = [[UILabel alloc]init];
         self.nameLabel = nameLabel;
-        self.nameLabel.font = labelFont;
+        self.nameLabel.font = mljLabelFont;
         [self addSubview:nameLabel];
         
         UILabel* phoneLabel = [[UILabel alloc]init];
         self.phoneLabel = phoneLabel;
-        self.phoneLabel.font = labelFont;
+        self.phoneLabel.font = mljLabelFont;
         [self addSubview:phoneLabel];
         
         UILabel* addressLabel = [[UILabel alloc]init];
         self.addressLabel = addressLabel;
-        self.addressLabel.font = labelFont;
+        self.addressLabel.font = mljLabelFont;
         [self addSubview:addressLabel];
         
         UIImage* allowImg = [UIImage imageNamed:@"btn_back_pressed"];

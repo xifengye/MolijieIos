@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
 #import "MGCartBottomView.h"
 #import "CartCell.h"
+#import "BaseViewController.h"
 
 @interface CartController : BaseViewController<UITableViewDelegate,UITableViewDataSource,CartCellDelegate,MGCartBottomViewDelegate>{
     NSMutableArray* cartItemFrames;
 }
 @property(nonatomic,weak)UITableView* tableView;
 @property(nonatomic,weak)MGCartBottomView* bottomView;
-@property(nonatomic,assign)BOOL navigationBarHidden;
+@property(nonatomic,assign)BOOL isInTab;
 @end

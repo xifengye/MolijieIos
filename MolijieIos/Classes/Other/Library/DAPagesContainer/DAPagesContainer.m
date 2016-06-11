@@ -171,6 +171,9 @@
         }];
     }
     _selectedIndex = selectedIndex;
+    if(_delegate && [_delegate respondsToSelector:@selector(didDAPageContainerSelectedIndex:selectedIndex:)]){
+        [self.delegate didDAPageContainerSelectedIndex:self selectedIndex:_selectedIndex];
+    }
 }
 
 - (void)updateLayoutForNewOrientation:(UIInterfaceOrientation)orientation

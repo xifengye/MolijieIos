@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "Goods.h"
 
-@interface GoodsListController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface GoodsListController : BaseViewController<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)UICollectionView* collectionView;
 @property(nonatomic,strong)NSArray<Goods*>* goodsList;
 @property(nonatomic,assign)NSUInteger pageNo;
-@property(nonatomic,assign)NSString* cataId;
-@property(nonatomic,assign)NSString* title;
+@property(nonatomic,copy)NSString* cataId;
 
 @end

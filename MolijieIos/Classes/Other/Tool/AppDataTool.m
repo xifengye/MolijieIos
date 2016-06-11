@@ -16,6 +16,7 @@
 #import "AppDataMemory.h"
 #import "LPS.h"
 #import "OrderConsignments.h"
+#import "Config.h"
 
 @implementation AppDataTool
 +(void)requestAppToken:(TokenResultBlock)onResponse onError:(ErrorBlock)error{
@@ -324,6 +325,67 @@
         
     } failure:^(NSError *error) {
         NSLog(@"loadLSPList failure:%@",error);
+    }];
+
+}
+
++(void)setAddresses:(BoolResultBlock)onResponse onError:(ErrorBlock)error{
+    
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:[[AppDataMemory instance] recipientJsonArray] forKey:@"recipient_list_json"];
+    [HttpTool MLJPOST:@"SetUserAddressBook" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"setAddresses Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"setAddresses resp:%@",response.Data);
+            NSNumber* number =  response.Data;
+            onResponse(number.boolValue);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"setAddresses failure:%@",error);
+    }];
+
+}
+
++(void)requestUserInfo:(UserResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [HttpTool MLJPOST:@"LoadCurrentUserInfo" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"requestUserInfo Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"requestUserInfo resp:%@",response.Data);
+            onResponse([User objectWithKeyValues:response.Data]);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"requestUserInfo failure:%@",error);
+    }];
+
+}
+
+
++(void)commitSuggest:(NSString *)suggest response:(BoolResultBlock)onResponse onError:(ErrorBlock)error{
+    NSMutableDictionary* params = [NSMutableDictionary dictionary];
+    [params setObject:suggest forKey:@"suggest"];
+    NSString* os = [NSString stringWithFormat:@"%f",[[[UIDevice currentDevice] systemVersion] floatValue]];
+    [params setObject:os forKey:@"os"];
+    [params setObject:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] forKey:@"app_version"];
+    [params setObject:[Config getCurrentDeviceModel] forKey:@"device_info"];
+    [HttpTool MLJPOST:@"PostSuggest" params:params hasAppToken:true hasUserToken:true hasAES:true success:^(MLJResponse *response) {
+        if(response.HasError){
+            NSLog(@"commitSuggest Error:%lld",response.ErrorCode);
+            error(response.ErrorCode);
+        }else{
+            NSLog(@"commitSuggest resp:%@",response.Data);
+            NSNumber* boolResult = response.Data;
+            onResponse(boolResult.boolValue);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"commitSuggest failure:%@",error);
     }];
 
 }

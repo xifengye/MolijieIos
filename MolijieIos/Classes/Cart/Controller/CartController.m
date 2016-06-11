@@ -26,23 +26,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavBar];
+    self.title = @"购物车";
     [self initView];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onLocalOrderChange:) name:local_order_change object:nil];
     [self initData];
     
 }
 
--(BOOL)needGoBack{
-    return false;
-}
 
 -(void)initView{
     self.navigationController.toolbar.hidden = NO;
     CGFloat bottomViewHeight = barHeight;
-    if(_navigationBarHidden){
-        bottomViewHeight = barHeight*2;
-        
+    if(_isInTab){
+        bottomViewHeight+=49;
     }
     MGCartBottomView* bottomView = [[MGCartBottomView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-bottomViewHeight, self.view.frame.size.width, barHeight)];
     [self.view addSubview:bottomView];
@@ -57,29 +53,12 @@
     self.tableView.dataSource = self;
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    CGRect rect = self.navigationController.navigationBar.frame;
-    float y = rect.size.height + rect.origin.y;
-    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
+
+-(UIScrollView *)adjustContentInsetView{
+    return _tableView;
 }
 
-//- (void)adjustEdgeInsetsForTableView {
-//        self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
-//}
 
--(void)setupNavBar{
-    [self.navigationController setNavigationBarHidden:_navigationBarHidden];
-    if(!_navigationBarHidden){
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-        self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    }
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
-    self.navigationItem.title = @"购物车";
-    
-}
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -91,9 +70,6 @@
    }
 }
 
--(void)goBack{
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
@@ -233,8 +209,7 @@
     SettlementController* settlementController = [[SettlementController alloc]init];
     [settlementController initItemFrames:cartItemFrames];
     settlementController.title = @"结算";
-    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:settlementController];
-    [self presentViewController:navController animated:true completion:nil];
+    [self.navigationController pushViewController:settlementController animated:YES];
 }
 
 

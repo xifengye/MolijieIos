@@ -10,5 +10,5 @@
 
 @interface BaseViewController : UIViewController
 -(BOOL) hiddenNavigationBar;
--(BOOL)needGoBack;
+-(UIScrollView*)adjustContentInsetView;
 @end

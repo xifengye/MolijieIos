@@ -11,34 +11,41 @@
 #import "AppDataMemory.h"
 #import "Config.h"
 #import "UIImage+MG.h"
+#import "AddressEditController.h"
+#import "AppDataTool.h"
+#import "MBProgressHUD+MJ.h"
+
+@interface AddressController()<MGAddressCellDelegate>
+
+@end
 
 @implementation AddressController
 -(void)viewDidLoad{
-    [super viewDidLoad];
     self.title = @"我的地址";
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didAddressBookUpdated:) name:NOTIFYCATION_UPDATE_ADDRESS object:nil];
+
     [self initView];
     addressCellFrameList = [NSMutableArray array];
+    [self reloadData];
+}
+
+-(void)reloadData{
+    [addressCellFrameList removeAllObjects];
     for(Recipient* r in [AppDataMemory instance].recipients){
         AddressCellFrame* acf = [[AddressCellFrame alloc]init];
         [acf setRecipient:r];
         [addressCellFrameList addObject:acf];
     }
+    [self.tableView reloadData];
 }
 
--(BOOL)hiddenNavigationBar{
-    return NO;
+-(void)didAddressBookUpdated:(id)notifycation{
+    [self reloadData];
 }
 
--(BOOL)needGoBack{
-    return YES;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    CGRect rect = self.navigationController.navigationBar.frame;
-    float y = rect.size.height + rect.origin.y;
-    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
+-(UIScrollView *)adjustContentInsetView{
+    return _tableView;
 }
 
 -(void)initView{
@@ -61,7 +68,7 @@
 }
 
 -(void)onAddNewAddress{
-    
+    [self toEditAddress:nil];
 }
 
 #pragma mark - Table view data source
@@ -80,15 +87,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     AddressCellFrame* frame = addressCellFrameList[indexPath.row];
     cell.cellFrame = frame;
+    cell.delegate = self;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController* controller = [[UIViewController alloc] init];
-    controller.view.backgroundColor = [UIColor redColor];
-    //    [self.navigationController pushViewController:controller animated:true];
-    
-}
 
 
 
@@ -96,5 +98,38 @@
     AddressCellFrame* frame = addressCellFrameList[indexPath.row];
     return frame.cellHeight;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AddressCellFrame* frame = addressCellFrameList[indexPath.row];
+    [self toEditAddress:frame.recipient];
+}
+
+-(void)toEditAddress:(Recipient*)r{
+    
+    AddressEditController* controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AddressEditController"];
+    controller.recipient = r;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void)didAddressCellDelete:(MGAddressCell *)cell deleteRecipient:(Recipient *)recipient{
+    [[AppDataMemory instance].recipients removeObject:recipient];
+    [AppDataTool setAddresses:^(BOOL result) {
+        if(result){
+            [MBProgressHUD showSuccess:@"删除成功!"];
+             [self reloadData];
+        }else{
+            [MBProgressHUD showError:@"删除失败!"];
+        }
+    } onError:^(ErrorCode errorCode) {
+        [MBProgressHUD showError:@"删除出错!"];
+    }];
+
+}
+
+
 
 @end

@@ -40,28 +40,30 @@
     
     UILabel* nameLabel = [[UILabel alloc]init];
     self.nameLabel = nameLabel;
-    self.nameLabel.font = labelFont;
+    self.nameLabel.font = mljLabelFont;
     [self addSubview:nameLabel];
     
     UILabel* phoneLabel = [[UILabel alloc]init];
     self.phoneLabel = phoneLabel;
-    self.phoneLabel.font = labelFont;
+    self.phoneLabel.font = mljLabelFont;
     [self addSubview:phoneLabel];
     
     UILabel* addressLabel = [[UILabel alloc]init];
     self.addressLabel = addressLabel;
-    self.addressLabel.font = labelFont;
+    self.addressLabel.font = mljLabelFont;
     [self addSubview:addressLabel];
     
     UILabel* defaultLabel = [[UILabel alloc]init];
     self.defaultLabel = defaultLabel;
-    self.defaultLabel.font = labelFont;
+    self.defaultLabel.font = mljLabelFont;
     self.defaultLabel.text = @"设置为默认地址";
     [self addSubview:defaultLabel];
 
     
     
     UIButton* btnDelete = [[UIButton alloc]init];
+    int inset = 8;
+    btnDelete.imageEdgeInsets = UIEdgeInsetsMake(inset,inset,inset,inset);
     [btnDelete setImage:[UIImage imageNamed:@"ico_delete"] forState:UIControlStateNormal];
     self.btnDelete = btnDelete;
     [self addSubview:btnDelete];
@@ -72,6 +74,12 @@
     self.lineView  = lineView;
     [self addSubview:lineView];
     
+}
+
+-(void)onDelete{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(didAddressCellDelete:deleteRecipient:)]){
+        [self.delegate didAddressCellDelete:self deleteRecipient:_cellFrame.recipient];
+    }
 }
 
 
@@ -96,7 +104,7 @@
     //创建路径并获取句柄
     CGMutablePathRef path = CGPathCreateMutable();
     //指定矩形
-    CGRect rectangle = CGRectMake(rect.origin.x+margin,rect.origin.y+margin,rect.size.width-margin*2,rect.size.height-margin*2);
+    CGRect rectangle = CGRectMake(rect.origin.x+_margin,rect.origin.y+_margin,rect.size.width-_margin*2,rect.size.height-_margin*2);
     //将矩形添加到路径中
     CGPathAddRect(path,NULL,rectangle);
     //获取上下文

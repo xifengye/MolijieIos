@@ -23,7 +23,7 @@
 @property(nonatomic,strong)NSArray<RotatingAd*>* rotatingAds;
 @property(nonatomic,strong)NSArray<IndexBlock*>* indexBlocks;
 @property(nonatomic,strong)NSArray<Childs*>* childs;
-@property(nonatomic,strong)NSArray<Recipient*>* recipients;
+@property(nonatomic,strong)NSMutableArray<Recipient*>* recipients;
 @property(nonatomic,strong)NSMutableDictionary* orderDict;
 @property(nonatomic,strong)NSMutableDictionary* lpsDict;
 
@@ -36,6 +36,11 @@
 
 -(void)addLpsList:(NSArray*)lpsList;
 -(NSString*) getLpsCodeByLpsName:(NSString*) name;
+
+-(NSString*)recipientJsonArray;
+
+-(void)addRecipient:(Recipient*)r;
+-(void)modifyRecipient:(Recipient*)r;
 
 +(instancetype)instance;
 @end

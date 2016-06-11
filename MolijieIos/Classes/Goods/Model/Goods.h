@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Units.h"
+#import "Favourite.h"
 
-@interface Goods : NSObject
+@interface Goods : NSObject{
+    Favourite* _favourite;
+}
 @property(nonatomic,copy)NSString* Title;
 @property(nonatomic,copy)NSString* CataID;
 @property(nonatomic,assign)BOOL NeedLogistics;//是否物流
@@ -33,4 +36,6 @@
 -(NSString*)titleValusBySkuIndex:(NSUInteger)skuIndex;
 
 -(CGFloat)getPriceBySkuIndex:(NSUInteger)skuIndex;
+
+-(Favourite*)favourite;
 @end

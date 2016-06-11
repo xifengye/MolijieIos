@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "OrderCell.h"
 typedef enum : NSUInteger {
     TAB_WAIT_SEND,
@@ -15,6 +16,7 @@ typedef enum : NSUInteger {
     TAB_ALL
 } Tabs;
 
-@interface OrderViewController : UIViewController<OrderCellDelegate>
+@interface OrderViewController : BaseViewController<OrderCellDelegate>
 @property(nonatomic,assign)Tabs currentTab;
+@property(nonatomic,assign)Tabs defaultTab;
 @end

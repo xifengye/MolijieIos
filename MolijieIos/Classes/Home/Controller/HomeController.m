@@ -41,7 +41,7 @@
 }
 
 -(void)initViews{
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     CGFloat svWidth = self.view.frame.size.width;
     CGFloat svHeight = svWidth/2.117647;
     NSMutableArray *viewsArray = [@[] mutableCopy];
@@ -79,7 +79,9 @@
 
 }
 
-
+-(UIScrollView *)adjustContentInsetView{
+    return _collectionView;
+}
 
 #pragma mark -- uiICollectionView
 
@@ -172,9 +174,7 @@
     GoodsListController* goodsListController = [[GoodsListController alloc]init];
     goodsListController.cataId = cataId;
     goodsListController.title = title;
-    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:goodsListController];
-
-    [self presentViewController:navController animated:true completion:nil];
+    [self.navigationController pushViewController:goodsListController animated:true];
 
 }
 

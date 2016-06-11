@@ -9,30 +9,37 @@
 #import "BaseTableViewController.h"
 
 @implementation BaseTableViewController
+
 -(void)viewDidLoad{
     [self.navigationController setNavigationBarHidden:self.hiddenNavigationBar];
-    if([self needGoBack]){
-        [self setupNavBar];
-    }
-}
-
--(BOOL)hiddenNavigationBar{
-    return true;
+    [self setupNavBar];
 }
 
 -(void)setupNavBar{
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] init];
     self.navigationItem.title = self.title;
     
 }
 
--(void)goBack{
-    [self dismissViewControllerAnimated:true completion:nil];
+-(BOOL)hiddenNavigationBar{
+    return NO;
 }
 
--(BOOL)needGoBack{
-    return [self hiddenNavigationBar] && YES;
+-(UIScrollView *)adjustContentInsetView{
+    return nil;
 }
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    UIScrollView* view = [self adjustContentInsetView];
+    if(view){
+        CGRect rect = self.navigationController.navigationBar.frame;
+        float y = rect.size.height + rect.origin.y;
+        view.contentInset = UIEdgeInsetsMake(y, 0, 0, 0);
+    }
+}
+
 
 @end

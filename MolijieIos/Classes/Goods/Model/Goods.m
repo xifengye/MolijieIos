@@ -149,4 +149,13 @@
     return 0.0f;
 }
 
+-(Favourite *)favourite{
+    if(!_favourite){
+        _favourite = [[Favourite alloc]init];
+        _favourite.CataID = self.CataID;
+        _favourite.ObjectID = self.ObjectID;
+    }
+    return _favourite;
+}
+
 @end

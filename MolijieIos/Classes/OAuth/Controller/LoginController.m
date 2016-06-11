@@ -33,10 +33,21 @@
 - (IBAction)onLoginClicked:(id)sender {
     [AppDataTool login:self.tfUsername.text password:self.tfPassword.text didResponse:^(Token* token) {
         NSLog(@"UserToken=%@",token.token);
-        [self onLoginSuccess];
-    } onError:^(ErrorCode errorCode) {
+        [AppDataTool requestUserInfo:^(User *user) {
+            [[AppDataMemory instance].user update:user];
+            [self onLoginSuccess];
+        } onError:^(ErrorCode errorCode) {
+            [self onLoginSuccess];
+        }];
         
+    } onError:^(ErrorCode errorCode) {
+        [self onLoginFail];
     }];
+}
+
+
+-(void)onLoginFail{
+    
 }
 
 -(void)onLoginSuccess{
@@ -50,7 +61,7 @@
 }
 
 -(void)saveUser{
-    [AppDataMemory instance].user.UserName = _tfUsername.text;
+//    [AppDataMemory instance].user.UserName = _tfUsername.text;
     if(_remenmberPassword.isOn){
         [AppDataMemory instance].user.password = _tfPassword.text;
         [AppDataMemory instance].user.autoLogin = _autoLogin.on;

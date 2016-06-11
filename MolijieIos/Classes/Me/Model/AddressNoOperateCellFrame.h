@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "Recipient.h"
 
-#define  margin  7.0
+#define  _margin  7.0
 
 @interface AddressNoOperateCellFrame : NSObject
 

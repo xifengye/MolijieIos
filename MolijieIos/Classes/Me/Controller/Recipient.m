@@ -66,6 +66,10 @@
 }
 
 
+-(BOOL)checkSelf{
+    return self.RealName && self.RealName.length>1 && self.Mobile && self.Mobile.length>5 && self.getSimpleAddress.length>5 && self.getDetail.length>1;
+}
+
 
 -(NSString *)getJsonString{
         return [NSString stringWithFormat:@"{\"Address\":\"%@\",\"AsDefault\":%@,\"Mobile\":\"%@\",\"Number\":%ld,\"PostCode\":\"%@\",\"RealName\":\"%@\",\"Tel\":\"%@\"}",self.Address,_AsDefault?@"true":@"false",_Mobile,_Number,_PostCode,_RealName,_Tel];

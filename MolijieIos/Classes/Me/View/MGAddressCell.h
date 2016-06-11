@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AddressCellFrame.h"
+@class MGAddressCell;
+@protocol MGAddressCellDelegate <NSObject>
+
+@optional
+-(void)didAddressCellDelete:(MGAddressCell*)cell deleteRecipient:(Recipient*) recipient;
+
+@end
 
 @interface MGAddressCell : UITableViewCell
 
@@ -21,4 +28,6 @@
 @property(nonatomic,weak)UIButton* btnDefalut;
 @property(nonatomic,weak)UIButton* btnDelete;
 @property(nonatomic,weak)UIView* lineView ;
+
+@property(nonatomic,weak)id<MGAddressCellDelegate> delegate;
 @end

@@ -20,7 +20,7 @@
 
 	self.cellHeight = UITableViewAutomaticDimension;
     self.tableViewCellSubclass = _tableViewCellSubclass?_tableViewCellSubclass:[UITableViewCell class];
-	self.cellStyle = UITableViewCellStyleDefault;
+	self.cellStyle = UITableViewCellStyleValue1;
 	self.reuseIdentifier = @"DefaultCell";
 
     self.editingStyle = UITableViewCellEditingStyleNone;
@@ -28,6 +28,7 @@
     self.moveable = NO;
 
 	return self;
+    
 }
 
 @end

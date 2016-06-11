@@ -10,8 +10,10 @@
 #import "MGMeCellView.h"
 #import "MGMeOrderStatusCell.h"
 #import "AddressController.h"
-#import "OrderController.h"
 #import "OrderViewController.h"
+#import "AccountController.h"
+#import "AppDataMemory.h"
+#import "SuggestController.h"
 
 
 @interface MeController ()
@@ -34,34 +36,32 @@
     [self setupSettingView];
 }
 
--(BOOL)needGoBack{
-    return NO;
-}
-
 
 -(void)setupSettingView{
     UIView* headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.1)];
     
      self.tableView.tableHeaderView = headerView;
-    
+    __block MeController* blockSelf = self;
+
     [self addSection:^(JMStaticContentTableViewSection *section, NSUInteger sectionIndex) {
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"MeCell";
             staticContentCell.tableViewCellSubclass = [MGMeCellView class];
             staticContentCell.cellHeight = CELL_HEIGHT;
+            MGMeCellView* header = (MGMeCellView*)cell;
+            header.nameLabel.text = [AppDataMemory instance].user.NickName;
+            header.descLabel.text = [AppDataMemory instance].user.Mobile;
         } whenSelected:^(NSIndexPath *indexPath) {
-
+            AccountController* controller = [[AccountController alloc]init];
+            [blockSelf.navigationController pushViewController:controller animated:YES];
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
             cell.imageView.image = [UIImage imageNamed:@"list_icon_order"];
-            cell.textLabel.text = @"查看全部订单";
+            cell.textLabel.text = @"我的订单";
+            cell.detailTextLabel.text = @"查看全部订单";
         } whenSelected:^(NSIndexPath *indexPath) {
-//            OrderController* controller = [[OrderController alloc]init];
-//            [self presentViewController:controller animated:true completion:nil];
-            
-            OrderViewController* controller = [[OrderViewController alloc]init];
-            [self presentViewController:controller animated:true completion:nil];
+            [blockSelf viewOrder:TAB_ALL];
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"MeOrderStatusCell";
@@ -69,9 +69,9 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
             if(cell){
                 MGMeOrderStatusCell* orderStatusCell = (MGMeOrderStatusCell*)cell;
-                [orderStatusCell.btnWaitSend addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
-                [orderStatusCell.btnWaitReceive addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
-                [orderStatusCell.btnWaitConfirm addTarget:self action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+                [orderStatusCell.btnWaitSend addTarget:blockSelf action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+                [orderStatusCell.btnWaitReceive addTarget:blockSelf action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
+                [orderStatusCell.btnWaitConfirm addTarget:blockSelf action:@selector(onViewOrderByStatus:) forControlEvents:UIControlEventTouchUpInside];
             }
         }];
         
@@ -88,10 +88,8 @@
             cell.imageView.image = [UIImage imageNamed:@"list_ico_address"];
             cell.textLabel.text = @"我的地址";
         } whenSelected:^(NSIndexPath *indexPath) {
-            AddressController* addressController = [[AddressController alloc]init];
-            UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:addressController];
-            
-            [self presentViewController:navController animated:true completion:nil];
+            AddressController* controller = [[AddressController alloc]init];
+            [blockSelf.navigationController pushViewController:controller animated:YES];
 
         }];
 
@@ -119,8 +117,10 @@
             staticContentCell.reuseIdentifier = @"ValueTextCell";
             cell.imageView.image = [UIImage imageNamed:@"list_ico_suggest"];
             cell.textLabel.text = @"我要提建议";
+            
         } whenSelected:^(NSIndexPath *indexPath) {
-            NSLog(@"新的好友");
+            SuggestController* controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SuggestController"];
+            [blockSelf.navigationController pushViewController:controller animated:YES];
         }];
         [section addCell:^(JMStaticContentTableViewCell *staticContentCell, UITableViewCell *cell, NSIndexPath *indexPath) {
             staticContentCell.reuseIdentifier = @"ValueTextCell";
@@ -152,18 +152,23 @@
     int tag = sender.tag;
     switch (tag) {
         case 1://待发货
-            NSLog(@"待发货");
+            [self viewOrder:TAB_WAIT_SEND ];
             break;
         case 2://待收货
-            NSLog(@"待收货");
+            [self viewOrder:TAB_WAIT_RECEIVE ];
             break;
         case 3://待确认
-            NSLog(@"待确认");
+            [self viewOrder:TAB_WAIT_CONFIRM ];
             break;
         default:
             break;
     }
 }
 
+-(void)viewOrder:(Tabs) tab{
+    OrderViewController* controller = [[OrderViewController alloc]init];
+    controller.defaultTab = tab;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 @end

@@ -89,7 +89,7 @@
     HomeController* homeController = [[HomeController alloc] init];
     ArticleController* articleController = [[ArticleController alloc] init];
     CartController* cartController = [[CartController alloc] init];
-    cartController.navigationBarHidden = YES;                                                                                                 
+    cartController.isInTab = YES;
     MeController* meController = [[MeController alloc] init];
     
     [self addTabController:homeController tabTitle:@"首页" tabImage:@"main_home_unselected" tableSelectImage:@"main_home_selected"];

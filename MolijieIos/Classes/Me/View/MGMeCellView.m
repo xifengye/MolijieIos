@@ -34,6 +34,7 @@
         [self addSubview:imageView];
         
         UILabel* nameLabel = [[UILabel alloc]init];
+        self.nameLabel = nameLabel;
         nameLabel.text = @"疯子小助手";
         [self addSubview:nameLabel];
         
@@ -43,6 +44,7 @@
         CGFloat nameX = CGRectGetMaxX(imageView.frame)+10;
         CGFloat nameY = imageY+(imageHeight/2-nameSize.height)/2;
         nameLabel.frame = CGRectMake(nameX,nameY,nameSize.width,nameSize.height);
+        nameLabel.textColor = [UIColor whiteColor];
         
         UIButton* vipBtn = [[UIButton alloc]init];
         [vipBtn setImage:[UIImage imageNamed:@"common_icon_membership_expired"] forState:UIControlStateNormal];
@@ -52,10 +54,11 @@
         
         UIFont* descFont = [UIFont systemFontOfSize:15];
         UILabel* descLabel = [[UILabel alloc]init];
+        self.descLabel = descLabel;
         descLabel.frame = CGRectMake(CGRectGetMaxX(imageView.frame)+10,CGRectGetMaxY(nameLabel.frame)+10, 80, 30);
         descLabel.text = @"简介:暂无介绍";
         descLabel.font = descFont;
-        descLabel.textColor = [UIColor grayColor];
+        descLabel.textColor = [UIColor whiteColor];
         [self addSubview:descLabel];
         CGSize descSize = [descLabel.text sizeWithFont:descFont];
         CGFloat descX = CGRectGetMaxX(imageView.frame)+10;

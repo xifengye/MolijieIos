@@ -10,7 +10,9 @@
 
 @interface AddressController : BaseViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray* addressCellFrameList;
+    
 }
 @property(nonatomic,weak)UITableView* tableView;
+@property(nonatomic,assign)Boolean isSelectForSettlement;//是否是结算页面跳转过来选择地址的
 
 @end

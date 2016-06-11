@@ -46,7 +46,7 @@
         switch (data.type) {
             case LoadAddress:{
                 [AppDataTool requestAddress:^(NSArray* address) {
-                    [AppDataMemory instance].recipients = address;
+                    [AppDataMemory instance].recipients = [NSMutableArray arrayWithArray:address];
                     [self loadNetData];
                 } onError:^(ErrorCode errorCode) {
                     [self loadNetData];

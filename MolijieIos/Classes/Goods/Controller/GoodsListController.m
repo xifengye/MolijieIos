@@ -18,22 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNavBar];
+//    self.title = @"进口葡萄酒精选 (销售中)";
     self.pageNo = 1;
     [self requestData];
     [self initViews];
     
-}
-
--(void)setupNavBar{
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
-    self.navigationItem.title = self.title;
-    
-}
-
--(void)goBack{
-    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 
@@ -123,9 +112,7 @@
     
     GoodsDetailController* goodsDetailController = [[GoodsDetailController alloc]init];
     goodsDetailController.goods = goods;
-    UINavigationController* navController = [[UINavigationController alloc]initWithRootViewController:goodsDetailController];
-    
-    [self presentViewController:navController animated:true completion:nil];
+    [self.navigationController pushViewController:goodsDetailController animated:YES];
     
 }
 
